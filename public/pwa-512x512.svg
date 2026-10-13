@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#271372"/>
+      <stop offset="100%" stop-color="#190a4f"/>
+    </linearGradient>
+    <filter id="soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#bg)"/>
+  <rect x="36" y="36" width="440" height="440" rx="96" fill="none" stroke="#7efed9" stroke-width="8" stroke-opacity="0.25"/>
+  
+  <!-- Soft Neumorphic grid frame -->
+  <g transform="translate(96, 96)">
+    <!-- Grid Cells -->
+    <rect x="0" y="0" width="90" height="90" rx="20" fill="#321a8a" stroke="#7efed9" stroke-width="3" stroke-opacity="0.4"/>
+    <rect x="115" y="0" width="90" height="90" rx="20" fill="#271372" stroke="#4d2cba" stroke-width="3"/>
+    <rect x="230" y="0" width="90" height="90" rx="20" fill="#dc3c41" fill-opacity="0.8" stroke="#dc3c41" stroke-width="4"/>
+    
+    <rect x="0" y="115" width="90" height="90" rx="20" fill="#271372" stroke="#4d2cba" stroke-width="3"/>
+    <circle cx="160" cy="160" r="32" fill="#7efed9" filter="url(#soft-glow)"/>
+    <rect x="230" y="115" width="90" height="90" rx="20" fill="#321a8a" stroke="#7efed9" stroke-width="3" stroke-opacity="0.4"/>
+    
+    <rect x="0" y="230" width="90" height="90" rx="20" fill="#dc3c41" fill-opacity="0.8" stroke="#dc3c41" stroke-width="4"/>
+    <rect x="115" y="230" width="90" height="90" rx="20" fill="#321a8a" stroke="#7efed9" stroke-width="3" stroke-opacity="0.4"/>
+    <rect x="230" y="230" width="90" height="90" rx="20" fill="#271372" stroke="#4d2cba" stroke-width="3"/>
+
+    <!-- Wiring lines (Reduction edges) -->
+    <path d="M 45 45 L 160 160 L 275 45" fill="none" stroke="#7efed9" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  </g>
+</svg>

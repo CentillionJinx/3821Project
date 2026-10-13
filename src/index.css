@@ -1,0 +1,63 @@
+:root {
+  /* Surfaces: one mid-tone family so soft shadows read as depth, not mud */
+  --bg-base: #271372;
+  --bg-raised: #2d187f;
+  --bg-sunken: #20105f;
+  --bg-hi: #38219a;
+
+  /* Shadow pair tuned to the base hue */
+  --sh-dark: rgba(14, 5, 52, 0.55);
+  --sh-light: rgba(92, 62, 214, 0.22);
+
+  /* Text */
+  --fg-bright: #7efed9;      /* mint: headings, active states */
+  --fg-soft: #b9fbe8;        /* mint tint */
+  --fg-body: #e4dfff;        /* lavender white: body text */
+  --fg-muted: #a69edb;       /* muted lavender */
+  --lilac: #c8b8ff;
+  --blush: #ffb4b8;          /* tint of ruby, safe for text */
+
+  /* Accent: indicators / borders / glows only, never text */
+  --ruby: #dc3c41;
+  --ruby-glow: rgba(220, 60, 65, 0.38);
+
+  --neu-out: 9px 9px 20px var(--sh-dark), -7px -7px 18px var(--sh-light);
+  --neu-out-sm: 5px 5px 11px var(--sh-dark), -4px -4px 10px var(--sh-light);
+  --neu-in: inset 5px 5px 11px var(--sh-dark), inset -4px -4px 10px var(--sh-light);
+  --neu-in-sm: inset 3px 3px 7px var(--sh-dark), inset -2px -2px 6px var(--sh-light);
+  --glow-mint: 0 0 18px rgba(126, 254, 217, 0.28);
+
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 26px;
+  --r-full: 999px;
+
+  --font-sans: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Fira Code', ui-monospace, Menlo, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  min-height: 100%;
+  background: radial-gradient(1200px 700px at 15% -10%, #3a21a3 0%, transparent 60%),
+              radial-gradient(900px 600px at 100% 100%, #1d0e58 0%, transparent 60%),
+              var(--bg-base);
+  background-attachment: fixed;
+  color: var(--fg-body);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#root { min-height: 100vh; }
+
+button { font-family: inherit; border: none; background: none; cursor: pointer; color: inherit; outline: none; }
+button:focus-visible { outline: 2px solid var(--fg-bright); outline-offset: 3px; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bg-hi); border-radius: 10px; border: 2px solid var(--bg-base); }
