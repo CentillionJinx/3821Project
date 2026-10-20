@@ -10,11 +10,11 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
-        name: 'NP-GridLab | Interactive NP-Complete Studio',
-        short_name: 'NP-GridLab',
-        description: 'Explore NP-completeness, SAT reductions, and interactive puzzle verifiers',
-        theme_color: '#271372',
-        background_color: '#271372',
+        name: '3821Project | NP-Complete Puzzles & Zero-Knowledge Proofs',
+        short_name: '3821Project',
+        description: 'Designing, Proving, and Verifying Original NP-Complete Algorithmic Puzzles with Zero-Knowledge Proofs (COMP3821 Group 5)',
+        theme_color: '#090d16',
+        background_color: '#090d16',
         display: 'standalone',
         orientation: 'any',
         icons: [
