@@ -10,9 +10,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
-        name: '3821Project | NP-Complete Puzzles & Zero-Knowledge Proofs',
+        name: '3821Project | Designing, Proving, and Verifying Original NP-complete Algorithmic Puzzles',
         short_name: '3821Project',
-        description: 'Designing, Proving, and Verifying Original NP-Complete Algorithmic Puzzles with Zero-Knowledge Proofs (COMP3821 Group 5)',
+        description: 'Designing, Proving, and Verifying Original NP-complete Algorithmic Puzzles (COMP3821 Group 5)',
         theme_color: '#090d16',
         background_color: '#090d16',
         display: 'standalone',
