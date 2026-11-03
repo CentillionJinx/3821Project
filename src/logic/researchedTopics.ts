@@ -1,12 +1,13 @@
 /**
  * Researched Topics & Gadget Library (Citation Channel)
- * Directly aligned with COMP3821 Progression Review:
- * - Graph Colouring, Vertex Cover, the Held-Karp algorithm
- * - Hedonic Games (Hedonic Among Us, Exact Cover by 3-Sets / RX3C)
- * - 3-SAT, Circuit SAT, Planar 3-SAT
+ * Directly aligned with COMP3821 Progression Review & Team Discussions:
+ * - The Firefighter Problem (Finbow et al. 2007) & "Quell the Insurgency"
  * - Parks Problem (Star Battle) using 3-SAT
  * - Akari (Light Up) using Circuit-SAT
- * - Cooperative / Turn-Based (Fireboy & Watergirl) & Destroy the Insurgency
+ * - Hedonic Games (Hedonic Among Us, Exact Cover by 3-Sets / RX3C)
+ * - The Held-Karp Algorithm & TSP (O(n^2 · 2^n))
+ * - Graph 3-Colouring & Vertex Cover (Karp's 21)
+ * - XOR Squares Parity Gadgets
  */
 
 export interface ResearchedTopic {
@@ -23,13 +24,43 @@ export interface ResearchedTopic {
 
 export const RESEARCHED_TOPICS: ResearchedTopic[] = [
   {
+    id: 'firefighter-problem',
+    title: 'The Firefighter Problem & Insurgency Quelling',
+    sourceProblem: '3-SAT / Not-All-Equal 3-SAT',
+    targetDomain: 'Dynamic Graph Contagion Containment',
+    gadgetTypes: ['Tree Cascade Branches', 'Firefighter Barrier Chokepoint', 'Timed Propagation Waves'],
+    citationChannelNote:
+      'Team discussion: "Firefighter is the closest to this. Difference is fire vertices cannot be put out... Formal decision question: is there a strategy such that no more than k vertices burn?"',
+    laymanExplainer:
+      'A fire starts at a tree root. Every minute, the fire spreads to all unprotected neighbours, while you can place one firefighter to permanently shield one spot. Finbow et al. (2007) proved deciding whether at least k vertices can be saved is NP-complete even on simple trees! Our "Quell the Insurgency" puzzle extends this with graded unrest weights.',
+    rigorousProofSketch:
+      'Finbow, Hartnell, Li, Schmeisser (2007) proved Firefighter is NP-complete for trees of maximum degree 3 by reduction from 3-SAT. Variable choice gadgets branch into two propagation paths where saving one path allows the other to burn down to clause verification gates.',
+    keyChallenge:
+      'Analyzing multi-step temporal contagion dynamics where previous rounds irreversibly restrict future player actions.',
+  },
+  {
+    id: 'carpets-floor-repair',
+    title: 'Carpets Floor Multiplicity & Unique Cover',
+    sourceProblem: 'Exact Cover by 3-Sets (X3C) / 3-SAT',
+    targetDomain: '2D Multiplicity Grid & Geometric Set Cover',
+    gadgetTypes: ['Damaged Floor Target v(t)', 'No-Waste Unique Cover Check', 'Toroidal Cylinder Wrap'],
+    citationChannelNote:
+      'Team discussion: "Each tile t has target value v(t). Overlap constraint: multiplicity in M = v(t). Unique cover constraint: for each carpet Q in B, exists t in Q with multiplicity 1."',
+    laymanExplainer:
+      'Covering a room with carpets so that damaged spots receive exactly the right thickness of padding, while strictly forbidding redundant carpets that cover no spot uniquely. This turns classic Set Cover into a constrained exact multiplicity puzzle!',
+    rigorousProofSketch:
+      'Reduction from X3C. Given universe U with 3q elements and family S of 3-element subsets. Each element maps to a grid tile with v(t) = 1. Subsets map to carpets. The unique cover constraint and target multiplicity force exactly q disjoint carpets to be selected, proving NP-completeness.',
+    keyChallenge:
+      'Ensuring carpets can be drawn as contiguous grid-aligned rectangles without requiring arbitrary disconnected shapes.',
+  },
+  {
     id: 'parks-star-battle',
     title: 'Parks Problem (Star Battle) Reduction from 3-SAT',
     sourceProblem: '3-SAT (Known NP-Complete)',
     targetDomain: 'Grid-Based Region Placement (Parks / Star Battle)',
     gadgetTypes: ['Alternating Parity Variable Corridors', 'Clause Overlap Region', 'King-Move Non-Adjacency Buffers'],
     citationChannelNote:
-      'Researched gadget architecture from classic Star Battle hardness proofs. We adapt the variable loop tracks and non-touching exclusion zones for our Carpets & Hearts puzzle.',
+      'Researched gadget architecture from classic Star Battle hardness proofs. We adapt the variable loop tracks and non-touching exclusion zones.',
     laymanExplainer:
       'In Star Battle, you must put stars in a grid so none touch each other. A long narrow corridor acts like a binary light switch: stars can only fit in the even spaces (True) or the odd spaces (False). A clause room touches three of these tracks: if all three are False, their stars crowd into the doorway and leave nowhere for the clause room to put its own required star!',
     rigorousProofSketch:
@@ -53,30 +84,15 @@ export const RESEARCHED_TOPICS: ResearchedTopic[] = [
       'Preventing long-range light rays from inadvertently leaking into distant downstream logic gates across the grid.',
   },
   {
-    id: 'xor-squares-gadgets',
-    title: 'XOR Squares from 3-SAT (Our Leading Original Candidate)',
-    sourceProblem: '3-SAT',
-    targetDomain: 'Overlapping Bounding Box Parity Grid',
-    gadgetTypes: ['Mutex Overlap Cell (x_i ⊕ ¬x_i = 1)', 'Clause Parity Absorber', 'Slack Boundary Buffers'],
-    citationChannelNote:
-      'Progression Review: "(almost) finished developing literal and clause gadgets using overlapping squares." Our primary original NP-complete candidate puzzle.',
-    laymanExplainer:
-      'Squares placed on a board overlap. Whenever an odd number of squares cover a cell, it lights up (XOR parity 1); an even number cancels out to 0. A variable’s True and False squares share a single cell marked "Must be Odd", forcing you to pick one or the other, but never both or neither! Clause cells check that at least one true literal square touches them.',
-    rigorousProofSketch:
-      'Deterministic polynomial reduction from 3-SAT. Each variable x_i maps to candidate squares S_i^T and S_i^F intersecting at cell c_i^mutex with parity constraint 1. Clause C_j maps to cell c_j^clause with target parity 1 and auxiliary slack squares. An assignment satisfies φ iff the corresponding square selection satisfies all grid cell parity constraints (mod 2).',
-    keyChallenge:
-      'Constructing clause parity gadgets that absorb slack when 2 or 3 literals in a clause are simultaneously True without overflowing the modulo 2 parity.',
-  },
-  {
     id: 'hedonic-among-us',
     title: 'Hedonic Games & Hedonic Among Us (Cooperative Coalition Formation)',
     sourceProblem: 'Exact Cover by 3-Sets (RX3C)',
     targetDomain: 'Game-Theoretic Agent Coalitions',
     gadgetTypes: ['Player Preference Rankings', 'Impostor Exclusion Sets', 'Coalition Stability Barriers'],
     citationChannelNote:
-      'Progression Review: "hedonic Among Us: Have only looked at Exact Cover by 3-Sets (like looked/stared at without brain activity). cooperative: turn-based fireboy & watergirl".',
+      'Progression Review: "hedonic Among Us: Have only looked at Exact Cover by 3-Sets... cooperative: turn-based fireboy & watergirl".',
     laymanExplainer:
-      'In a hedonic coalition game, players want to form groups (crews) based on personal preferences (they only like certain crewmates). Deciding whether the players can divide themselves into mutually stable groups where nobody wants to defect is equivalent to finding an exact cover of 3-player teams where everyone is satisfied!',
+      'In a hedonic coalition game, players want to form groups (crews) based on personal preferences. Deciding whether the players can divide themselves into mutually stable groups where nobody wants to defect is equivalent to finding an exact cover of 3-player teams where everyone is satisfied!',
     rigorousProofSketch:
       'Reduction from Restricted Exact Cover by 3-Sets (RX3C). Given universe U = {u_1, ..., u_{3q}} and 3-element subsets S_1, ..., S_m where each element appears in exactly 3 subsets. Each element u_i and subset S_j is represented by players whose preference rankings make a coalition stable if and only if it corresponds to an exact 3-cover of U.',
     keyChallenge:

@@ -19,27 +19,37 @@ During our Week 5–7 deep-dive into computational complexity theory, our team m
 
 ---
 
-## 2. Original $\mathsf{NP}$-Complete Puzzle Candidates
+## 2. Original $\mathsf{NP}$-Complete Puzzle Candidates (Team Discussion & Design)
 
-### Candidate 1: XOR Squares (Overlapping Square Parity Grid) — *Our Leading Original Candidate*
-- **Rules**: On an $W \times H$ grid, players toggle candidate squares $s \in S$. Each marked cell requires either an **ODD (1)** or **EVEN (0)** number of overlapping squares:
-  $$\left(\sum_{s \in S'} \mathbb{I}[c \in s]\right) \bmod 2 = b_c$$
-- **Gadgets**:
-  - **Literal Mutex Gadget**: Variable $x_i$ features two candidate squares $S_i^T$ (True) and $S_i^F$ (False) intersecting at a mutex cell with required parity $1$. The equation $(S_i^T + S_i^F) \equiv 1 \pmod 2$ guarantees that **exactly one** of $\{S_i^T, S_i^F\}$ is chosen.
-  - **Clause Parity Gadget**: Clause cell $c_j$ requires odd parity (1), satisfied when at least one true literal square touches it.
-- **Deterministic Verifier**: Evaluates cell overlap counts and checks parity constraints in $O(W \cdot H + |S|)$ arithmetic operations.
+### Candidate 1: "Carpets" — Floor Repair & Target Multiplicity Puzzle
+- **Rules**: On an $N \times M$ grid of tiles $G$, each tile $t$ has either no target or a required target multiplicity $v(t) \in \mathbb{N}$ (representing damaged floor areas needing reinforcement). Players select a subcollection of grid-aligned carpets $B \subseteq \mathcal{C}$ such that:
+  1. **Full Coverage**: $\bigcup_{S \in B} S$ covers the target floor.
+  2. **Overlap Constraint**: For each tile $t$ with target $v(t)$, its multiplicity in the additive multiset $M = \sum_{S \in B} S$ must equal $v(t)$:
+     $$\text{mult}_M(t) = v(t)$$
+  3. **Unique Cover Constraint (No-Waste Rule)**: For each selected carpet $Q \in B$, there exists at least one tile $t \in Q$ such that $\text{mult}_M(t) = 1$ (no wasted carpets!).
+- **Variations Supported**: Cylindrical / Toroidal boundary wrapping (ringworld) and wall barriers ($v(t) = 0$).
+- **Deterministic Verifier**: Evaluates multiset multiplicities, coverage, and unique cover existence in $O(|B| \cdot |S| + NM)$ time.
 
-### Candidate 2: Carpets & Hearts (Parks / Star Battle Reduction)
-- **Rules**: An $N \times N$ grid is partitioned into $N$ distinct colored regions. Place exactly 1 Heart (❤️) per row, 1 Heart per column, and 1 Heart per region, subject to the **King's move non-adjacency rule** ($\text{dist}_\infty(h_1, h_2) \ge 2$, no two hearts may touch even diagonally).
-- **Gadgets**:
-  - **Variable Corridors**: 2-wide alternating parity tracks where placing a heart in even slots encodes True, and odd slots encode False.
-  - **Clause Deadlock Rooms**: A clause region borders literal tracks. If all 3 literals are False, their hearts touch and block all candidate cells in the clause room, making it impossible to satisfy the region quota!
-- **Deterministic Verifier**: Audits row, column, and region quotas alongside pairwise 8-neighbourhood distances in $O(N^2)$ deterministic time.
+### Candidate 2: "Hearts" // "Microbes" — Vital Organ Non-Overlap Puzzle
+- **Rules**: On an $N \times M$ grid $G$, we are given a collection $\mathcal{C}$ of blobs (connected tiles). Each blob $A \in \mathcal{C}$ possesses body tiles $T(A)$ and a designated non-empty subset of **Vital Organs** $O(A) \subseteq T(A)$ (marked with ❤️).
+- **Core Invariant**: Blobs may freely overlap on their standard body tissue, **BUT the vital organs of blob $A$ cannot overlap with ANY part of another blob $B$**:
+  $$\forall A, B \in B, A \neq B \implies O(A) \cap T(B) = \emptyset$$
+- **Variations Supported**: Tetris-inspired stacked colonies (dual intersection graph connectivity) and coverage quota satisfaction.
+- **Deterministic Verifier**: Checks pairwise organ collisions and tile quotas in $O(|B|^2 \cdot |T|)$ polynomial operations.
 
-### Candidate 3: 3-SAT Trap-Switch Dungeon
-- **Rules**: Traverse a graph $G = (V, E)$ visiting every room exactly once (Hamiltonian path) without triggering directed trap edges $D \subseteq V \times V$.
-- **Gadgets**: Variable choice diamonds and switch-controlled portcullis locks.
-- **Deterministic Verifier**: Executes the Sequential Trap Marking Procedure in $O(|V| + |D|)$ deterministic time.
+### Candidate 3: "Quell the Insurgency" — Dictator vs Insurgency (Firefighter Variant)
+- **Rules**: Played on a hexagonal board or generic graph $G = (V, E)$. Initial layout contains $k$ insurgent locations with weight $2$ (unrest level), while all other vertices are $0$.
+- **Daily Simulation Dynamics**:
+  1. **Insurgency Acts First**: Vertices with weight $2$ add $+1$ to all non-pacified neighbours (max $+1$ increase per day, capped at $2$). Newly created insurgents cannot spread on that same day.
+  2. **Dictator Army Acts**: Player deploys the army to ONE unvisited vertex. The garrisoned vertex permanently becomes weight $-1$. An immediate suppression shockwave resets all adjacent vertices with weight $0 \le w \le 1$ back to $0$!
+- **Win Condition**: Can total unrest weight be $\le n$ after $m$ days?
+- **Theoretical Connection**: Directly connects to the **Firefighter Problem** (NP-complete on trees of maximum degree 3, Finbow, Hartnell, Li, Schmeisser 2007).
+
+### Candidate 4: XOR Squares — Parity & Overlap Gadgets
+- **Rules**: Toggling squares on an $W \times H$ grid where overlapping squares produce modulo-2 parity ($\sum \mathbb{I}[c \in s] \equiv b_c \pmod 2$). Literal mutex cells ($x_i \oplus \neg x_i = 1$) enforce exact variable truth assignment. Verified in $O(W \cdot H + |S|)$.
+
+### Candidate 5: 3-SAT Trap-Switch Dungeon
+- **Rules**: Directed trap graph traversal ($G = (V, E)$ with trap edges $D \subseteq V \times V$) where variable diamonds switch gates and trap rooms disable invalid corridor sequences. Verified in $O(|V| + |D|)$.
 
 ---
 

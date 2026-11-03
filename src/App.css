@@ -2353,3 +2353,212 @@
   border: 1px solid rgba(251, 191, 36, 0.3);
   font-weight: 700;
 }
+
+/* ==========================================================================
+   CARPETS, MICROBES & INSURGENCY TEAM MODULES
+   ========================================================================== */
+
+/* ---------- Carpets Floor Grid ---------- */
+.carpet-floor-board {
+  display: grid;
+  gap: 6px;
+  background: rgba(11, 15, 23, 0.9);
+  padding: 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border-strong);
+  margin: 0 auto;
+}
+
+.carpet-tile {
+  aspect-ratio: 1;
+  min-width: 52px;
+  min-height: 52px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  font-weight: 700;
+  transition: all var(--trans-snappy);
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  user-select: none;
+}
+
+.carpet-tile.covered {
+  background: rgba(56, 189, 248, 0.16);
+  border-color: rgba(56, 189, 248, 0.5);
+  color: var(--accent-blue);
+}
+
+.carpet-tile.target-satisfied {
+  background: rgba(45, 212, 191, 0.2) !important;
+  border-color: var(--accent-teal) !important;
+  color: var(--accent-teal) !important;
+  box-shadow: 0 0 10px rgba(45, 212, 191, 0.2);
+}
+
+.carpet-tile.target-violated {
+  background: rgba(244, 63, 94, 0.22) !important;
+  border-color: var(--accent-rose) !important;
+  color: #fecdd3 !important;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.4);
+}
+
+.carpet-tile.uniquely-covered {
+  outline: 2px dashed rgba(251, 191, 36, 0.6);
+  outline-offset: -3px;
+}
+
+.carpet-tile-badge {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 0.56rem;
+  padding: 1px 3px;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.75);
+  color: var(--accent-amber);
+}
+
+.carpet-tile-target {
+  font-size: 0.64rem;
+  opacity: 0.8;
+}
+
+/* ---------- Microbes Petri Grid ---------- */
+.microbe-board-grid {
+  display: grid;
+  gap: 5px;
+  background: rgba(11, 15, 23, 0.9);
+  padding: 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border-strong);
+  margin: 0 auto;
+}
+
+.microbe-grid-tile {
+  aspect-ratio: 1;
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  transition: all var(--trans-snappy);
+}
+
+.microbe-grid-tile.has-organ {
+  background: rgba(244, 63, 94, 0.25) !important;
+  border-color: var(--accent-rose) !important;
+  box-shadow: 0 0 14px rgba(244, 63, 94, 0.4);
+}
+
+.microbe-grid-tile.organ-collision {
+  animation: heartPulse 0.9s infinite alternate;
+  background: rgba(244, 63, 94, 0.5) !important;
+  border: 2px solid #ff0055 !important;
+  box-shadow: 0 0 20px rgba(255, 0, 85, 0.8);
+}
+
+.organ-heart-icon {
+  font-size: 1.3rem;
+  filter: drop-shadow(0 0 5px rgba(244, 63, 94, 0.8));
+}
+
+/* ---------- Quell the Insurgency Simulation ---------- */
+.insurgency-canvas-wrap {
+  width: 100%;
+  border-radius: var(--r-md);
+  background: rgba(11, 15, 23, 0.92);
+  border: 1px solid var(--border-strong);
+  padding: 12px;
+  position: relative;
+}
+
+.insurgency-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.insurgency-hex-group {
+  cursor: pointer;
+  transition: all var(--trans-snappy);
+}
+
+.insurgency-hex-group:hover circle,
+.insurgency-hex-group:hover polygon {
+  filter: brightness(1.25);
+}
+
+.insurgency-weight-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  fill: #fff;
+  text-anchor: middle;
+}
+
+.insurgency-status-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+}
+
+/* ---------- Team Discussion Quote Boxes ---------- */
+.team-quote-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 20px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-left: 4px solid var(--accent-blue);
+  border-radius: var(--r-md);
+}
+
+.team-quote-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.team-quote-author {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+}
+
+.team-quote-text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.latex-snippet-block {
+  background: rgba(9, 13, 22, 0.85);
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: #38bdf8;
+  overflow-x: auto;
+  line-height: 1.45;
+}

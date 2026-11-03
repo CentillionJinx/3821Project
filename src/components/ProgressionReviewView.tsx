@@ -137,25 +137,57 @@ export const ProgressionReviewView: React.FC<Props> = ({ explainMode: _explainMo
             <div className="card-header-row">
               <div className="card-title-group">
                 <Sparkles size={18} className="text-amber" />
-                <span className="card-title-text">3. Notebook &amp; Brainstorming Log</span>
+                <span className="card-title-text">3. Notebook &amp; Team Discussion Log</span>
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.8rem' }}>
-              <div style={{ padding: '8px 12px', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '6px' }}>
-                <strong className="text-teal">XOR Squares (Grid-Based):</strong> Explored parity constraints using overlapping
-                geometric rectangles. Literal and clause gadgets functioning cleanly under modulo-2 arithmetic.
+              <div className="team-quote-card">
+                <div className="team-quote-header">
+                  <span className="team-quote-author">Team Discussion &bull; &ldquo;Carpets&rdquo;</span>
+                  <span className="pill-badge">LaTeX Model</span>
+                </div>
+                <div className="latex-snippet-block">
+                  {`We have an N by M grid of tiles G, and collection C of sets S of connected tiles.\n` +
+                   `Select B ⊆ C covering G.\n` +
+                   `Overlap constraint: multiplicity in M = ∑ B must match v(t).\n` +
+                   `Unique cover constraint: ∀ Q ∈ B, ∃ t ∈ Q such that multiplicity in M is 1.`}
+                </div>
+                <p className="team-quote-text">
+                  <em>&ldquo;We don't want to waste carpets, so each carpet must cover at least one tile uniquely.
+                  Some parts of the floor are damaged, so we want to cover those parts with more carpets (target v(t))...&rdquo;</em>
+                </p>
               </div>
-              <div style={{ padding: '8px 12px', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '6px' }}>
-                <strong className="text-rose">Carpets &amp; Hearts (Star-Battle-like):</strong> 3-SAT reductions using gadgets
-                based on the Parks Problem. Introduced regional quotas and King-move exclusion to eliminate planar wire crossing issues.
+
+              <div className="team-quote-card">
+                <div className="team-quote-header">
+                  <span className="team-quote-author">Team Discussion &bull; &ldquo;Hearts // Microbes&rdquo;</span>
+                  <span className="pill-badge">Organ Invariant</span>
+                </div>
+                <p className="team-quote-text">
+                  <em>&ldquo;We have some collection of blobs (connected tiles) with some vital organs (subset of those tiles).
+                  We want to place these blobs on the grid that possibly overlap, but the vital organs of blob A cannot overlap
+                  with ANY part of another blob B for all A, B in selected subcollection!&rdquo;</em>
+                </p>
               </div>
-              <div style={{ padding: '8px 12px', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '6px' }}>
-                <strong className="text-blue">Hedonic Among Us &amp; Cooperative Games:</strong> Researched coalition formation
-                and turn-based cooperative movement (Fireboy &amp; Watergirl) based on Exact Cover by 3-Sets (RX3C).
+
+              <div className="team-quote-card">
+                <div className="team-quote-header">
+                  <span className="team-quote-author">Team Discussion &bull; &ldquo;Quell the Insurgency&rdquo;</span>
+                  <span className="pill-badge">Firefighter Variant</span>
+                </div>
+                <p className="team-quote-text">
+                  <em>&ldquo;You are a dictator that needs to quell an insurgency. Insurgent locations have weight 2 and add 1
+                  to neighbours each day. You send your army to one location each day (weight -1, quells adjacent 0 &le; w &le; 1 to 0).
+                  Can total weight be below n after m days? Firefighter is the closest to this.&rdquo;</em>
+                </p>
               </div>
-              <div style={{ padding: '8px 12px', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '6px' }}>
-                <strong className="text-amber">Destroy the Insurgency &amp; General Graph Traversal:</strong> Studied vertex domination
-                and directed trap DAGs (Trap-Path).
+
+              <div style={{ padding: '10px 14px', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '6px', fontSize: '0.78rem' }}>
+                <strong className="text-teal">Grid Geometries &amp; Reductions Note:</strong>
+                <p style={{ margin: '4px 0 0', color: 'var(--text-secondary)' }}>
+                  <em>&ldquo;We can do hex or triangle or square grid or toroid or cylinder to make the problem reduction
+                  more restricted/harder and have more interesting proofs and visualisable gadgets.&rdquo;</em>
+                </p>
               </div>
             </div>
           </div>

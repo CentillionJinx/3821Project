@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import {
   ShieldCheck,
-  Square,
+  Layers,
   Heart,
+  ShieldAlert,
+  Square,
   Route,
   BookOpen,
   FileText,
@@ -12,8 +14,10 @@ import {
   Lightbulb,
   GraduationCap,
 } from 'lucide-react';
+import { CarpetsFloorView } from './components/CarpetsFloorView';
+import { HeartsMicrobesView } from './components/HeartsMicrobesView';
+import { InsurgencyGameView } from './components/InsurgencyGameView';
 import { XORSquaresView } from './components/XORSquaresView';
-import { CarpetsHeartsView } from './components/CarpetsHeartsView';
 import { TrapDungeonView } from './components/TrapDungeonView';
 import { ResearchedTopicsView } from './components/ResearchedTopicsView';
 import { ProgressionReviewView } from './components/ProgressionReviewView';
@@ -22,8 +26,10 @@ import { WebPlatformView } from './components/WebPlatformView';
 import './App.css';
 
 export type TabId =
+  | 'cand-carpets'
+  | 'cand-microbes'
+  | 'cand-insurgency'
   | 'cand-xor'
-  | 'cand-parks'
   | 'cand-dungeon'
   | 'citation'
   | 'review'
@@ -35,7 +41,7 @@ export function App() {
   const [explainMode, setExplainMode] = useState<'layman' | 'rigorous'>('rigorous');
 
   // Active Navigation Tab
-  const [activeTab, setActiveTab] = useState<TabId>('cand-xor');
+  const [activeTab, setActiveTab] = useState<TabId>('cand-carpets');
 
   // PWA Install Prompt State
   const [pwaPrompt, setPwaPrompt] = useState<any>(null);
@@ -96,29 +102,51 @@ export function App() {
           </button>
         </div>
 
-        {/* Navigation Tabs matching the Progression Review Structure */}
+        {/* Navigation Tabs matching the Progression Review & Team Discussion Structure */}
         <nav className="neu-nav-group" aria-label="Main Project Modules">
-          <div className="nav-section-label">Original Puzzle Candidates</div>
+          <div className="nav-section-label">Team Proposed Puzzles</div>
+
+          <button
+            className={`neu-tab ${activeTab === 'cand-carpets' ? 'active' : ''}`}
+            onClick={() => setActiveTab('cand-carpets')}
+          >
+            <Layers size={18} className="tab-icon text-blue" />
+            <div className="tab-text-col">
+              <span>1. &ldquo;Carpets&rdquo; Floor</span>
+              <small>Multiplicity &amp; Unique Cover</small>
+            </div>
+          </button>
+
+          <button
+            className={`neu-tab ${activeTab === 'cand-microbes' ? 'active' : ''}`}
+            onClick={() => setActiveTab('cand-microbes')}
+          >
+            <Heart size={18} className="tab-icon text-rose" />
+            <div className="tab-text-col">
+              <span>2. Hearts // Microbes</span>
+              <small>Vital Organ Non-Overlap</small>
+            </div>
+          </button>
+
+          <button
+            className={`neu-tab ${activeTab === 'cand-insurgency' ? 'active' : ''}`}
+            onClick={() => setActiveTab('cand-insurgency')}
+          >
+            <ShieldAlert size={18} className="tab-icon text-amber" />
+            <div className="tab-text-col">
+              <span>3. Quell Insurgency</span>
+              <small>Firefighter Hex/Graph</small>
+            </div>
+          </button>
 
           <button
             className={`neu-tab ${activeTab === 'cand-xor' ? 'active' : ''}`}
             onClick={() => setActiveTab('cand-xor')}
           >
-            <Square size={18} className="tab-icon" />
+            <Square size={18} className="tab-icon text-teal" />
             <div className="tab-text-col">
-              <span>1. XOR Squares</span>
-              <small>Parity &amp; Overlap Gadgets</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab ${activeTab === 'cand-parks' ? 'active' : ''}`}
-            onClick={() => setActiveTab('cand-parks')}
-          >
-            <Heart size={18} className="tab-icon text-rose" />
-            <div className="tab-text-col">
-              <span>2. Carpets &amp; Hearts</span>
-              <small>Parks Problem Reduction</small>
+              <span>4. XOR Squares</span>
+              <small>Parity Modulo-2 Overlaps</small>
             </div>
           </button>
 
@@ -126,10 +154,10 @@ export function App() {
             className={`neu-tab ${activeTab === 'cand-dungeon' ? 'active' : ''}`}
             onClick={() => setActiveTab('cand-dungeon')}
           >
-            <Route size={18} className="tab-icon text-blue" />
+            <Route size={18} className="tab-icon" />
             <div className="tab-text-col">
-              <span>3. 3-SAT Trap Dungeon</span>
-              <small>Switch &amp; Trap Traversal</small>
+              <span>5. 3-SAT Trap Dungeon</span>
+              <small>Spatial Trap DAG</small>
             </div>
           </button>
 
@@ -141,8 +169,8 @@ export function App() {
           >
             <BookOpen size={18} className="tab-icon" />
             <div className="tab-text-col">
-              <span>4. Researched Topics</span>
-              <small>Citation Channel Gadgets</small>
+              <span>6. Researched Topics</span>
+              <small>Firefighter, Parks, Akari...</small>
             </div>
           </button>
 
@@ -152,8 +180,8 @@ export function App() {
           >
             <FileText size={18} className="tab-icon text-amber" />
             <div className="tab-text-col">
-              <span>5. Progression Review</span>
-              <small>Scope, Learnings &amp; Plan</small>
+              <span>7. Progression Review</span>
+              <small>Team Debates &amp; Roadmap</small>
             </div>
           </button>
 
@@ -163,7 +191,7 @@ export function App() {
           >
             <Sparkles size={18} className="tab-icon text-teal" />
             <div className="tab-text-col">
-              <span>6. Bonus Research</span>
+              <span>8. Bonus Research</span>
               <small>ZKP &amp; NP Approximations</small>
             </div>
           </button>
@@ -174,7 +202,7 @@ export function App() {
           >
             <Cpu size={18} className="tab-icon" />
             <div className="tab-text-col">
-              <span>7. Web Platform</span>
+              <span>9. Web Platform</span>
               <small>State Machine &amp; Pipeline</small>
             </div>
           </button>
@@ -221,8 +249,10 @@ export function App() {
        * MAIN CONTENT AREA (Active Tab Routing)
        * ====================================================================== */}
       <main className="main-viewport">
+        {activeTab === 'cand-carpets' && <CarpetsFloorView explainMode={explainMode} />}
+        {activeTab === 'cand-microbes' && <HeartsMicrobesView explainMode={explainMode} />}
+        {activeTab === 'cand-insurgency' && <InsurgencyGameView explainMode={explainMode} />}
         {activeTab === 'cand-xor' && <XORSquaresView explainMode={explainMode} />}
-        {activeTab === 'cand-parks' && <CarpetsHeartsView explainMode={explainMode} />}
         {activeTab === 'cand-dungeon' && <TrapDungeonView explainMode={explainMode} />}
         {activeTab === 'citation' && <ResearchedTopicsView explainMode={explainMode} />}
         {activeTab === 'review' && <ProgressionReviewView explainMode={explainMode} />}
