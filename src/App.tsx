@@ -210,6 +210,17 @@ export function App() {
 
         {/* Team & PWA Footer inside Sidebar */}
         <div className="header-actions">
+          <a
+            href="/poster.html"
+            target="_blank"
+            rel="noreferrer"
+            className="neu-btn"
+            style={{ textDecoration: 'none', justifyContent: 'center', width: '100%', marginBottom: '6px' }}
+          >
+            <FileText size={15} className="text-amber" />
+            <span>Open Presentation Poster</span>
+          </a>
+
           {pwaPrompt && (
             <button className="neu-btn-install" onClick={handleInstallPwa}>
               <Download size={15} />

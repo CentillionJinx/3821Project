@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COMP3821 Creative Project Presentation Poster</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8e8d4;
+      --fg: #2723a9;
+      --gold: #FFBF00;
+      --mint: #D4F8E8;
+      --lavender: #E8D4F8;
+      --blush: #F8D6D4;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-serif-title {
+      font-family: 'Cinzel', serif;
+    }
+
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .thin-gold-line {
+      height: 1.5px;
+      background-color: var(--gold);
+      width: 100%;
+    }
+
+    .thin-gold-line-v {
+      width: 1.5px;
+      background-color: var(--gold);
+    }
+
+    .poster-container {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      background-color: #fbf2e6;
+      box-shadow: 0 25px 60px -15px rgba(39, 35, 169, 0.18), 0 0 0 1px rgba(255, 191, 0, 0.45);
+    }
+
+    .gold-bullet {
+      width: 7px;
+      height: 7px;
+      background-color: var(--gold);
+      transform: rotate(45deg);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    @media print {
+      body {
+        background: none;
+      }
+      .poster-container {
+        box-shadow: none;
+        max-width: 100%;
+        margin: 0;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8">
+
+  <!-- Print / View Action Bar (Hidden in Print) -->
+  <div class="max-w-[1080px] mx-auto mb-6 flex justify-between items-center no-print bg-[#fffaf4] border border-[#FFBF00] px-5 py-3 rounded-lg shadow-sm">
+    <div class="flex items-center gap-2">
+      <div class="gold-bullet"></div>
+      <span class="text-sm font-semibold tracking-wide uppercase text-[#2723a9]">COMP3821 Presentation Poster &bull; Vertical View</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button onclick="window.print()" class="px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded bg-[#2723a9] text-[#f8e8d4] hover:opacity-90 transition">
+        Print / Save PDF (A1 / A2)
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== VERTICAL POSTER CONTAINER ==================== -->
+  <div class="poster-container p-8 md:p-14 relative flex flex-col gap-8">
+
+    <!-- Top Delicate Gold Border Accent -->
+    <div class="flex items-center gap-3">
+      <div class="thin-gold-line"></div>
+      <div class="gold-bullet"></div>
+      <div class="text-[12px] font-mono-code font-bold tracking-widest text-[#2723a9] uppercase whitespace-nowrap">
+        UNSW COMP3821 EXTENDED ALGORITHMS &bull; TERM 3, 2026 &bull; GROUP 5
+      </div>
+      <div class="gold-bullet"></div>
+      <div class="thin-gold-line"></div>
+    </div>
+
+    <!-- ==================== HEADER SECTION ==================== -->
+    <header class="text-center pt-2 pb-4">
+      <div class="inline-block px-4 py-1 mb-3 rounded-full text-xs font-semibold tracking-wider uppercase bg-[#E8D4F8] border border-[#2723a9]/20 text-[#2723a9]">
+        Original Creative Research &bull; Algorithmic Puzzles
+      </div>
+
+      <h1 class="font-serif-title text-3xl md:text-5xl font-extrabold tracking-tight text-[#2723a9] leading-tight mb-4">
+        Designing, Proving, and Verifying<br>Original <span class="underline decoration-[#FFBF00] decoration-2 underline-offset-8">NP-Complete</span> Algorithmic Puzzles
+      </h1>
+
+      <p class="text-sm md:text-base text-[#2723a9]/85 max-w-3xl mx-auto font-medium leading-relaxed mb-6">
+        Bridging theoretical computational complexity and tangible interactive gameplay through gadget reductions from 3-SAT, the Firefighter Problem, and Exact Multiplicity Coverage.
+      </p>
+
+      <!-- Thin Gold Divider with Diamond Accents -->
+      <div class="flex items-center justify-center gap-3 my-4">
+        <div class="h-[1px] bg-[#FFBF00] w-24"></div>
+        <div class="gold-bullet"></div>
+        <div class="h-[1px] bg-[#FFBF00] w-24"></div>
+      </div>
+
+      <!-- Authors & Metadata Banner -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-4xl mx-auto pt-2 text-center text-xs">
+        <div class="p-2.5 rounded bg-[#f8e8d4] border border-[#FFBF00]/60">
+          <div class="font-bold text-[#2723a9]">Edward Dsouza</div>
+          <div class="font-mono-code text-[12px] text-[#2723a9]/70">z5689255</div>
+        </div>
+        <div class="p-2.5 rounded bg-[#f8e8d4] border border-[#FFBF00]/60">
+          <div class="font-bold text-[#2723a9]">Louise Liu</div>
+          <div class="font-mono-code text-[12px] text-[#2723a9]/70">z5700939</div>
+        </div>
+        <div class="p-2.5 rounded bg-[#f8e8d4] border border-[#FFBF00]/60">
+          <div class="font-bold text-[#2723a9]">Emmett Shang</div>
+          <div class="font-mono-code text-[12px] text-[#2723a9]/70">z5690546</div>
+        </div>
+        <div class="p-2.5 rounded bg-[#f8e8d4] border border-[#FFBF00]/60">
+          <div class="font-bold text-[#2723a9]">Gururam Subramanian</div>
+          <div class="font-mono-code text-[12px] text-[#2723a9]/70">z5636559</div>
+        </div>
+        <div class="p-2.5 rounded bg-[#f8e8d4] border border-[#FFBF00]/60 col-span-2 sm:col-span-1">
+          <div class="font-bold text-[#2723a9]">Ryan Zhou</div>
+          <div class="font-mono-code text-[12px] text-[#2723a9]/70">z5688014</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Thin Full-Width Divider -->
+    <div class="thin-gold-line"></div>
+
+    <!-- ==================== ROW 1: THEORETICAL FOUNDATION & REDUCTIONS ==================== -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Box 1: Core Complexity Framework -->
+      <div class="p-6 rounded-xl bg-[#fffaf4] border border-[#FFBF00]/70 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2723a9] bg-[#E8D4F8] px-2.5 py-0.5 rounded">
+              Theory I
+            </span>
+            <span class="font-mono-code text-xs text-[#2723a9]/70">P &sube; NP &sube; NP-C</span>
+          </div>
+          <h2 class="font-serif-title text-lg font-bold text-[#2723a9] mb-2">Complexity Classes &amp; Verification</h2>
+          <p class="text-xs text-[#2723a9]/80 leading-relaxed mb-3">
+            A decision problem <em>X &isin; NP</em> if an affirmative answer has a polynomial-length certificate (witness <em>w</em>) that a deterministic Turing machine verifies in time <em>O(|s|^c)</em>.
+          </p>
+          <div class="p-3 rounded bg-[#f8e8d4] border border-[#FFBF00]/50 text-xs font-mono-code text-[#2723a9] mb-3">
+            Verifier V(x, w) &rarr; {ACCEPT, REJECT} in poly(|x|)
+          </div>
+          <p class="text-xs text-[#2723a9]/80 leading-relaxed">
+            While finding solutions requires exponential search across 2<sup>n</sup> assignments under P &ne; NP, verifying proposed certificates on our platform takes sub-millisecond execution.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-[#FFBF00]/40 flex items-center gap-2 text-[12px] text-[#2723a9]/70 font-semibold">
+          <div class="gold-bullet"></div> Certificate verification is deterministic
+        </div>
+      </div>
+
+      <!-- Box 2: Polynomial-Time Gadget Reductions -->
+      <div class="p-6 rounded-xl bg-[#fffaf4] border border-[#FFBF00]/70 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2723a9] bg-[#D4F8E8] px-2.5 py-0.5 rounded">
+              Theory II
+            </span>
+            <span class="font-mono-code text-xs text-[#2723a9]/70">3-SAT &le;<sub>p</sub> Puzzle</span>
+          </div>
+          <h2 class="font-serif-title text-lg font-bold text-[#2723a9] mb-2">Polynomial Gadget Reductions</h2>
+          <p class="text-xs text-[#2723a9]/80 leading-relaxed mb-3">
+            To prove our original puzzles are NP-complete, we construct deterministic polynomial reductions <em>f: Y &rarr; X</em> from known NP-complete problems (3-SAT, Firefighter, X3C) satisfying:
+          </p>
+          <div class="p-3 rounded bg-[#f8e8d4] border border-[#FFBF00]/50 text-xs font-mono-code text-[#2723a9] mb-3 text-center">
+            I &isin; YES(Y) &hArr; f(I) &isin; YES(X)
+          </div>
+          <p class="text-xs text-[#2723a9]/80 leading-relaxed">
+            Both directions must hold: <em>Completeness</em> (satisfying assignment &rarr; valid puzzle solution) and <em>Soundness</em> (valid puzzle solution &rarr; satisfying assignment).
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-[#FFBF00]/40 flex items-center gap-2 text-[12px] text-[#2723a9]/70 font-semibold">
+          <div class="gold-bullet"></div> Size |f(I)| is strictly bounded by poly(|I|)
+        </div>
+      </div>
+
+      <!-- Box 3: Creative Intention & Pedagogy -->
+      <div class="p-6 rounded-xl bg-[#fffaf4] border border-[#FFBF00]/70 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2723a9] bg-[#F8D6D4] px-2.5 py-0.5 rounded">
+              Pedagogy
+            </span>
+            <span class="font-mono-code text-xs text-[#2723a9]/70">Layman &harr; Rigorous</span>
+          </div>
+          <h2 class="font-serif-title text-lg font-bold text-[#2723a9] mb-2">The Dual-Explanation Paradigm</h2>
+          <p class="text-xs text-[#2723a9]/80 leading-relaxed mb-3">
+            Complexity theory often feels impenetrably abstract to students. Our interactive platform pairs every rigorous mathematical reduction with an intuitive <strong>Layman Mode</strong>:
+          </p>
+          <ul class="text-xs space-y-2 text-[#2723a9]/85">
+            <li class="flex items-start gap-2">
+              <span class="text-[#FFBF00] font-bold">&bull;</span>
+              <span><strong>Floor Repair Analogy:</strong> Carpets overlapping damaged floor tiles instead of multiset additive unions.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[#FFBF00] font-bold">&bull;</span>
+              <span><strong>Living Cells Analogy:</strong> Microbes shielding vital organs instead of disjoint invariant subsets.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="mt-4 pt-3 border-t border-[#FFBF00]/40 flex items-center gap-2 text-[12px] text-[#2723a9]/70 font-semibold">
+          <div class="gold-bullet"></div> Real-time player visual feedback
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Thin Full-Width Divider -->
+    <div class="thin-gold-line"></div>
+
+    <!-- ==================== ROW 2: THE THREE ORIGINAL CANDIDATE PUZZLES ==================== -->
+    <section>
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#2723a9] font-mono-code">Core Deliverables &bull; Group 5 Inventions</span>
+          <h2 class="font-serif-title text-2xl font-bold text-[#2723a9]">Original NP-Complete Puzzle Implementations</h2>
+        </div>
+        <div class="hidden sm:block text-xs font-mono-code text-[#2723a9]/70 text-right">
+          Interactive PWA &bull; Real-Time Polynomial Verifiers
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- PUZZLE 1: CARPETS -->
+        <div class="p-6 rounded-xl bg-[#fffaf4] border-2 border-[#D4F8E8] shadow-sm flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-[#D4F8E8]/50 rounded-bl-full pointer-events-none -mr-4 -mt-4"></div>
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#D4F8E8] text-[#2723a9] uppercase tracking-wide">
+                Candidate 1 &bull; &ldquo;Carpets&rdquo;
+              </span>
+              <span class="font-mono-code text-xs font-bold text-[#2723a9]">O(|B|&middot;|S| + NM)</span>
+            </div>
+
+            <h3 class="font-serif-title text-xl font-bold text-[#2723a9] mb-2">Floor Repair Multiplicity Grid</h3>
+            <p class="text-xs text-[#2723a9]/80 leading-relaxed mb-4">
+              Given grid <em>G</em> and carpet set <em>C</em>, select <em>B &sube; C</em> covering <em>G</em> such that each damaged tile's multiplicity matches engineer target <em>v(t)</em>, and <strong>each carpet covers at least one tile uniquely</strong> (no waste).
+            </p>
+
+            <!-- Mini SVG Diagram of Carpets -->
+            <div class="bg-[#f8e8d4] p-3 rounded-lg border border-[#FFBF00]/50 mb-4 flex justify-center">
+              <svg viewBox="0 0 200 130" class="w-full max-w-[200px] h-auto">
+                <!-- Grid background -->
+                <rect x="10" y="10" width="180" height="110" rx="4" fill="#fffaf4" stroke="#FFBF00" stroke-width="1"/>
+                <!-- Grid lines -->
+                <line x1="70" y1="10" x2="70" y2="120" stroke="#FFBF00" stroke-width="0.75" stroke-dasharray="2,2"/>
+                <line x1="130" y1="10" x2="130" y2="120" stroke="#FFBF00" stroke-width="0.75" stroke-dasharray="2,2"/>
+                <line x1="10" y1="65" x2="190" y2="65" stroke="#FFBF00" stroke-width="0.75" stroke-dasharray="2,2"/>
+                <!-- Carpet A (Blue) -->
+                <rect x="20" y="20" width="100" height="85" rx="3" fill="#38bdf8" fill-opacity="0.35" stroke="#0284c7" stroke-width="1.5"/>
+                <!-- Carpet B (Teal) -->
+                <rect x="80" y="20" width="100" height="85" rx="3" fill="#2dd4bf" fill-opacity="0.35" stroke="#0f766e" stroke-width="1.5"/>
+                <!-- Overlap Multiplicity Badge -->
+                <rect x="85" y="48" width="30" height="30" rx="3" fill="#f8e8d4" stroke="#2723a9" stroke-width="1"/>
+                <text x="100" y="68" font-family="JetBrains Mono" font-size="12" font-weight="bold" fill="#2723a9" text-anchor="middle">v=2</text>
+                <!-- Unique Cover Markers -->
+                <circle cx="45" cy="40" r="4" fill="#FFBF00"/>
+                <text x="45" y="58" font-family="JetBrains Mono" font-size="9" fill="#2723a9" text-anchor="middle">Unique 1</text>
+                <circle cx="155" cy="40" r="4" fill="#FFBF00"/>
+                <text x="155" y="58" font-family="JetBrains Mono" font-size="9" fill="#2723a9" text-anchor="middle">Unique 2</text>
+              </svg>
+            </div>
+
+            <!-- Mathematical Rules -->
+            <div class="space-y-1.5 text-xs text-[#2723a9]/90 font-mono-code bg-[#f8e8d4] p-3 rounded border border-[#FFBF00]/40">
+              <div>1. &cup;<sub>S &in; B</sub> S = G <span class="text-[#2723a9]/60">(Full Coverage)</span></div>
+              <div>2. mult<sub>M</sub>(t) = v(t) <span class="text-[#2723a9]/60">(Target Overlap)</span></div>
+              <div>3. &exist; t &in; Q: mult(t)=1 <span class="text-[#2723a9]/60">(Unique Cover)</span></div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-[#D4F8E8] flex justify-between items-center text-xs">
+            <span class="font-semibold text-[#2723a9]">Variations:</span>
+            <span class="font-mono-code text-[12px] text-[#2723a9]/80">Toroidal Ringworld &bull; Walls</span>
+          </div>
+        </div>
+
+        <!-- PUZZLE 2: HEARTS // MICROBES -->
+        <div class="p-6 rounded-xl bg-[#fffaf4] border-2 border-[#F8D6D4] shadow-sm flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-[#F8D6D4]/50 rounded-bl-full pointer-events-none -mr-4 -mt-4"></div>
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#F8D6D4] text-[#2723a9] uppercase tracking-wide">
+                Candidate 2 &bull; &ldquo;Microbes&rdquo;
+              </span>
+              <span class="font-mono-code text-xs font-bold text-[#2723a9]">O(|B|&sup2;&middot;|T|)</span>
+            </div>
+
+            <h3 class="font-serif-title text-xl font-bold text-[#2723a9] mb-2">Vital Organ Non-Overlap</h3>
+            <p class="text-xs text-[#2723a9]/80 leading-relaxed mb-4">
+              Blobs <em>A = (T(A), O(A))</em> may overlap on normal tissue, <strong>but vital organs <em>O(A)</em> (marked with &hearts;) cannot overlap with ANY part of another blob</strong> <em>B</em>. Satisfies target nutrient coverage.
+            </p>
+
+            <!-- Mini SVG Diagram of Microbes -->
+            <div class="bg-[#f8e8d4] p-3 rounded-lg border border-[#FFBF00]/50 mb-4 flex justify-center">
+              <svg viewBox="0 0 200 130" class="w-full max-w-[200px] h-auto">
+                <rect x="10" y="10" width="180" height="110" rx="4" fill="#fffaf4" stroke="#FFBF00" stroke-width="1"/>
+                <!-- Blob 1 Body -->
+                <path d="M 25 35 Q 60 20 85 45 Q 85 95 45 95 Q 15 80 25 35 Z" fill="#2dd4bf" fill-opacity="0.35" stroke="#0f766e" stroke-width="1.5"/>
+                <!-- Blob 2 Body (Overlapping on tissue!) -->
+                <path d="M 75 45 Q 110 20 165 35 Q 175 90 120 95 Q 65 95 75 45 Z" fill="#fbbf24" fill-opacity="0.35" stroke="#d97706" stroke-width="1.5"/>
+                <!-- Overlap Region Label -->
+                <text x="80" y="112" font-family="JetBrains Mono" font-size="9" fill="#2723a9" text-anchor="middle">Body Overlap (OK)</text>
+                <!-- Organ 1 (Heart) -->
+                <circle cx="45" cy="55" r="12" fill="#F8D6D4" stroke="#e11d48" stroke-width="1.5"/>
+                <text x="45" y="60" font-size="12" text-anchor="middle">&#10084;&#65039;</text>
+                <text x="45" y="78" font-family="JetBrains Mono" font-size="9" font-weight="bold" fill="#e11d48" text-anchor="middle">O(A)</text>
+                <!-- Organ 2 (Heart) -->
+                <circle cx="145" cy="55" r="12" fill="#F8D6D4" stroke="#e11d48" stroke-width="1.5"/>
+                <text x="145" y="60" font-size="12" text-anchor="middle">&#10084;&#65039;</text>
+                <text x="145" y="78" font-family="JetBrains Mono" font-size="9" font-weight="bold" fill="#e11d48" text-anchor="middle">O(B)</text>
+              </svg>
+            </div>
+
+            <!-- Mathematical Invariant -->
+            <div class="space-y-1.5 text-xs text-[#2723a9]/90 font-mono-code bg-[#f8e8d4] p-3 rounded border border-[#FFBF00]/40">
+              <div>&forall; A &ne; B &in; B:</div>
+              <div class="text-[#2723a9] font-bold">O(A) &cap; T(B) = &empty;</div>
+              <div class="text-[#2723a9]/70">&cup; T(A) &ge; K (Coverage Quota)</div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-[#F8D6D4] flex justify-between items-center text-xs">
+            <span class="font-semibold text-[#2723a9]">Variations:</span>
+            <span class="font-mono-code text-[12px] text-[#2723a9]/80">Tetris Stacking &bull; Toxic Zones</span>
+          </div>
+        </div>
+
+        <!-- PUZZLE 3: QUELL THE INSURGENCY -->
+        <div class="p-6 rounded-xl bg-[#fffaf4] border-2 border-[#E8D4F8] shadow-sm flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-[#E8D4F8]/50 rounded-bl-full pointer-events-none -mr-4 -mt-4"></div>
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#E8D4F8] text-[#2723a9] uppercase tracking-wide">
+                Candidate 3 &bull; &ldquo;Insurgency&rdquo;
+              </span>
+              <span class="font-mono-code text-xs font-bold text-[#2723a9]">Firefighter Gen</span>
+            </div>
+
+            <h3 class="font-serif-title text-xl font-bold text-[#2723a9] mb-2">Contagion vs Dictator Army</h3>
+            <p class="text-xs text-[#2723a9]/80 leading-relaxed mb-4">
+              Hex board with initial <em>w=2</em> insurgent nodes. Insurgents spread <em>+1</em> to neighbours each day. Army deploys to 1 node/day (<em>w=-1</em>, quells adjacent <em>w&le;1</em> to 0). Win if total unrest <strong>&le; n after m days</strong>.
+            </p>
+
+            <!-- Mini SVG Diagram of Insurgency -->
+            <div class="bg-[#f8e8d4] p-3 rounded-lg border border-[#FFBF00]/50 mb-4 flex justify-center">
+              <svg viewBox="0 0 200 130" class="w-full max-w-[200px] h-auto">
+                <rect x="10" y="10" width="180" height="110" rx="4" fill="#fffaf4" stroke="#FFBF00" stroke-width="1"/>
+                <!-- Graph Edges -->
+                <line x1="50" y1="65" x2="100" y2="40" stroke="#FFBF00" stroke-width="1.5"/>
+                <line x1="50" y1="65" x2="100" y2="90" stroke="#FFBF00" stroke-width="1.5"/>
+                <line x1="100" y1="40" x2="150" y2="65" stroke="#FFBF00" stroke-width="1.5"/>
+                <line x1="100" y1="90" x2="150" y2="65" stroke="#FFBF00" stroke-width="1.5"/>
+                <!-- Insurgent Source (w=2) -->
+                <circle cx="50" cy="65" r="16" fill="#e11d48" stroke="#fb7185" stroke-width="2"/>
+                <text x="50" y="69" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">w=2</text>
+                <!-- Simmering Agitator (w=1) -->
+                <circle cx="100" cy="40" r="16" fill="#d97706" stroke="#fbbf24" stroke-width="2"/>
+                <text x="100" y="44" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">w=1</text>
+                <!-- Army Garrison (w=-1) -->
+                <circle cx="100" cy="90" r="16" fill="#0284c7" stroke="#38bdf8" stroke-width="2"/>
+                <text x="100" y="94" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">ARM</text>
+                <!-- Safe Node (w=0) -->
+                <circle cx="150" cy="65" r="16" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+                <text x="150" y="69" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">w=0</text>
+              </svg>
+            </div>
+
+            <!-- Mathematical Connection -->
+            <div class="space-y-1.5 text-xs text-[#2723a9]/90 font-mono-code bg-[#f8e8d4] p-3 rounded border border-[#FFBF00]/40">
+              <div>Phase 1: Insurgents w&larr;min(2, w+1)</div>
+              <div>Phase 2: Army w&larr;-1 &amp; quells adj</div>
+              <div class="text-[#2723a9] font-bold">Goal: &sum; max(0, w<sub>v</sub>) &le; n in m days</div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-[#E8D4F8] flex justify-between items-center text-xs">
+            <span class="font-semibold text-[#2723a9]">Theoretical Base:</span>
+            <span class="font-mono-code text-[12px] text-[#2723a9]/80">Finbow et al. (2007) Firefighter</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Thin Full-Width Divider -->
+    <div class="thin-gold-line"></div>
+
+    <!-- ==================== ROW 3: RESEARCHED TOPICS & PROGRESSION ROADMAP ==================== -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Left Column: Researched Topics & Gadgets -->
+      <div class="p-6 rounded-xl bg-[#fffaf4] border border-[#FFBF00]/70 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2723a9] bg-[#E8D4F8] px-2.5 py-0.5 rounded">
+              Citation Channel
+            </span>
+            <span class="font-mono-code text-xs text-[#2723a9]/70">6 Researched Topics</span>
+          </div>
+
+          <h3 class="font-serif-title text-xl font-bold text-[#2723a9] mb-3">Researched Gadget Reductions</h3>
+
+          <div class="space-y-3 text-xs">
+            <div class="p-3 rounded bg-[#f8e8d4] border border-[#FFBF00]/50">
+              <div class="font-bold text-[#2723a9] mb-1">1. Parks Problem (Star Battle) &larr; 3-SAT</div>
+              <p class="text-[#2723a9]/80 leading-relaxed">
+                Alternating cycle tracks encode boolean truth. 8-neighbourhood non-adjacency creates clause deadlock rooms that block star placement when all 3 literals evaluate to False.
+              </p>
+            </div>
+
+            <div class="p-3 rounded bg-[#f8e8d4] border border-[#FFBF00]/50">
+              <div class="font-bold text-[#2723a9] mb-1">2. Akari (Light Up) &larr; Circuit-SAT</div>
+              <p class="text-[#2723a9]/80 leading-relaxed">
+                Light ray corridors act as signal wires. Numbered wall blocks (0..4) and beam occlusion simulate logic gates (NOT, AND, OR), clamping formula satisfiability.
+              </p>
+            </div>
+
+            <div class="p-3 rounded bg-[#f8e8d4] border border-[#FFBF00]/50">
+              <div class="font-bold text-[#2723a9] mb-1">3. The Held-Karp Algorithm for TSP</div>
+              <p class="text-[#2723a9]/80 leading-relaxed">
+                Dynamic programming recurrence <em>C(S, v) = min [C(S\{v}, u) + dist(u,v)]</em> reduces factorial brute-force <em>O(n!)</em> to <em>O(n&sup2; &middot; 2<sup>n</sup>)</em>.
+              </p>
+            </div>
+
+            <div class="p-3 rounded bg-[#f8e8d4] border border-[#FFBF00]/50">
+              <div class="font-bold text-[#2723a9] mb-1">4. Hedonic Games &larr; Exact Cover by 3-Sets (RX3C)</div>
+              <p class="text-[#2723a9]/80 leading-relaxed">
+                Cooperative team coalition formation where stable player partitions exist iff universe <em>U</em> has an exact 3-cover.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-[#FFBF00]/40 text-[12px] text-[#2723a9]/70 flex items-center gap-2">
+          <div class="gold-bullet"></div> Foundational literature surveyed across 12 classic reductions
+        </div>
+      </div>
+
+      <!-- Right Column: Progression Review & Scope Decisions -->
+      <div class="p-6 rounded-xl bg-[#fffaf4] border border-[#FFBF00]/70 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2723a9] bg-[#D4F8E8] px-2.5 py-0.5 rounded">
+              Progression Review
+            </span>
+            <span class="font-mono-code text-xs text-[#2723a9]/70">Week 7 Milestone &bull; 3 Weeks Remain</span>
+          </div>
+
+          <h3 class="font-serif-title text-xl font-bold text-[#2723a9] mb-3">Strategic Decisions &amp; Timeline</h3>
+
+          <!-- Scope Shift Box -->
+          <div class="p-3.5 rounded-lg bg-[#F8D6D4]/40 border border-[#F8D6D4] mb-4">
+            <div class="flex items-center gap-2 text-xs font-bold text-[#2723a9] mb-1">
+              <div class="gold-bullet"></div>
+              <span>Scope Shift: Zero-Knowledge Proofs Decoupled</span>
+            </div>
+            <p class="text-xs text-[#2723a9]/85 leading-relaxed">
+              To guarantee maximum mathematical depth on our original grid reductions, ZKP was transitioned into <strong>Bonus Research</strong>, freeing bandwidth to perfect our interactive polynomial verifiers and poster.
+            </p>
+          </div>
+
+          <!-- Updated 10-Week Timeline Table -->
+          <table class="w-full text-xs text-left border border-[#FFBF00]/50 rounded overflow-hidden mb-4">
+            <thead class="bg-[#f8e8d4] border-b border-[#FFBF00]/50 font-bold text-[#2723a9]">
+              <tr>
+                <th class="p-2 border-r border-[#FFBF00]/50 w-20">Timeline</th>
+                <th class="p-2">Milestone &amp; Core Deliverable Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#FFBF00]/30 font-medium">
+              <tr class="bg-[#fffaf4]">
+                <td class="p-2 font-mono-code border-r border-[#FFBF00]/50">Weeks 4&ndash;6</td>
+                <td class="p-2 text-[#2723a9]/80">Literature review, 3-SAT reductions, early prototyping <span class="text-emerald-700 font-bold">&#10003; Done</span></td>
+              </tr>
+              <tr class="bg-[#D4F8E8]/40 font-bold text-[#2723a9]">
+                <td class="p-2 font-mono-code border-r border-[#FFBF00]/50 text-emerald-800">Week 7 (NOW)</td>
+                <td class="p-2">Progression Review submitted, PWA platform overhauled &bull; 3 Weeks Remain</td>
+              </tr>
+              <tr class="bg-[#fffaf4]">
+                <td class="p-2 font-mono-code border-r border-[#FFBF00]/50">Week 8</td>
+                <td class="p-2 text-[#2723a9]/80">Complete report drafting + finalize poster presentation</td>
+              </tr>
+              <tr class="bg-[#fffaf4]">
+                <td class="p-2 font-mono-code border-r border-[#FFBF00]/50">Week 9</td>
+                <td class="p-2 text-[#2723a9]/80">Complete app polish + final poster print readiness</td>
+              </tr>
+              <tr class="bg-[#fffaf4]">
+                <td class="p-2 font-mono-code border-r border-[#FFBF00]/50">Week 10</td>
+                <td class="p-2 text-[#2723a9]/80">Final project showcase, video demo, and repository submission</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Bonus Frontiers Pill Row -->
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded bg-[#f8e8d4] border border-[#FFBF00]/60 font-mono-code text-[#2723a9]">
+              VC 2-Approx
+            </span>
+            <span class="px-2.5 py-1 rounded bg-[#f8e8d4] border border-[#FFBF00]/60 font-mono-code text-[#2723a9]">
+              TSP 1.5-Approx
+            </span>
+            <span class="px-2.5 py-1 rounded bg-[#f8e8d4] border border-[#FFBF00]/60 font-mono-code text-[#2723a9]">
+              MAX-3-SAT 7/8 PCP
+            </span>
+            <span class="px-2.5 py-1 rounded bg-[#f8e8d4] border border-[#FFBF00]/60 font-mono-code text-[#2723a9]">
+              Knapsack FPTAS
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-[#FFBF00]/40 text-[12px] text-[#2723a9]/70 flex items-center gap-2">
+          <div class="gold-bullet"></div> On track for high-distinction final submission
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Thin Full-Width Divider -->
+    <div class="thin-gold-line"></div>
+
+    <!-- ==================== FOOTER: WEB PLATFORM & GITHUB ==================== -->
+    <footer class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-2 text-xs">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded bg-[#2723a9] flex items-center justify-center text-[#f8e8d4] font-bold font-serif-title">
+          G5
+        </div>
+        <div>
+          <div class="font-bold text-[#2723a9]">COMP3821 Creative Project Group 5 &bull; Term 3, 2026</div>
+          <div class="text-[#2723a9]/70">React 19 &bull; TypeScript 5.8 &bull; Vite &bull; Progressive Web App (Offline Ready)</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="text-right">
+          <div class="font-mono-code font-bold text-[#2723a9]">github.com/CentillionJinx/3821Project</div>
+          <div class="text-[#2723a9]/60 font-mono-code text-[12px]">Commit: 8326232 &bull; Branch: main</div>
+        </div>
+        <div class="w-12 h-12 rounded bg-[#fffaf4] border border-[#FFBF00] p-1 flex items-center justify-center">
+          <!-- Minimal QR Code Representation -->
+          <svg viewBox="0 0 40 40" class="w-full h-full fill-[#2723a9]">
+            <rect x="2" y="2" width="10" height="10"/>
+            <rect x="4" y="4" width="6" height="6" fill="#fffaf4"/>
+            <rect x="5.5" y="5.5" width="3" height="3"/>
+            <rect x="28" y="2" width="10" height="10"/>
+            <rect x="30" y="4" width="6" height="6" fill="#fffaf4"/>
+            <rect x="31.5" y="5.5" width="3" height="3"/>
+            <rect x="2" y="28" width="10" height="10"/>
+            <rect x="4" y="30" width="6" height="6" fill="#fffaf4"/>
+            <rect x="5.5" y="31.5" width="3" height="3"/>
+            <rect x="16" y="6" width="6" height="6"/>
+            <rect x="18" y="18" width="4" height="4"/>
+            <rect x="26" y="16" width="6" height="6"/>
+            <rect x="16" y="28" width="6" height="6"/>
+            <rect x="26" y="26" width="8" height="8"/>
+          </svg>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bottom Delicate Gold Border Accent -->
+    <div class="flex items-center gap-3 pt-2">
+      <div class="thin-gold-line"></div>
+      <div class="gold-bullet"></div>
+      <div class="text-[12px] font-mono-code font-bold tracking-widest text-[#2723a9] uppercase whitespace-nowrap">
+        DESIGNED FOR SCIENTIFIC PRESENTATION &bull; A1/A2 ASPECT RATIO
+      </div>
+      <div class="gold-bullet"></div>
+      <div class="thin-gold-line"></div>
+    </div>
+
+  </div>
+
+</body>
+</html>
