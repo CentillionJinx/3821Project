@@ -2457,6 +2457,17 @@
   transition: all var(--trans-snappy);
 }
 
+.microbe-grid-coord {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  font-size: 0.58rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
 .microbe-grid-tile.has-organ {
   background: rgba(244, 63, 94, 0.25) !important;
   border-color: var(--accent-rose) !important;

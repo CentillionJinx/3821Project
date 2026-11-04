@@ -65,22 +65,20 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode }) => {
         <div className="edu-hero-text">
           <div className="edu-hero-badge-row">
             <span className="edu-hero-badge">Team Discussion Original Candidate</span>
-            <span className="edu-hero-badge blue">Vital Organ Non-Overlap Invariant</span>
-            <span className="edu-hero-badge teal">{activePreset.badge}</span>
+            <span className="edu-hero-badge blue">Discrete N &times; M Grid &bull; Connected Polyominoes</span>
+            <span className="edu-hero-badge teal">Vital Organ Non-Overlap Invariant</span>
+            <span className="edu-hero-badge amber">{activePreset.badge}</span>
           </div>
-          <h2 className="edu-hero-title">&ldquo;Hearts&rdquo; // &ldquo;Microbes&rdquo; &mdash; Delicate Vital Organs</h2>
+          <h2 className="edu-hero-title">&ldquo;Hearts&rdquo; // &ldquo;Microbes&rdquo; &mdash; Grid Polyominoes &amp; Delicate Vital Organs</h2>
           <p className="edu-hero-summary">
             {explainMode === 'layman' ? (
               <>
-                <strong>Layman Overview:</strong> We have some collection of blobs (connected tiles) with vital organs (marked with ❤️).
-                We want to place these blobs on the grid: they can freely overlap on their body tiles, <strong>BUT the vital organs
-                of blob A cannot overlap with ANY part of another blob B!</strong> Can you cover the dish without crushing any hearts?
+                <strong>Layman Overview:</strong> On a discrete <em>N &times; M</em> tile grid, we have a collection of microbes (connected grid polyominoes) with designated vital organ cells (marked with &hearts;).
+                Microbes can freely overlap on standard body cells, <strong>BUT no microbe can overlap or touch any cell containing another microbe's vital organ!</strong> Can you position the polyominoes to satisfy the grid coverage quota without crushing any vital organs?
               </>
             ) : (
               <>
-                <strong>Rigorous Problem Formulation:</strong> Given grid G, collection C of blobs A = (T(A), O(A)) where
-                O(A) &sube; T(A) denotes non-empty vital organs, select B &sube; C such that &forall; A &ne; B &in; B:
-                O(A) &cap; T(B) = &empty;. Deterministic polynomial verifier executes in O(|B|&sup2; &middot; |T|) operations.
+                <strong>Rigorous Problem Formulation:</strong> Given an integer lattice grid <em>G = [0..N-1] &times; [0..M-1] &subset; &Zopf;&sup2;</em> and a collection <em>C</em> of connected polyominoes <em>A = (T(A), O(A))</em> where <em>T(A) &subset; G</em> is 4-connected and <em>O(A) &sube; T(A)</em> denotes vital organ coordinates, select <em>B &sube; C</em> such that <em>&forall; A &ne; B &in; B: O(A) &cap; T(B) = &empty;</em> and <em>|&cup;&lsaquo;A &in; B&rsaquo; T(A)| &ge; k</em>. Deterministic polynomial verifier executes in <em>O(|B|&sup2; &middot; |T|)</em> operations.
               </>
             )}
           </p>
@@ -169,15 +167,16 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode }) => {
                             : undefined,
                         borderColor: isCollision ? '#fb7185' : undefined,
                       }}
-                      title={`Cell (${x}, ${y}): ${
+                      title={`Grid Tile (${x}, ${y}): ${
                         coveringBlobs.length > 0
                           ? `Covered by [${coveringBlobs.map((b) => b.name).join(', ')}]`
                           : 'Empty'
                       }${isOrgan ? ' [VITAL ORGAN ❤️]' : ''}${isCollision ? ' [CRUSHED BY ANOTHER BLOB!]' : ''}`}
                     >
+                      <span className="microbe-grid-coord">{x},{y}</span>
                       {isOrgan && <span className="organ-heart-icon">❤️</span>}
                       {coveringBlobs.length > 0 && !isOrgan && (
-                        <span style={{ fontSize: '0.64rem', color: 'var(--text-secondary)' }}>
+                        <span style={{ fontSize: '0.64rem', color: 'var(--text-secondary)', marginTop: '8px' }}>
                           {coveringBlobs.length}x
                         </span>
                       )}
@@ -188,14 +187,14 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode }) => {
             </div>
 
             <p className="hint-text" style={{ textAlign: 'center', marginTop: '10px' }}>
-              Microbes can freely overlap on regular body tiles. But if another microbe touches a Vital Organ (❤️),
+              Microbes are 4-connected grid polyominoes on &Zopf;&sup2;. They can freely overlap on regular body cells. But if another microbe touches a Vital Organ (❤️),
               it triggers an immediate pulsing red collision failure!
             </p>
 
             {/* Available Blobs Selector */}
             <div style={{ marginTop: '16px' }}>
               <span className="section-subtitle">
-                Available Microbe Blobs (|C| = {activePreset.availableBlobs.length}):
+                Available Connected Polyominoes (|C| = {activePreset.availableBlobs.length}):
               </span>
               <div className="xor-squares-selector-grid" style={{ marginTop: '8px' }}>
                 {activePreset.availableBlobs.map((blob: MicrobeBlob) => {
@@ -212,8 +211,11 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode }) => {
                       <div className="xor-square-info">
                         <span className="xor-square-name">{blob.name}</span>
                         <span className="xor-square-dims">
-                          {blob.tiles.length} tiles ({organCount} ❤️ organ)
+                          Polyomino: {blob.tiles.length} cells ({organCount} ❤️ organ)
                         </span>
+                        <div style={{ fontSize: '0.64rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', marginTop: '2px' }}>
+                          Cells: {blob.tiles.map(t => `(${t.x},${t.y})${t.isOrgan ? '❤️' : ''}`).join(', ')}
+                        </div>
                         {blob.description && (
                           <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
                             {blob.description}
