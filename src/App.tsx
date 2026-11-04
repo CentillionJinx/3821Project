@@ -260,6 +260,29 @@ export function App() {
        * MAIN CONTENT AREA (Active Tab Routing)
        * ====================================================================== */}
       <main className="main-viewport">
+        {/* Top Poster-Style Framing Bar */}
+        <header className="viewport-top-header">
+          <div className="poster-style-frame">
+            <div className="thin-gold-line" />
+            <div className="gold-bullet" />
+            <span className="poster-frame-title">
+              UNSW COMP3821 EXTENDED ALGORITHMS &bull; TERM 3, 2026 &bull; GROUP 5
+            </span>
+            <div className="gold-bullet" />
+            <div className="thin-gold-line" />
+          </div>
+          <div className="viewport-title-row">
+            <div>
+              <h2 className="viewport-main-title">
+                Designing, Proving, and Verifying Original <span className="title-gold-underline">NP-Complete</span> Algorithmic Puzzles
+              </h2>
+              <p className="viewport-tagline">
+                Rigorous Reduction Gadgets, Certificate Geometries, and Deterministic Polynomial-Time Verifiers
+              </p>
+            </div>
+          </div>
+        </header>
+
         {activeTab === 'cand-carpets' && <CarpetsFloorView explainMode={explainMode} />}
         {activeTab === 'cand-microbes' && <HeartsMicrobesView explainMode={explainMode} />}
         {activeTab === 'cand-insurgency' && <InsurgencyGameView explainMode={explainMode} />}

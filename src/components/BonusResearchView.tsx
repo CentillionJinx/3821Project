@@ -222,30 +222,30 @@ export const BonusResearchView: React.FC<Props> = ({ explainMode }) => {
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.8rem' }}>
-                <div style={{ padding: '10px', background: 'rgba(15, 23, 42, 0.75)', borderRadius: '6px', borderLeft: '4px solid #10b981' }}>
-                  <strong className="text-teal">FPTAS (Fully Polynomial Time Approx Scheme)</strong>
-                  <p style={{ margin: '2px 0 0', color: 'var(--text-muted)' }}>
+                <div style={{ padding: '10px 12px', background: 'var(--mint)', borderRadius: '6px', border: '1px solid #0f766e', borderLeft: '4.5px solid #0f766e' }}>
+                  <strong style={{ color: '#0f766e' }}>FPTAS (Fully Polynomial Time Approx Scheme)</strong>
+                  <p style={{ margin: '2px 0 0', color: 'var(--text-primary)' }}>
                     Approximates within (1 - &epsilon;) in poly(n, 1/&epsilon;) time. Example: 0-1 Knapsack.
                   </p>
                 </div>
 
-                <div style={{ padding: '10px', background: 'rgba(15, 23, 42, 0.75)', borderRadius: '6px', borderLeft: '4px solid #38bdf8' }}>
-                  <strong className="text-blue">PTAS (Polynomial Time Approx Scheme)</strong>
-                  <p style={{ margin: '2px 0 0', color: 'var(--text-muted)' }}>
+                <div style={{ padding: '10px 12px', background: 'var(--lavender)', borderRadius: '6px', border: '1px solid #581c87', borderLeft: '4.5px solid #581c87' }}>
+                  <strong style={{ color: '#581c87' }}>PTAS (Polynomial Time Approx Scheme)</strong>
+                  <p style={{ margin: '2px 0 0', color: 'var(--text-primary)' }}>
                     Approximates within (1 - &epsilon;) in O(n^f(1/&epsilon;)) time. Example: Planar TSP.
                   </p>
                 </div>
 
-                <div style={{ padding: '10px', background: 'rgba(15, 23, 42, 0.75)', borderRadius: '6px', borderLeft: '4px solid #fbbf24' }}>
-                  <strong className="text-amber">APX-Complete (Constant Factor Bound)</strong>
-                  <p style={{ margin: '2px 0 0', color: 'var(--text-muted)' }}>
+                <div style={{ padding: '10px 12px', background: '#fef3c7', borderRadius: '6px', border: '1px solid #b45309', borderLeft: '4.5px solid #b45309' }}>
+                  <strong style={{ color: '#b45309' }}>APX-Complete (Constant Factor Bound)</strong>
+                  <p style={{ margin: '2px 0 0', color: 'var(--text-primary)' }}>
                     Can be approximated to within a constant factor &alpha; &gt; 1, but NO PTAS exists unless P = NP. Example: Vertex Cover (factor 2), Metric TSP (factor 1.5).
                   </p>
                 </div>
 
-                <div style={{ padding: '10px', background: 'rgba(15, 23, 42, 0.75)', borderRadius: '6px', borderLeft: '4px solid #fb7185' }}>
-                  <strong className="text-rose">Inapproximable (PCP Theorem Barrier)</strong>
-                  <p style={{ margin: '2px 0 0', color: 'var(--text-muted)' }}>
+                <div style={{ padding: '10px 12px', background: 'var(--blush)', borderRadius: '6px', border: '1px solid #be123c', borderLeft: '4.5px solid #be123c' }}>
+                  <strong style={{ color: '#be123c' }}>Inapproximable (PCP Theorem Barrier)</strong>
+                  <p style={{ margin: '2px 0 0', color: 'var(--text-primary)' }}>
                     Cannot be approximated to any constant factor or better than trivial random coin flipping. Example: MAX-3-SAT (cannot beat 7/8 by Håstad 1997), General TSP (no factor &alpha;(n) possible).
                   </p>
                 </div>

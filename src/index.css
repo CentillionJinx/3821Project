@@ -1,53 +1,65 @@
 :root {
-  /* Obsidian Slate & Deep Navy-Teal Dark Theme (Aligned with Report Palette) */
-  --bg-canvas: #090d16;
-  --bg-surface: #101726;
-  --bg-elevated: #162033;
-  --bg-well: #060911;
-  --bg-navy-tint: rgba(27, 54, 93, 0.35);
-  --bg-teal-tint: rgba(13, 115, 119, 0.18);
+  /* Warm Parchment & Royal Navy Theme (Matching Presentation Poster) */
+  --bg-canvas: #f8e8d4;
+  --bg-surface: #fffaf4;
+  --bg-elevated: #fbf3e8;
+  --bg-well: #f2dec7;
+  
+  --bg-navy-tint: rgba(39, 35, 169, 0.06);
+  --bg-gold-tint: rgba(255, 191, 0, 0.12);
+  --bg-mint-tint: rgba(212, 248, 232, 0.55);
+  --bg-lavender-tint: rgba(232, 212, 248, 0.55);
+  --bg-blush-tint: rgba(248, 214, 212, 0.55);
+
+  /* Primary Palette */
+  --fg: #2723a9;
+  --gold: #FFBF00;
+  --mint: #D4F8E8;
+  --lavender: #E8D4F8;
+  --blush: #F8D6D4;
 
   /* Hairline Borders & Highlights */
-  --border-subtle: rgba(148, 163, 184, 0.12);
-  --border-strong: rgba(148, 163, 184, 0.24);
-  --border-teal: rgba(45, 212, 191, 0.42);
-  --border-sky: rgba(56, 189, 248, 0.42);
-  --border-rose: rgba(244, 63, 94, 0.48);
-  --border-amber: rgba(251, 191, 36, 0.45);
+  --border-gold: #FFBF00;
+  --border-gold-soft: rgba(255, 191, 0, 0.65);
+  --border-subtle: rgba(39, 35, 169, 0.14);
+  --border-strong: rgba(39, 35, 169, 0.28);
+  --border-teal: rgba(13, 130, 106, 0.45);
+  --border-rose: rgba(190, 18, 60, 0.45);
+  --border-amber: rgba(255, 191, 0, 0.85);
 
-  /* Typography Hierarchy (WCAG AAA/AA on #090d16 and #101726) */
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
+  /* Typography Hierarchy (WCAG AAA contrast on #f8e8d4 and #fffaf4) */
+  --text-primary: #2723a9;
+  --text-secondary: rgba(39, 35, 169, 0.88);
+  --text-muted: rgba(39, 35, 169, 0.68);
+  --text-dim: rgba(39, 35, 169, 0.48);
 
   /* Semantic & Algorithmic Accents */
-  --accent-teal: #2dd4bf;       /* Primary interactive / YES-instance / Active switch */
-  --accent-teal-soft: #99f6e4;
-  --accent-sky: #38bdf8;        /* Reductions / Layer 2 Portals / Graph Isomorphism */
-  --accent-indigo: #818cf8;     /* Mathematical quantifiers / Theorems */
-  --accent-amber: #fbbf24;      /* Mandatory Checkpoints M / Blueprints */
-  --accent-rose: #fb7185;       /* Trap edges D / Violated clauses / Soundness alerts */
-  --accent-rose-strong: #f43f5e;
+  --accent-teal: #0f766e;        /* Deep teal/mint tone */
+  --accent-teal-soft: #D4F8E8;
+  --accent-sky: #0369a1;         /* Deep sky */
+  --accent-indigo: #2723a9;      /* Primary royal navy */
+  --accent-amber: #b45309;       /* Deep amber */
+  --accent-rose: #be123c;        /* Deep rose/blush */
+  --accent-rose-strong: #9f1239;
 
-  /* Shadows & Ambient Glows */
-  --shadow-card: 0 14px 34px -10px rgba(2, 6, 23, 0.75), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
-  --shadow-sm: 0 4px 12px rgba(2, 6, 23, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
-  --shadow-well: inset 0 2px 6px rgba(2, 6, 23, 0.85), 0 1px 0 rgba(255, 255, 255, 0.04);
-  --glow-teal: 0 0 20px rgba(45, 212, 191, 0.22);
-  --glow-rose: 0 0 20px rgba(244, 63, 94, 0.25);
-  --glow-sky: 0 0 20px rgba(56, 189, 248, 0.22);
+  /* Shadows & Ambient Accents */
+  --shadow-card: 0 4px 20px -2px rgba(39, 35, 169, 0.06), 0 2px 6px -1px rgba(39, 35, 169, 0.04), 0 0 0 1px rgba(255, 191, 0, 0.35);
+  --shadow-sm: 0 2px 6px rgba(39, 35, 169, 0.05), 0 0 0 1px rgba(255, 191, 0, 0.25);
+  --shadow-well: inset 0 2px 5px rgba(39, 35, 169, 0.05);
+  --glow-gold: 0 0 12px rgba(255, 191, 0, 0.4);
+  --glow-mint: 0 0 14px rgba(212, 248, 232, 0.6);
 
   /* Radii & Typography */
-  --r-xs: 8px;
-  --r-sm: 10px;
-  --r-md: 14px;
-  --r-lg: 20px;
+  --r-xs: 6px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
   --r-full: 9999px;
 
-  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Cinzel', serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --trans-snappy: 0.18s cubic-bezier(0.2, 0.9, 0.3, 1);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -62,11 +74,11 @@ html, body {
   min-height: 100%;
   background-color: var(--bg-canvas);
   background-image:
-    radial-gradient(1100px 600px at 12% -8%, rgba(27, 54, 93, 0.45) 0%, transparent 65%),
-    radial-gradient(900px 550px at 92% 6%, rgba(13, 115, 119, 0.24) 0%, transparent 60%),
-    radial-gradient(1000px 700px at 50% 105%, rgba(15, 23, 42, 0.9) 0%, transparent 70%);
+    radial-gradient(1200px 700px at 10% -5%, rgba(255, 191, 0, 0.14) 0%, transparent 60%),
+    radial-gradient(1000px 600px at 95% 10%, rgba(212, 248, 232, 0.35) 0%, transparent 55%),
+    radial-gradient(1100px 750px at 50% 105%, rgba(232, 212, 248, 0.3) 0%, transparent 65%);
   background-attachment: fixed;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 15px;
   line-height: 1.6;
@@ -89,7 +101,7 @@ button {
 }
 
 button:focus-visible {
-  outline: 2px solid var(--accent-teal);
+  outline: 2px solid var(--border-gold);
   outline-offset: 2px;
 }
 
@@ -101,10 +113,26 @@ button:focus-visible {
   background: var(--bg-canvas);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #ecd5bc;
   border-radius: 8px;
   border: 2px solid var(--bg-canvas);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #dfc2a2;
+}
+
+/* Common geometric decorations */
+.thin-gold-line {
+  height: 1.5px;
+  background-color: var(--gold);
+  width: 100%;
+}
+
+.gold-bullet {
+  width: 7px;
+  height: 7px;
+  background-color: var(--gold);
+  transform: rotate(45deg);
+  display: inline-block;
+  flex-shrink: 0;
 }

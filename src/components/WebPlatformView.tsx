@@ -86,25 +86,25 @@ export const WebPlatformView: React.FC<Props> = ({ explainMode }) => {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.8rem' }}>
-              <div style={{ padding: '10px', background: 'rgba(15, 23, 42, 0.75)', borderRadius: '6px', borderLeft: '4px solid #2dd4bf' }}>
-                <strong className="text-teal">XOR Squares Verifier &bull; O(W &middot; H + |S|)</strong>
-                <p style={{ margin: '2px 0 0', color: 'var(--text-secondary)' }}>
+              <div style={{ padding: '10px 12px', background: 'var(--mint)', borderRadius: '6px', border: '1px solid #0f766e', borderLeft: '4.5px solid #0f766e' }}>
+                <strong style={{ color: '#0f766e' }}>XOR Squares Verifier &bull; O(W &middot; H + |S|)</strong>
+                <p style={{ margin: '2px 0 0', color: 'var(--text-primary)' }}>
                   Evaluates cell overlap counts, computes modulo-2 parities, and audits target cell constraints.
                   Executed in 0.05ms for 8&times;8 grids.
                 </p>
               </div>
 
-              <div style={{ padding: '10px', background: 'rgba(15, 23, 42, 0.75)', borderRadius: '6px', borderLeft: '4px solid #fb7185' }}>
-                <strong className="text-rose">Carpets &amp; Hearts Verifier &bull; O(N&sup2;)</strong>
-                <p style={{ margin: '2px 0 0', color: 'var(--text-secondary)' }}>
+              <div style={{ padding: '10px 12px', background: 'var(--blush)', borderRadius: '6px', border: '1px solid #be123c', borderLeft: '4.5px solid #be123c' }}>
+                <strong style={{ color: '#be123c' }}>Carpets &amp; Hearts Verifier &bull; O(N&sup2;)</strong>
+                <p style={{ margin: '2px 0 0', color: 'var(--text-primary)' }}>
                   Audits row quotas, column quotas, region quotas, and checks pairwise 8-neighbourhood distances
                   dist_&infin;(h_1, h_2) &ge; 2.
                 </p>
               </div>
 
-              <div style={{ padding: '10px', background: 'rgba(15, 23, 42, 0.75)', borderRadius: '6px', borderLeft: '4px solid #38bdf8' }}>
-                <strong className="text-blue">Trap-Path Dungeon Verifier &bull; O(|V| + |D|)</strong>
-                <p style={{ margin: '2px 0 0', color: 'var(--text-secondary)' }}>
+              <div style={{ padding: '10px 12px', background: 'var(--lavender)', borderRadius: '6px', border: '1px solid #581c87', borderLeft: '4.5px solid #581c87' }}>
+                <strong style={{ color: '#581c87' }}>Trap-Path Dungeon Verifier &bull; O(|V| + |D|)</strong>
+                <p style={{ margin: '2px 0 0', color: 'var(--text-primary)' }}>
                   Executes the Sequential Trap Marking Procedure: checks adjacency (v_i, v_&lcub;i+1&rcub;) &isin; E,
                   verifies trapped[v_i] == false, and updates trapped[w] = true for all (v_i, w) &isin; D.
                 </p>
@@ -129,16 +129,16 @@ export const WebPlatformView: React.FC<Props> = ({ explainMode }) => {
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.8rem', marginTop: '12px' }}>
-              <div style={{ padding: '10px', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '6px' }}>
-                <strong className="text-primary">1. Variable Diamond Synthesis:</strong> For each variable x_i,
+              <div style={{ padding: '10px 12px', background: 'var(--bg-elevated)', border: '1.5px solid var(--border-gold-soft)', borderRadius: '6px' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>1. Variable Diamond Synthesis:</strong> For each variable x_i,
                 compiles two parallel literal corridor choices T_i and F_i with mutex parity locks.
               </div>
-              <div style={{ padding: '10px', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '6px' }}>
-                <strong className="text-primary">2. Clause Corridor Coupling:</strong> Synthesizes clause detector cells
+              <div style={{ padding: '10px 12px', background: 'var(--bg-elevated)', border: '1.5px solid var(--border-gold-soft)', borderRadius: '6px' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>2. Clause Corridor Coupling:</strong> Synthesizes clause detector cells
                 or rooms connected to the variable literal tracks.
               </div>
-              <div style={{ padding: '10px', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '6px' }}>
-                <strong className="text-primary">3. Oracle Witness Solver (Backtracking DPLL):</strong> A client-side
+              <div style={{ padding: '10px 12px', background: 'var(--bg-elevated)', border: '1.5px solid var(--border-gold-soft)', borderRadius: '6px' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>3. Oracle Witness Solver (Backtracking DPLL):</strong> A client-side
                 SAT oracle searches the 2^n assignment tree to synthesize verified winning paths for demonstration.
               </div>
             </div>

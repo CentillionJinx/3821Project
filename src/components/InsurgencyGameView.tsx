@@ -208,7 +208,7 @@ export const InsurgencyGameView: React.FC<Props> = ({ explainMode }) => {
                       y1={n1.y}
                       x2={n2.x}
                       y2={n2.y}
-                      stroke="rgba(148, 163, 184, 0.25)"
+                      stroke="rgba(255, 191, 0, 0.7)"
                       strokeWidth={2}
                     />
                   );
@@ -222,14 +222,21 @@ export const InsurgencyGameView: React.FC<Props> = ({ explainMode }) => {
                   const isSimmering = w === 1;
                   const isVisited = armyHistory.includes(node.id);
 
-                  // Colors: -1 (Blue/Garrison), 0 (Dark Slate), 1 (Amber), 2 (Bright Red)
+                  // Theme Palette: -1 (Mint Army #D4F8E8), 0 (Cream #fffaf4), 1 (Lavender #E8D4F8), 2 (Blush #F8D6D4)
                   const fillColor = isArmy
-                    ? '#0284c7'
+                    ? '#D4F8E8'
                     : isInsurgent
-                    ? '#e11d48'
+                    ? '#F8D6D4'
                     : isSimmering
-                    ? '#d97706'
-                    : '#1e293b';
+                    ? '#E8D4F8'
+                    : '#fffaf4';
+                  const strokeColor = isArmy
+                    ? '#0f766e'
+                    : isInsurgent
+                    ? '#be123c'
+                    : isSimmering
+                    ? '#7e22ce'
+                    : '#FFBF00';
 
                   return (
                     <g
@@ -241,16 +248,17 @@ export const InsurgencyGameView: React.FC<Props> = ({ explainMode }) => {
                       <circle
                         r={28}
                         fill={fillColor}
-                        stroke={isArmy ? '#38bdf8' : isInsurgent ? '#fb7185' : 'rgba(148,163,184,0.4)'}
-                        strokeWidth={isArmy || isInsurgent ? 3 : 1.5}
+                        stroke={strokeColor}
+                        strokeWidth={isArmy || isInsurgent ? 2.5 : 1.5}
                       />
-                      <text y={-4} className="insurgency-weight-badge">
+                      <text y={-4} fill="#2723a9" className="insurgency-weight-badge">
                         {isArmy ? 'ARM' : `w = ${w}`}
                       </text>
                       <text
                         y={14}
-                        fill="var(--text-secondary)"
-                        fontSize="0.65rem"
+                        fill="#2723a9"
+                        fontSize="0.68rem"
+                        fontWeight="600"
                         textAnchor="middle"
                         fontFamily="var(--font-mono)"
                       >
@@ -265,9 +273,10 @@ export const InsurgencyGameView: React.FC<Props> = ({ explainMode }) => {
             <p className="hint-text" style={{ textAlign: 'center', marginTop: '10px' }}>
               Click any unvisited vertex to deploy your Army for the current day.
               <br />
-              <span style={{ color: '#e11d48' }}>Red (w=2)</span> = Insurgent &bull;{' '}
-              <span style={{ color: '#d97706' }}>Amber (w=1)</span> = Agitator &bull;{' '}
-              <span style={{ color: '#0284c7' }}>Blue (w=-1)</span> = Pacified Garrison
+              <span style={{ color: '#be123c', fontWeight: 700 }}>Blush (w=2)</span> = Insurgent &bull;{' '}
+              <span style={{ color: '#7e22ce', fontWeight: 700 }}>Lavender (w=1)</span> = Agitator &bull;{' '}
+              <span style={{ color: '#0f766e', fontWeight: 700 }}>Mint (w=-1)</span> = Pacified Garrison &bull;{' '}
+              <span style={{ color: '#2723a9', fontWeight: 700 }}>Cream (w=0)</span> = Neutral
             </p>
           </div>
         </div>

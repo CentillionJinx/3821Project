@@ -182,9 +182,9 @@ export const ProgressionReviewView: React.FC<Props> = ({ explainMode: _explainMo
                 </p>
               </div>
 
-              <div style={{ padding: '10px 14px', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '6px', fontSize: '0.78rem' }}>
-                <strong className="text-teal">Grid Geometries &amp; Reductions Note:</strong>
-                <p style={{ margin: '4px 0 0', color: 'var(--text-secondary)' }}>
+              <div style={{ padding: '10px 14px', background: 'var(--bg-elevated)', border: '1.5px solid var(--border-gold-soft)', borderRadius: '6px', fontSize: '0.78rem' }}>
+                <strong style={{ color: '#0f766e' }}>Grid Geometries &amp; Reductions Note:</strong>
+                <p style={{ margin: '4px 0 0', color: 'var(--text-primary)' }}>
                   <em>&ldquo;We can do hex or triangle or square grid or toroid or cylinder to make the problem reduction
                   more restricted/harder and have more interesting proofs and visualisable gadgets.&rdquo;</em>
                 </p>
