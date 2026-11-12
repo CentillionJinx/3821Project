@@ -13,6 +13,7 @@ import {
   Download,
   Lightbulb,
   GraduationCap,
+  LayoutGrid,
 } from 'lucide-react';
 import { CarpetsFloorView } from './components/CarpetsFloorView';
 import { HeartsMicrobesView } from './components/HeartsMicrobesView';
@@ -23,6 +24,7 @@ import { ResearchedTopicsView } from './components/ResearchedTopicsView';
 import { ProgressionReviewView } from './components/ProgressionReviewView';
 import { BonusResearchView } from './components/BonusResearchView';
 import { WebPlatformView } from './components/WebPlatformView';
+import { GridFigureView } from './components/GridFigureView';
 import './App.css';
 
 export type TabId =
@@ -34,7 +36,8 @@ export type TabId =
   | 'citation'
   | 'review'
   | 'bonus'
-  | 'platform';
+  | 'platform'
+  | 'figures';
 
 export function App() {
   // Global Explanation Mode: 'layman' vs 'rigorous'
@@ -206,6 +209,17 @@ export function App() {
               <small>State Machine &amp; Pipeline</small>
             </div>
           </button>
+
+          <button
+            className={`neu-tab ${activeTab === 'figures' ? 'active' : ''}`}
+            onClick={() => setActiveTab('figures')}
+          >
+            <LayoutGrid size={18} className="tab-icon text-amber" />
+            <div className="tab-text-col">
+              <span>10. Figure Studio</span>
+              <small>TSV &rarr; SVG / TikZ</small>
+            </div>
+          </button>
         </nav>
 
         {/* Team & PWA Footer inside Sidebar */}
@@ -292,6 +306,7 @@ export function App() {
         {activeTab === 'review' && <ProgressionReviewView explainMode={explainMode} />}
         {activeTab === 'bonus' && <BonusResearchView explainMode={explainMode} />}
         {activeTab === 'platform' && <WebPlatformView explainMode={explainMode} />}
+        {activeTab === 'figures' && <GridFigureView explainMode={explainMode} />}
       </main>
     </div>
   );
