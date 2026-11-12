@@ -17,9 +17,14 @@ import {
 
 interface Props {
   explainMode: 'layman' | 'rigorous';
+  /**
+   * Embedded in the final-puzzle page, which supplies its own hero and section
+   * headings. Skips the standalone hero and outer tab-stage padding.
+   */
+  embedded?: boolean;
 }
 
-export const HeartsMicrobesView: React.FC<Props> = ({ explainMode }) => {
+export const HeartsMicrobesView: React.FC<Props> = ({ explainMode, embedded = false }) => {
   const [selectedPresetIndex, setSelectedPresetIndex] = useState<number>(0);
   const activePreset: MicrobesPreset = MICROBES_PRESETS[selectedPresetIndex];
 
@@ -56,8 +61,9 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode }) => {
   );
 
   return (
-    <div className="tab-stage">
-      {/* Hero Header */}
+    <div className={embedded ? 'final-embedded' : 'tab-stage'}>
+      {/* Hero Header — suppressed when embedded in the final-puzzle view */}
+      {!embedded && (
       <div className="edu-hero">
         <div className="edu-hero-icon-box">
           <Heart size={32} className="text-rose" />
@@ -78,12 +84,13 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode }) => {
               </>
             ) : (
               <>
-                <strong>Rigorous Problem Formulation:</strong> Given an integer lattice grid <em>G = [0..N-1] &times; [0..M-1] &subset; &Zopf;&sup2;</em> and a collection <em>C</em> of connected polyominoes <em>A = (T(A), O(A))</em> where <em>T(A) &subset; G</em> is 4-connected and <em>O(A) &sube; T(A)</em> denotes vital organ coordinates, select <em>B &sube; C</em> such that <em>&forall; A &ne; B &in; B: O(A) &cap; T(B) = &empty;</em> and <em>|&cup;&lsaquo;A &in; B&rsaquo; T(A)| &ge; k</em>. Deterministic polynomial verifier executes in <em>O(|B|&sup2; &middot; |T|)</em> operations.
+                <strong>Rigorous Problem Formulation:</strong> Given an integer lattice grid <em>G = [0..N-1] &times; [0..M-1] &subset; &Zopf;&sup2;</em> and a collection <em>C</em> of connected polyominoes <em>A = (T(A), O(A))</em> where <em>T(A) &subset; G</em> is 4-connected and <em>O(A) &sube; T(A)</em> denotes vital organ coordinates, select <em>B &sube; C</em> such that <em>&forall; A, A&prime; &in; B, A &ne; A&prime;: O(A) &cap; T(A&prime;) = &empty;</em> and <em>|&cup;&lsaquo;A &in; B&rsaquo; T(A)| &ge; k</em>. Deterministic polynomial verifier executes in <em>O(|B|&sup2; &middot; |T|)</em> operations.
               </>
             )}
           </p>
         </div>
       </div>
+      )}
 
       {/* Preset Selector */}
       <div className="card-neu preset-card">
@@ -333,8 +340,8 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode }) => {
               </div>
               <div className="gadget-body">
                 <div className="latex-snippet-block">
-                  {`\\forall A, B \\in B, A \\neq B \\implies O(A) \\cap T(B) = \\emptyset\n` +
-                   `Blobs can overlap on T(A) \\cap T(B), but vital organs O(A) are sacrosanct.`}
+                  {`∀ A, A′ ∈ B, A ≠ A′:  O(A) ∩ T(A′) = ∅
+Bodies may share tiles; organs may not.`}
                 </div>
                 <p style={{ marginTop: '8px', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
                   <strong>Gadget Construction:</strong> The organ acts as a one-way inhibitor lock.

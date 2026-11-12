@@ -14,9 +14,10 @@ import {
   Lightbulb,
   GraduationCap,
   LayoutGrid,
+  ArrowRight,
 } from 'lucide-react';
 import { CarpetsFloorView } from './components/CarpetsFloorView';
-import { HeartsMicrobesView } from './components/HeartsMicrobesView';
+import { FinalPuzzleView } from './components/FinalPuzzleView';
 import { InsurgencyGameView } from './components/InsurgencyGameView';
 import { XORSquaresView } from './components/XORSquaresView';
 import { TrapDungeonView } from './components/TrapDungeonView';
@@ -28,8 +29,8 @@ import { GridFigureView } from './components/GridFigureView';
 import './App.css';
 
 export type TabId =
-  | 'cand-carpets'
   | 'cand-microbes'
+  | 'cand-carpets'
   | 'cand-insurgency'
   | 'cand-xor'
   | 'cand-dungeon'
@@ -39,12 +40,19 @@ export type TabId =
   | 'platform'
   | 'figures';
 
+const MARKERS: Record<string, { index: string; name: string }> = {
+  'cand-carpets': { index: '01', name: '“Carpets” Floor' },
+  'cand-insurgency': { index: '02', name: 'Quell Insurgency' },
+  'cand-xor': { index: '03', name: 'XOR Squares' },
+  'cand-dungeon': { index: '04', name: '3-SAT Trap Dungeon' },
+};
+
 export function App() {
   // Global Explanation Mode: 'layman' vs 'rigorous'
   const [explainMode, setExplainMode] = useState<'layman' | 'rigorous'>('rigorous');
 
-  // Active Navigation Tab
-  const [activeTab, setActiveTab] = useState<TabId>('cand-carpets');
+  // Active Navigation Tab — the final puzzle opens first.
+  const [activeTab, setActiveTab] = useState<TabId>('cand-microbes');
 
   // PWA Install Prompt State
   const [pwaPrompt, setPwaPrompt] = useState<any>(null);
@@ -66,6 +74,8 @@ export function App() {
       setPwaPrompt(null);
     }
   };
+
+  const activeMarker = MARKERS[activeTab];
 
   return (
     <div className="app-container">
@@ -107,64 +117,79 @@ export function App() {
 
         {/* Navigation Tabs matching the Progression Review & Team Discussion Structure */}
         <nav className="neu-nav-group" aria-label="Main Project Modules">
-          <div className="nav-section-label">Team Proposed Puzzles</div>
+          <div className="nav-section-label">Final Puzzle</div>
 
           <button
-            className={`neu-tab ${activeTab === 'cand-carpets' ? 'active' : ''}`}
-            onClick={() => setActiveTab('cand-carpets')}
-          >
-            <Layers size={18} className="tab-icon text-blue" />
-            <div className="tab-text-col">
-              <span>1. &ldquo;Carpets&rdquo; Floor</span>
-              <small>Multiplicity &amp; Unique Cover</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab ${activeTab === 'cand-microbes' ? 'active' : ''}`}
+            className={`neu-tab final-tab ${activeTab === 'cand-microbes' ? 'active' : ''}`}
             onClick={() => setActiveTab('cand-microbes')}
           >
             <Heart size={18} className="tab-icon text-rose" />
             <div className="tab-text-col">
-              <span>2. Hearts // Microbes</span>
+              <span className="tab-final-label">
+                Grid-Organ <span className="nav-final-pill">final</span>
+              </span>
               <small>Vital Organ Non-Overlap</small>
             </div>
           </button>
 
           <button
-            className={`neu-tab ${activeTab === 'cand-insurgency' ? 'active' : ''}`}
+            className={`neu-tab ${activeTab === 'figures' ? 'active' : ''}`}
+            onClick={() => setActiveTab('figures')}
+          >
+            <LayoutGrid size={18} className="tab-icon text-amber" />
+            <div className="tab-text-col">
+              <span>Figure Studio</span>
+              <small>TSV &rarr; SVG / TikZ</small>
+            </div>
+          </button>
+
+          <div className="nav-section-label">Progression Markers</div>
+
+          <button
+            className={`neu-tab marker-tab ${activeTab === 'cand-carpets' ? 'active' : ''}`}
+            onClick={() => setActiveTab('cand-carpets')}
+          >
+            <Layers size={18} className="tab-icon text-blue" />
+            <div className="tab-text-col">
+              <span>01 &middot; &ldquo;Carpets&rdquo; Floor</span>
+              <small>Multiplicity &amp; Unique Cover</small>
+            </div>
+          </button>
+
+          <button
+            className={`neu-tab marker-tab ${activeTab === 'cand-insurgency' ? 'active' : ''}`}
             onClick={() => setActiveTab('cand-insurgency')}
           >
             <ShieldAlert size={18} className="tab-icon text-amber" />
             <div className="tab-text-col">
-              <span>3. Quell Insurgency</span>
+              <span>02 &middot; Quell Insurgency</span>
               <small>Firefighter Hex/Graph</small>
             </div>
           </button>
 
           <button
-            className={`neu-tab ${activeTab === 'cand-xor' ? 'active' : ''}`}
+            className={`neu-tab marker-tab ${activeTab === 'cand-xor' ? 'active' : ''}`}
             onClick={() => setActiveTab('cand-xor')}
           >
             <Square size={18} className="tab-icon text-teal" />
             <div className="tab-text-col">
-              <span>4. XOR Squares</span>
+              <span>03 &middot; XOR Squares</span>
               <small>Parity Modulo-2 Overlaps</small>
             </div>
           </button>
 
           <button
-            className={`neu-tab ${activeTab === 'cand-dungeon' ? 'active' : ''}`}
+            className={`neu-tab marker-tab ${activeTab === 'cand-dungeon' ? 'active' : ''}`}
             onClick={() => setActiveTab('cand-dungeon')}
           >
             <Route size={18} className="tab-icon" />
             <div className="tab-text-col">
-              <span>5. 3-SAT Trap Dungeon</span>
+              <span>04 &middot; 3-SAT Trap Dungeon</span>
               <small>Spatial Trap DAG</small>
             </div>
           </button>
 
-          <div className="nav-section-label">Research &amp; Progression Review</div>
+          <div className="nav-section-label">Research &amp; Review</div>
 
           <button
             className={`neu-tab ${activeTab === 'citation' ? 'active' : ''}`}
@@ -172,7 +197,7 @@ export function App() {
           >
             <BookOpen size={18} className="tab-icon" />
             <div className="tab-text-col">
-              <span>6. Researched Topics</span>
+              <span>Researched Topics</span>
               <small>Firefighter, Parks, Akari...</small>
             </div>
           </button>
@@ -183,7 +208,7 @@ export function App() {
           >
             <FileText size={18} className="tab-icon text-amber" />
             <div className="tab-text-col">
-              <span>7. Progression Review</span>
+              <span>Progression Review</span>
               <small>Team Debates &amp; Roadmap</small>
             </div>
           </button>
@@ -194,7 +219,7 @@ export function App() {
           >
             <Sparkles size={18} className="tab-icon text-teal" />
             <div className="tab-text-col">
-              <span>8. Bonus Research</span>
+              <span>Bonus Research</span>
               <small>ZKP &amp; NP Approximations</small>
             </div>
           </button>
@@ -205,19 +230,8 @@ export function App() {
           >
             <Cpu size={18} className="tab-icon" />
             <div className="tab-text-col">
-              <span>9. Web Platform</span>
+              <span>Web Platform</span>
               <small>State Machine &amp; Pipeline</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab ${activeTab === 'figures' ? 'active' : ''}`}
-            onClick={() => setActiveTab('figures')}
-          >
-            <LayoutGrid size={18} className="tab-icon text-amber" />
-            <div className="tab-text-col">
-              <span>10. Figure Studio</span>
-              <small>TSV &rarr; SVG / TikZ</small>
             </div>
           </button>
         </nav>
@@ -288,17 +302,39 @@ export function App() {
           <div className="viewport-title-row">
             <div>
               <h2 className="viewport-main-title">
-                Designing, Proving, and Verifying Original <span className="title-gold-underline">NP-Complete</span> Algorithmic Puzzles
+                One Puzzle Remains: <span className="title-gold-underline">Grid-Organ</span>
               </h2>
               <p className="viewport-tagline">
-                Rigorous Reduction Gadgets, Certificate Geometries, and Deterministic Polynomial-Time Verifiers
+                Five candidate gadgets, one survivor — a local organ invariant, an exact verifier, and one
+                figure pipeline feeding the poster, the site, and the report.
               </p>
             </div>
           </div>
         </header>
 
+        {activeMarker && (
+          <div className="marker-ribbon">
+            <div className="marker-ribbon-main">
+              <span className="marker-ribbon-kicker">
+                Progression marker {activeMarker.index} of 04
+              </span>
+              <span className="marker-ribbon-title">{activeMarker.name}</span>
+              <span className="marker-ribbon-note">
+                Archived exploration, kept for the record. The final puzzle is Grid-Organ.
+              </span>
+            </div>
+            <button className="neu-btn" onClick={() => setActiveTab('cand-microbes')}>
+              <Heart size={14} className="text-rose" />
+              <span>Back to the final</span>
+              <ArrowRight size={14} />
+            </button>
+          </div>
+        )}
+
+        {activeTab === 'cand-microbes' && (
+          <FinalPuzzleView explainMode={explainMode} onNavigate={setActiveTab} />
+        )}
         {activeTab === 'cand-carpets' && <CarpetsFloorView explainMode={explainMode} />}
-        {activeTab === 'cand-microbes' && <HeartsMicrobesView explainMode={explainMode} />}
         {activeTab === 'cand-insurgency' && <InsurgencyGameView explainMode={explainMode} />}
         {activeTab === 'cand-xor' && <XORSquaresView explainMode={explainMode} />}
         {activeTab === 'cand-dungeon' && <TrapDungeonView explainMode={explainMode} />}

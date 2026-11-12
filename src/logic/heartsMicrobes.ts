@@ -81,7 +81,7 @@ export const MICROBES_PRESETS: MicrobesPreset[] = [
     summaryLayman:
       'Place living microbes on the Petri dish to cover at least 14 tiles. Ordinary body tiles can freely overlap, but the vital heart organs (❤️) are delicate: NO other microbe can touch or overlap a vital organ anywhere!',
     summaryRigorous:
-      'Instance of Microbes (Hearts) on G = 6x6. Requires selecting subset B ⊆ C covering ≥ 14 cells subject to O(A) ∩ T(B) = ∅ for all A ≠ B. Demonstrates non-local exclusion where body extensions simulate boolean transmission wires.',
+      'Instance of Microbes (Hearts) on G = 6x6. Requires selecting subset B ⊆ C covering ≥ 14 cells subject to O(A) ∩ T(A′) = ∅ for all distinct A, A′ ∈ B. Demonstrates non-local exclusion where body extensions simulate boolean transmission wires.',
     isSatisfiable: true,
     availableBlobs: [
       {
@@ -147,7 +147,7 @@ export const MICROBES_PRESETS: MicrobesPreset[] = [
     summaryLayman:
       'Team variation idea: "Each blob must be orthogonally adjacent to another blob (stacked on top like Tetris)." Blobs rest against each other, shielding their delicate core hearts!',
     summaryRigorous:
-      'Tetris-stacking variant: selected blobs form a single connected component in the dual intersection graph, while maintaining strict organ exclusion O(A) ∩ T(B) = ∅.',
+      'Tetris-stacking variant: selected blobs form a single connected component in the dual intersection graph, while maintaining strict organ exclusion O(A) ∩ T(A′) = ∅ for distinct A, A′.',
     isSatisfiable: true,
     availableBlobs: [
       {
@@ -200,7 +200,7 @@ export const MICROBES_PRESETS: MicrobesPreset[] = [
 /**
  * Deterministic Polynomial-Time Verifier for "Hearts // Microbes":
  * Evaluates:
- * 1. For all selected blobs A != B: vital organs O(A) cannot intersect any tile in T(B).
+ * 1. For all selected blobs A != A': vital organs O(A) cannot intersect any tile in T(A').
  * 2. Checks minimum tile coverage requirement.
  * Runtime: O(|B|^2 * |T|) polynomial operations.
  */

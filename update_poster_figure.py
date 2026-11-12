@@ -19,7 +19,7 @@ POSTER = ROOT / "public" / "poster.html"
 ANCHOR = "<!-- High-Contrast Crisp SVG Diagram: Discrete Grid-Based Polyominoes -->"
 TITLE = "Hearts // Microbes: vital-organ non-overlap"
 CELL = 34
-CLASS = "w-full max-w-[240px] h-auto"
+CLASS = "w-full max-w-[380px] h-auto"
 
 
 def main() -> int:

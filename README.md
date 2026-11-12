@@ -10,6 +10,8 @@
 
 The core objective of our creative project is to **design an original grid-based puzzle that is provably $\mathsf{NP}$-complete, and showcase it interactively through an installable Progressive Web Application (PWA) where users can construct solutions and have them deterministically verified in polynomial time**.
 
+> **Final puzzle: Grid-Organ (“Hearts” // “Microbes”).** Of the five candidates explored, Grid-Organ is the one we kept: a local organ-vs-body invariant, an exact deterministic verifier, and one generated figure pipeline feeding the poster, the site, and the report. Section 2 is retained as a progression record — candidates 1, 3, 4 and 5 are archived progression markers, not competing proposals.
+
 ### Week 7 Progression Review & Strategic Scope Decisions
 During our Week 5–7 deep-dive into computational complexity theory, our team made critical design decisions documented in our Progression Review:
 1. **Decoupling Zero-Knowledge Proofs (Transition to Bonus Research)**:
@@ -19,7 +21,7 @@ During our Week 5–7 deep-dive into computational complexity theory, our team m
 
 ---
 
-## 2. Original $\mathsf{NP}$-Complete Puzzle Candidates (Team Discussion & Design)
+## 2. Candidate Progression — Final Puzzle and Four Archived Markers (Team Discussion & Design)
 
 ### Candidate 1: "Carpets" — Floor Repair & Target Multiplicity Puzzle
 - **Rules**: On an $N \times M$ grid of tiles $G$, each tile $t$ has either no target or a required target multiplicity $v(t) \in \mathbb{N}$ (representing damaged floor areas needing reinforcement). Players select a subcollection of grid-aligned carpets $B \subseteq \mathcal{C}$ such that:
@@ -30,10 +32,10 @@ During our Week 5–7 deep-dive into computational complexity theory, our team m
 - **Variations Supported**: Cylindrical / Toroidal boundary wrapping (ringworld) and wall barriers ($v(t) = 0$).
 - **Deterministic Verifier**: Evaluates multiset multiplicities, coverage, and unique cover existence in $O(|B| \cdot |S| + NM)$ time.
 
-### Candidate 2: "Hearts" // "Microbes" — Vital Organ Non-Overlap Puzzle
+### Candidate 2 — Final: "Hearts" // "Microbes" (Grid-Organ) — Vital Organ Non-Overlap Puzzle
 - **Rules**: On an $N \times M$ grid $G$, we are given a collection $\mathcal{C}$ of blobs (connected tiles). Each blob $A \in \mathcal{C}$ possesses body tiles $T(A)$ and a designated non-empty subset of **Vital Organs** $O(A) \subseteq T(A)$ (marked with ❤️).
 - **Core Invariant**: Blobs may freely overlap on their standard body tissue, **BUT the vital organs of blob $A$ cannot overlap with ANY part of another blob $B$**:
-  $$\forall A, B \in B, A \neq B \implies O(A) \cap T(B) = \emptyset$$
+  $$\forall A, A' \in B,\ A \neq A' \implies O(A) \cap T(A') = \emptyset$$
 - **Variations Supported**: Tetris-inspired stacked colonies (dual intersection graph connectivity) and coverage quota satisfaction.
 - **Deterministic Verifier**: Checks pairwise organ collisions and tile quotas in $O(|B|^2 \cdot |T|)$ polynomial operations.
 
