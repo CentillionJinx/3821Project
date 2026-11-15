@@ -44,11 +44,25 @@ export type TabId =
   | 'figures';
 
 const MARKERS: Record<string, { index: string; name: string }> = {
-  'cand-carpets': { index: '01', name: '“Carpets” Floor' },
+  'cand-carpets': { index: '01', name: 'Carpets Floor' },
   'cand-microbes': { index: '02', name: 'Grid-Organ (Hearts)' },
   'cand-insurgency': { index: '03', name: 'Quell Insurgency' },
   'cand-xor': { index: '04', name: 'XOR Squares' },
   'cand-dungeon': { index: '05', name: '3-SAT Trap Dungeon' },
+};
+
+const VIEW_META: Record<TabId, string> = {
+  'cand-conundrum': 'Colouring Conundrum',
+  'cand-carpets': 'Carpets Floor',
+  'cand-microbes': 'Grid-Organ (Hearts)',
+  'cand-insurgency': 'Quell Insurgency',
+  'cand-xor': 'XOR Squares',
+  'cand-dungeon': '3-SAT Trap Dungeon',
+  citation: 'Researched Topics',
+  review: 'Progression Review',
+  bonus: 'Bonus Research',
+  platform: 'Web Platform',
+  figures: 'Grid Figure Studio',
 };
 
 export function App() {
@@ -98,7 +112,7 @@ export function App() {
         </div>
 
         <p className="header-subtitle">
-          Designing, Proving, and Verifying Original NP-complete Algorithmic Puzzles
+          Original NP-complete puzzles and verifiers.
         </p>
 
         {/* Global Explanation Mode Toggle */}
@@ -144,8 +158,8 @@ export function App() {
           >
             <Layers size={18} className="tab-icon text-blue" />
             <div className="tab-text-col">
-              <span>01 &middot; &ldquo;Carpets&rdquo; Floor</span>
-              <small>Multiplicity &amp; Unique Cover</small>
+              <span>01 &middot; Carpets Floor</span>
+              <small>Multiplicity and unique cover</small>
             </div>
           </button>
 
@@ -156,7 +170,7 @@ export function App() {
             <Heart size={18} className="tab-icon text-rose" />
             <div className="tab-text-col">
               <span>02 &middot; Grid-Organ (Hearts)</span>
-              <small>Vital Organ Non-Overlap</small>
+              <small>Vital organ non-overlap</small>
             </div>
           </button>
 
@@ -167,7 +181,7 @@ export function App() {
             <ShieldAlert size={18} className="tab-icon text-amber" />
             <div className="tab-text-col">
               <span>03 &middot; Quell Insurgency</span>
-              <small>Firefighter Hex/Graph</small>
+              <small>Firefighter on a hex graph</small>
             </div>
           </button>
 
@@ -178,7 +192,7 @@ export function App() {
             <Square size={18} className="tab-icon text-teal" />
             <div className="tab-text-col">
               <span>04 &middot; XOR Squares</span>
-              <small>Parity Modulo-2 Overlaps</small>
+              <small>Parity over overlaps</small>
             </div>
           </button>
 
@@ -189,7 +203,7 @@ export function App() {
             <Route size={18} className="tab-icon" />
             <div className="tab-text-col">
               <span>05 &middot; 3-SAT Trap Dungeon</span>
-              <small>Spatial Trap DAG</small>
+              <small>Spatial trap graph</small>
             </div>
           </button>
 
@@ -317,12 +331,8 @@ export function App() {
           <div className="viewport-title-row">
             <div>
               <h2 className="viewport-main-title">
-                One Puzzle Remains: <span className="title-gold-underline">Colouring Conundrum</span>
+                <span className="title-gold-underline">{VIEW_META[activeTab]}</span>
               </h2>
-              <p className="viewport-tagline">
-                Five candidate gadgets, one final rule — three colours, one local corner rule, and an
-                exact verifier you can run in a single pass.
-              </p>
             </div>
           </div>
         </header>
@@ -335,12 +345,12 @@ export function App() {
               </span>
               <span className="marker-ribbon-title">{activeMarker.name}</span>
               <span className="marker-ribbon-note">
-                Archived exploration, kept for the record. The final puzzle is the Colouring Conundrum.
+                Earlier candidate, kept for reference.
               </span>
             </div>
             <button className="neu-btn" onClick={() => setActiveTab('cand-conundrum')}>
               <Palette size={14} className="text-teal" />
-              <span>Back to the final</span>
+              <span>Back to final</span>
               <ArrowRight size={14} />
             </button>
           </div>

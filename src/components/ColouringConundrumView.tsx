@@ -58,9 +58,9 @@ const MARKERS: {
   {
     tab: 'cand-carpets',
     index: '01',
-    name: '“Carpets” Floor',
+    name: 'Carpets Floor',
     rule: 'Multiplicity and unique cover',
-    note: 'Counting stayed local, but the gadget never locked hard enough to carry a reduction.',
+    note: 'Counting was local, but the gadget did not force a reduction.',
     icon: <Layers size={17} className="text-blue" />,
   },
   {
@@ -68,7 +68,7 @@ const MARKERS: {
     index: '02',
     name: 'Grid-Organ (Hearts)',
     rule: 'Vital organ non-overlap',
-    note: 'A local invariant we liked — but the board itself did not carry the formula.',
+    note: 'The invariant was local, but the board did not encode the formula.',
     icon: <Heart size={17} className="text-rose" />,
   },
   {
@@ -76,23 +76,23 @@ const MARKERS: {
     index: '03',
     name: 'Quell Insurgency',
     rule: 'Firefighter on a hex graph',
-    note: 'A global spreading process swamped the witness; verification stopped feeling like a check.',
+    note: 'The spread was global, which made verification expensive.',
     icon: <ShieldAlert size={17} className="text-amber" />,
   },
   {
     tab: 'cand-xor',
     index: '04',
     name: 'XOR Squares',
-    rule: 'Parity over modulo-2 overlaps',
-    note: 'Parity is a global sum. The final invariant had to stay a local, four-cell lock.',
+    rule: 'Parity over overlaps',
+    note: 'Parity is a global sum; the invariant needed to stay local.',
     icon: <Square size={17} className="text-teal" />,
   },
   {
     tab: 'cand-dungeon',
     index: '05',
     name: '3-SAT Trap Dungeon',
-    rule: 'Spatial trap DAG',
-    note: 'The DAG did the hard work. We wanted the board itself to carry the hardness.',
+    rule: 'Spatial trap graph',
+    note: 'The graph carried the hardness, not the board.',
     icon: <Route size={17} className="text-rose" />,
   },
 ];
@@ -126,28 +126,28 @@ const GADGETS = [
 
 const FUTURE = [
   {
-    title: 'Close the layout proof',
-    body: 'Place G1–G4 on one planar grid with no accidental clues, bound the board size polynomially, and write the case analysis.',
+    title: 'Finish the layout proof',
+    body: 'Place G1–G4 on one planar grid with no extra clues, bound the board size, and write the case analysis.',
     icon: <Microscope size={17} className="text-teal" />,
   },
   {
-    title: 'Map the boundary',
-    body: 'Two-colour boards, four-colour boards, hex and toroidal grids. Find the smallest instance that is still hard and the largest that is easy.',
+    title: 'Other grid shapes',
+    body: 'Try two-colour boards, four-colour boards, hex grids, and toroidal grids. Find the smallest hard instance and the largest easy one.',
     icon: <GitBranch size={17} className="text-blue" />,
   },
   {
-    title: 'Solve it exactly',
-    body: 'SAT and ILP encodings, FPT in the number of clues or regions, and an approximation ratio when the board is over-constrained.',
+    title: 'Exact solvers',
+    body: 'SAT and ILP encodings, FPT in the number of clues or regions, and an approximation ratio for over-constrained boards.',
     icon: <Braces size={17} className="text-amber" />,
   },
   {
-    title: 'Prove it without showing it',
-    body: 'Commit to a colouring, then prove the corner counts without revealing the colours. The zero-knowledge bonus, rebuilt on the final rule.',
+    title: 'Zero-knowledge proofs',
+    body: 'Commit to a colouring, then prove the corner counts without revealing the colours.',
     icon: <ShieldAlert size={17} className="text-rose" />,
   },
   {
-    title: 'Widen the generator',
-    body: 'Batch instances, colour-blind palettes, accessible clue labels, and a TSV/JSON exporter so one board can feed every surface.',
+    title: 'Extend the generator',
+    body: 'Batch instances, colour-blind palettes, accessible clue labels, and a TSV/JSON export.',
     icon: <Sparkles size={17} className="text-blue" />,
   },
 ];
@@ -191,7 +191,7 @@ export const ColouringConundrumView: React.FC<Props> = ({ explainMode, onNavigat
 
   const colourRegion = (id: string) => {
     if (preset.fixed[id] != null) {
-      setNotice(`${regionLabel(preset, id)} is a fixed anchor and cannot be repainted.`);
+      setNotice(`${regionLabel(preset, id)} is fixed and cannot be changed.`);
       setNoticeKind('warn');
       return;
     }
@@ -203,33 +203,33 @@ export const ColouringConundrumView: React.FC<Props> = ({ explainMode, onNavigat
   const loadOracle = () => {
     const solution = solutionAssignment(preset);
     if (!solution) {
-      setNotice('This board is deliberately contradictory — there is no witness to load.');
+      setNotice('This board has no valid colouring.');
       setNoticeKind('warn');
       return;
     }
     setAssignment(solution);
-    setNotice('Loaded the planted witness. Every corner should now agree.');
+    setNotice('Loaded the solution.');
     setNoticeKind('info');
   };
 
   const resetBoard = () => {
     setAssignment(resetAssignment(preset));
-    setNotice('Cleared every free region. Fixed anchors stay put.');
+    setNotice('Cleared free regions.');
     setNoticeKind('info');
   };
 
   const verdictTone = verification.isValid ? 'ok' : verification.isComplete ? 'bad' : 'pending';
   const verdictHeading = verification.isValid
-    ? 'ACCEPT — all corner clues hold'
+    ? 'ACCEPT — all clues hold'
     : verification.isComplete
-      ? `REJECT — ${verification.violations} corner clue${verification.violations === 1 ? ' disagrees' : 's disagree'}`
+      ? `REJECT — ${verification.violations} clue${verification.violations === 1 ? ' disagrees' : 's disagree'}`
       : `INCOMPLETE — ${verification.totalRegions - verification.assignedRegions} region${
           verification.totalRegions - verification.assignedRegions === 1 ? '' : 's'
         } uncoloured`;
 
   const firstViolation = verification.clues.find((report) => report.complete && !report.ok);
   const verdictText = verification.isValid
-    ? 'The colouring is a certificate: four region lookups per clue, no search, no hidden work.'
+    ? 'All clues and fixed anchors check out.'
     : verification.isComplete && firstViolation
       ? `At (${firstViolation.clue.x}, ${firstViolation.clue.y}) the clue needs ${firstViolation.expected} colour${firstViolation.expected === 1 ? '' : 's'}; the board shows ${firstViolation.distinct}.`
       : 'Pick a colour, then click a region. Fixed anchors are already locked; the clue badges update as you paint.';
@@ -242,20 +242,14 @@ export const ColouringConundrumView: React.FC<Props> = ({ explainMode, onNavigat
           <Palette size={32} className="text-teal" />
         </div>
         <div className="edu-hero-text">
-          <div className="edu-hero-badge-row">
-            <span className="edu-hero-badge">Final puzzle · the one kept</span>
-            <span className="edu-hero-badge blue">3 colours · 1 corner rule</span>
-            <span className="edu-hero-badge teal">Exact O(|C| + |R|) verifier</span>
-            <span className="edu-hero-badge amber">Playable board</span>
-          </div>
-          <h2 className="edu-hero-title">Colouring Conundrum — three colours, one local rule.</h2>
+          <h2 className="edu-hero-title">Colouring Conundrum</h2>
           <p className="edu-hero-summary">
             {explainMode === 'layman' ? (
               <>
-                <strong>Layman version.</strong> The board is cut into regions. Give every region one of
-                three colours. At each circled corner, the clue says how many <em>different</em> colours
-                meet there, minus one: 0 means one colour, 1 means two, 2 means three. Neighbours may match —
-                the corner is the only rule. Paint the board so every clue is exact.
+                <strong>Layman version.</strong> Each region gets one of three colours. A circled clue
+                at a corner gives the number of different colours there, minus one: 0 means one colour,
+                1 means two, 2 means three. Adjacent regions may share a colour. Paint the board so every
+                clue is exact.
               </>
             ) : (
               <>
@@ -264,8 +258,7 @@ export const ColouringConundrumView: React.FC<Props> = ({ explainMode, onNavigat
                 <em>d(c) ∈ &#123;0,1,2&#125;</em> at selected interior corners, find{' '}
                 <em>χ: R → &#123;0,1,2&#125;</em> extending <em>χ₀</em> such that{' '}
                 <em>|&#123;χ(ρ(u)) : u ∈ N(c)&#125;| = d(c) + 1</em> for every clue corner <em>c</em>.
-                The verifier reads four region colours per clue and runs in{' '}
-                <em>O(|C| + |R|)</em> time.
+                The verifier checks four regions per clue in <em>O(|C| + |R|)</em> time.
               </>
             )}
           </p>
@@ -284,23 +277,21 @@ export const ColouringConundrumView: React.FC<Props> = ({ explainMode, onNavigat
         </div>
         <div className="final-claim">
           <span className="final-claim-value">O(|C| + |R|)</span>
-          <span className="final-claim-label">verifier, one pass</span>
+          <span className="final-claim-label">verification time</span>
         </div>
         <div className="final-claim">
           <span className="final-claim-value">5</span>
-          <span className="final-claim-label">candidate markers</span>
+          <span className="final-claim-label">earlier candidates</span>
         </div>
       </div>
 
       {/* ================= BOARD ================= */}
       <section className="final-section">
         <div className="final-section-head">
-          <span className="final-kicker">Try the rule before reading the proof</span>
-          <h3 className="final-section-title">Paint the regions. Watch every corner.</h3>
+          <h3 className="final-section-title">Board</h3>
           <p className="final-section-lede">
-            A clue <em>d</em> is an exact count of distinct colours, not an adjacency rule. A boundary 0
-            means two different regions deliberately share a colour. That is the move ordinary map
-            colouring forbids, and it is the move this puzzle is built on.
+            A clue counts distinct colours at a corner. It does not require neighbouring regions to
+            differ: a 0 on a boundary means they may match.
           </p>
         </div>
 
@@ -336,7 +327,7 @@ export const ColouringConundrumView: React.FC<Props> = ({ explainMode, onNavigat
                     title="Load the planted colouring"
                   >
                     <Sparkles size={14} />
-                    <span>Oracle</span>
+                    <span>Load solution</span>
                   </button>
                   <button className="neu-btn" onClick={resetBoard} title="Clear free regions">
                     <RotateCcw size={14} />
@@ -558,10 +549,9 @@ export const ColouringConundrumView: React.FC<Props> = ({ explainMode, onNavigat
               </div>
 
               <p className="hint-text conundrum-board-hint">
-                Click a region to paint it with the selected colour, or focus it and press Enter.
-                Faint tints are identity only — painting replaces them with one of the three solid
-                colours. <strong>Oracle</strong> loads the planted witness; <strong>Reset</strong> clears
-                every free region. Fixed anchors carry a small <em>FIXED</em> mark.
+                Click a region to paint it, or focus it and press Enter. Faint tints are unpainted
+                regions. <strong>Load solution</strong> fills in the answer; <strong>Reset</strong> clears free
+                regions. Fixed regions are marked <em>FIXED</em>.
               </p>
             </div>
           </div>
@@ -659,20 +649,17 @@ export const ColouringConundrumView: React.FC<Props> = ({ explainMode, onNavigat
             <div className="card-neu conundrum-rules">
               <div className="card-title-group">
                 <Lock size={17} className="text-amber" />
-                <span className="card-title-text">Three rules, no adjacency clause</span>
+                <span className="card-title-text">Rules</span>
               </div>
               <ol className="conundrum-rule-list">
                 <li>
-                  <strong>One colour per region.</strong> The whole polyomino fills at once; there is no
-                  per-cell colour.
+                  <strong>One colour per region.</strong> The whole region fills at once.
                 </li>
                 <li>
-                  <strong>The corner is the rule.</strong> A clue <code>d</code> means exactly{' '}
-                  <code>d + 1</code> distinct colours among the four cells meeting there.
+                  <strong>A clue <code>d</code> means exactly <code>d + 1</code> colours at that corner.</strong>
                 </li>
                 <li>
-                  <strong>Neighbours may match.</strong> A 0 at a region boundary is legal and useful: it is
-                  an equality edge, not a contradiction.
+                  <strong>Neighbours may share a colour.</strong> A 0 on a boundary is an equality edge.
                 </li>
               </ol>
               <p className="hint-text">{preset.note}</p>
@@ -684,8 +671,7 @@ export const ColouringConundrumView: React.FC<Props> = ({ explainMode, onNavigat
       {/* ================= CONTRACT ================= */}
       <section className="final-section">
         <div className="final-section-head">
-          <span className="final-kicker">The contract</span>
-          <h3 className="final-section-title">Four lookups per clue, one pass, no search.</h3>
+          <h3 className="final-section-title">Verifier</h3>
         </div>
         <div className="final-contract-grid">
           <div className="card-neu final-code-card">
@@ -719,8 +705,8 @@ return ACCEPT`}</pre>
               <code>O(|C| + |R|)</code>
             </div>
             <p className="hint-text">
-              Space <strong>O(|R|)</strong>. The witness is the colouring: a <em>yes</em> answer is
-              checkable without trusting the solver, and a <em>no</em> answer is the hard part.
+              Space <strong>O(|R|)</strong>. The colouring is the witness. A yes answer can be checked
+              without re-solving the board.
             </p>
           </div>
         </div>
@@ -729,12 +715,10 @@ return ACCEPT`}</pre>
       {/* ================= REDUCTION ================= */}
       <section className="final-section">
         <div className="final-section-head">
-          <span className="final-kicker">Why it is hard</span>
-          <h3 className="final-section-title">3-SAT → Colouring Conundrum, in four gadgets.</h3>
+          <h3 className="final-section-title">Reduction from 3-SAT</h3>
           <p className="final-section-lede">
-            The construction is a sketch with a complete argument at gadget level. What remains is the
-            placement case analysis: putting all four gadgets on one planar grid without an accidental
-            corner clue.
+            This is a gadget-level sketch, not a full proof. The remaining step is a planar layout with a
+            polynomial grid bound and no unintended corner clues.
           </p>
         </div>
         <div className="final-gadget-grid conundrum-gadget-grid">
@@ -751,7 +735,7 @@ return ACCEPT`}</pre>
         </div>
         <div className="final-proof-grid">
           <div className="final-proof">
-            <span className="final-proof-tag">Forward · a satisfying assignment gives a colouring</span>
+            <span className="final-proof-tag">Forward direction</span>
             <p>
               Colour each variable gadget by its truth value, then carry that colour along the equality
               wires. At every clause junction, colour the junction from one satisfied literal. A clue-2
@@ -760,7 +744,7 @@ return ACCEPT`}</pre>
             </p>
           </div>
           <div className="final-proof">
-            <span className="final-proof-tag">Backward · a colouring gives a satisfying assignment</span>
+            <span className="final-proof-tag">Backward direction</span>
             <p>
               Read each truth bank: the three-way corner gives <em>x</em> and <em>¬x</em> opposite
               readings. Equality wires preserve those readings across the board. At each clause junction,
@@ -772,9 +756,9 @@ return ACCEPT`}</pre>
         <div className="final-open-note">
           <CircleHelp size={17} className="text-amber" />
           <span>
-            <strong>Open item, stated plainly:</strong> the gadget argument is not yet a full reduction.
-            The missing step is a planar layout with a polynomial grid bound and a proof that no unintended
-            corner clue appears. That is the next piece of work, not a footnote.
+            <strong>Open item:</strong> the gadget argument is not yet a full reduction. The missing step
+            is a planar layout with a polynomial grid bound and a proof that no unintended corner clue
+            appears.
           </span>
         </div>
       </section>
@@ -782,11 +766,9 @@ return ACCEPT`}</pre>
       {/* ================= MARKERS ================= */}
       <section className="final-section">
         <div className="final-section-head">
-          <span className="final-kicker">How we got here</span>
-          <h3 className="final-section-title">Five markers, one final rule.</h3>
+          <h3 className="final-section-title">Earlier candidates</h3>
           <p className="final-section-lede">
-            The earlier candidates are kept as progression markers: each one taught us which constraint we
-            did not want. They are not competing proposals any more.
+            Kept for reference. They are not competing proposals.
           </p>
         </div>
         <div className="final-marker-grid conundrum-marker-grid">
@@ -804,7 +786,7 @@ return ACCEPT`}</pre>
               <span className="final-marker-rule">{marker.rule}</span>
               <p>{marker.note}</p>
               <span className="final-marker-link">
-                Open marker <ArrowRight size={12} />
+                Open <ArrowRight size={12} />
               </span>
             </button>
           ))}
@@ -814,8 +796,7 @@ return ACCEPT`}</pre>
       {/* ================= FUTURE ================= */}
       <section className="final-section">
         <div className="final-section-head">
-          <span className="final-kicker">Future work</span>
-          <h3 className="final-section-title">What we would do with another month.</h3>
+          <h3 className="final-section-title">Future work</h3>
         </div>
         <div className="final-future-grid conundrum-future-grid">
           {FUTURE.map((item) => (
@@ -834,36 +815,33 @@ return ACCEPT`}</pre>
       {/* ================= YOUR TURN ================= */}
       <section className="final-section">
         <div className="final-section-head">
-          <span className="final-kicker">Your turn</span>
-          <h3 className="final-section-title">Four ways to push on the final puzzle.</h3>
+          <h3 className="final-section-title">Exercises</h3>
         </div>
         <ol className="final-prompt-list conundrum-prompt-list">
           <li>
             <span className="final-prompt-num">1</span>
             <span>
-              <strong>Beat the board.</strong> Solve Four Corners without the oracle. Then load the witness
-              and compare your colouring with the planted one.
+              Solve Four Corners without loading the solution, then compare your colouring with it.
             </span>
           </li>
           <li>
             <span className="final-prompt-num">2</span>
             <span>
-              <strong>Break a rule.</strong> Find a board where two neighbouring regions must share a
-              colour, or prove that no such board exists under all the corner clues.
+              Find a board where two neighbouring regions must share a colour, or prove that none exists.
             </span>
           </li>
           <li>
             <span className="final-prompt-num">3</span>
             <span>
-              <strong>Find an easy island.</strong> Name a polynomial special case — a tree of regions, one
-              clue per region, or two colours only — and prove it.
+              Name a polynomial special case — a tree of regions, one clue per region, or two colours only —
+              and prove it.
             </span>
           </li>
           <li>
             <span className="final-prompt-num">4</span>
             <span>
-              <strong>Break the check.</strong> Produce a colouring the verifier accepts that violates the
-              intended reduction, or explain why no such colouring can exist.
+              Try to produce a colouring the verifier accepts that violates the intended reduction, or explain
+              why none can exist.
             </span>
           </li>
         </ol>
@@ -872,8 +850,7 @@ return ACCEPT`}</pre>
       <div className="final-open-note conundrum-endnote">
         <Trophy size={17} className="text-amber" />
         <span>
-          <strong>One board, one verifier.</strong> The colouring is the whole certificate: no hidden
-          solver, no witness tape, no second phase. The Clue badges are the only authority.
+          The verifier checks only the fixed anchors and the corner clues.
         </span>
       </div>
     </div>

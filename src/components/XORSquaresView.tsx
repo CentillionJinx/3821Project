@@ -58,19 +58,12 @@ export const XORSquaresView: React.FC<Props> = ({ explainMode }) => {
           <Square size={32} />
         </div>
         <div className="edu-hero-text">
-          <div className="edu-hero-badge-row">
-            <span className="edu-hero-badge">Original NP-Complete Puzzle Candidate</span>
-            <span className="edu-hero-badge blue">Overlapping Square Parity Grid</span>
-            <span className="edu-hero-badge teal">{activePreset.badge}</span>
-          </div>
-          <h2 className="edu-hero-title">XOR Squares (Parity &amp; Overlap Gadgets)</h2>
+          <h2 className="edu-hero-title">XOR Squares</h2>
           <p className="edu-hero-summary">
             {explainMode === 'layman' ? (
               <>
-                <strong>Layman Explanation:</strong> Think of this like placing translucent colored sheets on a light board.
-                When an <strong>odd</strong> number of sheets cover a square, it glows cyan (1); when an <strong>even</strong> number
-                cover it, they cancel out to dark (0). Variable gadgets use overlapping sheets to force you to pick either True or False
-                (never both!), and clause squares ensure at least one true statement powers each clause!
+                <strong>Layman version.</strong> Choose squares so that every cell is covered an odd or even
+                number of times, as marked. Overlapping squares let you build true/false choices and clauses.
               </>
             ) : (
               <>
@@ -89,7 +82,7 @@ export const XORSquaresView: React.FC<Props> = ({ explainMode }) => {
         <div className="card-header-row">
           <div className="card-title-group">
             <Sparkles size={18} className="text-amber" />
-            <span className="card-title-text">Select Puzzle Instance / Gadget Preset</span>
+            <span className="card-title-text">Preset</span>
           </div>
         </div>
         <div className="preset-pill-row">
@@ -121,11 +114,11 @@ export const XORSquaresView: React.FC<Props> = ({ explainMode }) => {
               <div className="btn-group">
                 <button className="neu-btn" onClick={handleLoadWitness} title="Load verified solution">
                   <Sparkles size={14} />
-                  <span>Oracle Witness</span>
+                  <span>Load solution</span>
                 </button>
                 <button className="neu-btn" onClick={handleReset} title="Clear all selections">
                   <RotateCcw size={14} />
-                  <span>Clear All</span>
+                  <span>Clear</span>
                 </button>
               </div>
             </div>
@@ -181,7 +174,7 @@ export const XORSquaresView: React.FC<Props> = ({ explainMode }) => {
             <div style={{ marginTop: '16px' }}>
               <div className="section-subtitle-row">
                 <span className="section-subtitle">
-                  Available Candidate Squares (|S| = {activePreset.candidateSquares.length})
+                  Available squares (|S| = {activePreset.candidateSquares.length})
                 </span>
                 <span className="text-muted text-xs">
                   {selectedSquareIds.length} of {activePreset.candidateSquares.length} active
@@ -226,7 +219,7 @@ export const XORSquaresView: React.FC<Props> = ({ explainMode }) => {
             <div className="card-header-row">
               <div className="card-title-group">
                 <Zap size={18} className="text-teal" />
-                <span className="card-title-text">Polynomial-Time Verifier Engine</span>
+                <span className="card-title-text">Verifier</span>
               </div>
               <span className="complexity-tag">O(W &middot; H + |S|)</span>
             </div>
@@ -242,12 +235,12 @@ export const XORSquaresView: React.FC<Props> = ({ explainMode }) => {
                 <div>
                   <h4 className="verdict-heading">
                     {verification.isValid
-                      ? 'ACCEPT — Valid Certificate Verified'
-                      : 'REJECT — Parity Constraints Violated'}
+                      ? 'ACCEPT — parity holds'
+                      : 'REJECT — parity violated'}
                   </h4>
                   <p className="verdict-subtext">
                     {verification.isValid
-                      ? 'All target cells satisfy their modulo-2 parity requirements exactly.'
+                      ? 'Every target cell has the required parity.'
                       : `${verification.violatedConstraints.length} constraint(s) failed.`}
                   </p>
                 </div>
@@ -284,7 +277,7 @@ export const XORSquaresView: React.FC<Props> = ({ explainMode }) => {
             {/* Violation Trace */}
             {verification.violatedConstraints.length > 0 && (
               <div className="violations-list" style={{ marginTop: '14px' }}>
-                <span className="section-subtitle">Failed Parity Constraints:</span>
+                <span className="section-subtitle">Failed constraints:</span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '6px' }}>
                   {verification.violatedConstraints.map((v, idx) => (
                     <div

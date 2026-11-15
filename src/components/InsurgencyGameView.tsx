@@ -122,19 +122,13 @@ export const InsurgencyGameView: React.FC<Props> = ({ explainMode }) => {
           <ShieldAlert size={32} className="text-amber" />
         </div>
         <div className="edu-hero-text">
-          <div className="edu-hero-badge-row">
-            <span className="edu-hero-badge">Team Discussion Original Candidate</span>
-            <span className="edu-hero-badge blue">Firefighter NP-Hard Variant</span>
-            <span className="edu-hero-badge teal">{activePreset.badge}</span>
-          </div>
-          <h2 className="edu-hero-title">&ldquo;Quell the Insurgency&rdquo; &mdash; Dictator vs Insurgent Outbreak</h2>
+          <h2 className="edu-hero-title">Quell Insurgency</h2>
           <p className="edu-hero-summary">
             {explainMode === 'layman' ? (
               <>
-                <strong>Layman Overview:</strong> You are a dictator quelling an armed rebellion. Each day, insurgent cells
-                (weight 2) spread influence to neighbours (+1 weight). Deploy your army (weight -1) to strategic sectors:
-                your presence not only pacifies that sector permanently, but shockwaves adjacent low-level agitators (w &le; 1)
-                back to 0! Can you keep total unrest below {activePreset.targetMaxWeight} after {activePreset.totalDays} days?
+                <strong>Layman version.</strong> Unrest spreads across a hex map each day. Place one
+                firefighter per day; it calms its own tile and pushes back adjacent unrest. Keep the total
+                below {activePreset.targetMaxWeight} after {activePreset.totalDays} days.
               </>
             ) : (
               <>
@@ -152,7 +146,7 @@ export const InsurgencyGameView: React.FC<Props> = ({ explainMode }) => {
         <div className="card-header-row">
           <div className="card-title-group">
             <Sparkles size={18} className="text-amber" />
-            <span className="card-title-text">Select Insurgency Map / Scenario</span>
+            <span className="card-title-text">Preset</span>
           </div>
         </div>
         <div className="preset-pill-row">
@@ -307,17 +301,17 @@ export const InsurgencyGameView: React.FC<Props> = ({ explainMode }) => {
                 <div>
                   <h4 className="verdict-heading">
                     {!isGameOver
-                      ? `Day ${currentDay} In Progress...`
+                      ? `Day ${currentDay}`
                       : isWon
-                      ? 'VICTORY — Insurgency Successfully Quelled!'
-                      : 'DEFEAT — Insurgency Out of Control!'}
+                      ? 'VICTORY — unrest contained'
+                      : 'DEFEAT — unrest too high'}
                   </h4>
                   <p className="verdict-subtext">
                     {!isGameOver
-                      ? `Deploy your army to suppress unrest. ${activePreset.totalDays - currentDay} day(s) remain.`
+                      ? `Place a firefighter. ${activePreset.totalDays - currentDay} day(s) remain.`
                       : isWon
-                      ? `Total unrest is ${currentTotalWeight} &le; ${activePreset.targetMaxWeight}. Order restored!`
-                      : `Total unrest reached ${currentTotalWeight} > ${activePreset.targetMaxWeight}.`}
+                      ? `Total unrest is ${currentTotalWeight}, within the target.`
+                      : `Total unrest is ${currentTotalWeight}, above the target.`}
                   </p>
                 </div>
               </div>
@@ -354,7 +348,7 @@ export const InsurgencyGameView: React.FC<Props> = ({ explainMode }) => {
 
             {/* Day by Day Log */}
             <div style={{ marginTop: '14px' }}>
-              <span className="section-subtitle">Turn-by-Turn Operational Log:</span>
+              <span className="section-subtitle">Event log:</span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '6px', maxHeight: '180px', overflowY: 'auto' }}>
                 {records.length === 0 ? (
                   <span className="text-muted text-xs">No days simulated yet. Deploy army to begin Day 1.</span>

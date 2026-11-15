@@ -20,24 +20,17 @@ export const WebPlatformView: React.FC<Props> = ({ explainMode }) => {
           <Cpu size={32} />
         </div>
         <div className="edu-hero-text">
-          <div className="edu-hero-badge-row">
-            <span className="edu-hero-badge">System Architecture</span>
-            <span className="edu-hero-badge blue">Client-Side Runtime Engine</span>
-            <span className="edu-hero-badge teal">PWA &bull; React 19 &bull; TypeScript 5.8</span>
-          </div>
-          <h2 className="edu-hero-title">Interactive Web Platform &amp; Verifier Pipeline</h2>
+          <h2 className="edu-hero-title">Web Platform</h2>
           <p className="edu-hero-summary">
             {explainMode === 'layman' ? (
               <>
-                <strong>Layman Overview:</strong> How our app works under the hood! Every time you click or place a token,
-                an ultra-fast deterministic algorithm runs right in your browser to verify whether your solution is valid
-                in less than a millisecond. No slow cloud servers needed!
+                <strong>Layman version.</strong> The app runs in the browser. Each move is checked by a
+                deterministic verifier in the client.
               </>
             ) : (
               <>
-                <strong>System Engineering Architecture:</strong> Technical specification of the client-side execution environment:
-                immutable frontend state machine &Sigma;, deterministic polynomial-time verifier pipeline,
-                and polynomial reduction compilers (3-SAT &le;_p X).
+                <strong>System architecture:</strong> React 19 and TypeScript, client-side state, a
+                deterministic polynomial-time verifier, and no server calls.
               </>
             )}
           </p>
@@ -52,7 +45,7 @@ export const WebPlatformView: React.FC<Props> = ({ explainMode }) => {
             <div className="card-header-row">
               <div className="card-title-group">
                 <Layers size={18} className="text-teal" />
-                <span className="card-title-text">5.1 Frontend State Machine &amp; Dual Rendering Engine</span>
+                <span className="card-title-text">5.1 Frontend state machine</span>
               </div>
             </div>
 
@@ -81,7 +74,7 @@ export const WebPlatformView: React.FC<Props> = ({ explainMode }) => {
             <div className="card-header-row">
               <div className="card-title-group">
                 <Zap size={18} className="text-amber" />
-                <span className="card-title-text">5.2 Client-Side Polynomial-Time Verifier Pipeline</span>
+                <span className="card-title-text">5.2 Client-side verifier</span>
               </div>
             </div>
 
@@ -119,7 +112,7 @@ export const WebPlatformView: React.FC<Props> = ({ explainMode }) => {
             <div className="card-header-row">
               <div className="card-title-group">
                 <Code2 size={18} className="text-blue" />
-                <span className="card-title-text">5.3 Dynamic 3-SAT Compilation Pipeline</span>
+                <span className="card-title-text">5.3 3-SAT compilation</span>
               </div>
             </div>
 
@@ -138,7 +131,7 @@ export const WebPlatformView: React.FC<Props> = ({ explainMode }) => {
                 or rooms connected to the variable literal tracks.
               </div>
               <div style={{ padding: '10px 12px', background: 'var(--bg-elevated)', border: '1.5px solid var(--border-gold-soft)', borderRadius: '6px' }}>
-                <strong style={{ color: 'var(--text-primary)' }}>3. Oracle Witness Solver (Backtracking DPLL):</strong> A client-side
+                <strong style={{ color: 'var(--text-primary)' }}>3. Load solution Solver (Backtracking DPLL):</strong> A client-side
                 SAT oracle searches the 2^n assignment tree to synthesize verified winning paths for demonstration.
               </div>
             </div>

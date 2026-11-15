@@ -31,7 +31,7 @@ const PRESETS: Preset[] = [
     id: 'poster',
     name: 'Poster board',
     badge: '6 × 3',
-    note: 'The exact figure used on the presentation poster: two overlapping polyominoes, both vital organs protected, one legally shared body tile.',
+    note: 'A worked example: two overlapping polyominoes, both organs protected, one shared body tile.',
     source: board([
       ['.', 'A', '.', 'B', '.', '.'],
       ['A', 'A!♥', 'AB', 'B', 'B!♥', 'B'],
@@ -140,28 +140,18 @@ export const GridFigureView: React.FC<Props> = ({ explainMode }) => {
           <LayoutGrid size={32} className="text-teal" />
         </div>
         <div className="edu-hero-text">
-          <div className="edu-hero-badge-row">
-            <span className="edu-hero-badge">Figure Pipeline</span>
-            <span className="edu-hero-badge blue">grid.py &bull; deterministic slots</span>
-            <span className="edu-hero-badge teal">TSV &rarr; SVG / TikZ</span>
-            <span className="edu-hero-badge amber">Same figure everywhere</span>
-          </div>
-          <h2 className="edu-hero-title">Grid Figure Studio &mdash; one board, every deliverable</h2>
+          <h2 className="edu-hero-title">Grid Figure Studio</h2>
           <p className="edu-hero-summary">
             {explainMode === 'layman' ? (
               <>
-                <strong>Layman Overview:</strong> The report, the poster and this page all show the same
-                discrete grids. Instead of drawing them by hand three times, we describe a board once as a
-                tab-separated grid and generate the picture from it. Edit the board below and watch the
-                figure, the diagnostics and the TikZ source update together.
+                <strong>Layman version.</strong> A board is written once as tab-separated cells. The
+                preview, the SVG, and the TikZ output all come from that one board.
               </>
             ) : (
               <>
-                <strong>Reproducible figure contract:</strong> <code>grid.py</code> parses a TSV board into
-                region cells and corner annotations, assigns colour slots in row-major first-appearance order
-                (slots 0 and 1 are reserved for the literal regions <code>0</code> and <code>1</code>), and
-                emits TikZ, SVG or JSON. This studio mirrors that parser and geometry exactly, so a preview
-                shown here matches the committed poster figure's geometry, colour slots and diagnostics.
+                <strong>Figure pipeline:</strong> <code>grid.py</code> parses a TSV board, assigns colour
+                slots in first-appearance order, and emits TikZ, SVG or JSON. This studio uses the same
+                parser and geometry.
               </>
             )}
           </p>
@@ -364,12 +354,12 @@ export const GridFigureView: React.FC<Props> = ({ explainMode }) => {
         </div>
 
         <p className="hint-text" style={{ marginTop: '12px', marginBottom: '6px' }}>
-          Reproduce the committed poster figure:
+          Reproduce the committed figure:
         </p>
         <code className="studio-cli">python3 update_poster_figure.py</code>
         <p className="hint-text">
           The script renders <code>figures/poster-microbes.tsv</code>, writes the standalone SVG and
-          replaces the inline block in <code>public/poster.html</code>, so the two cannot drift.
+          updates the inline copy, so the two cannot drift.
         </p>
 
         <div className="studio-palette-note">

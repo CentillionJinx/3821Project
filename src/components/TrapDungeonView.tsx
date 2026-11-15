@@ -63,18 +63,13 @@ export const TrapDungeonView: React.FC<Props> = ({ explainMode }) => {
           <Route size={32} />
         </div>
         <div className="edu-hero-text">
-          <div className="edu-hero-badge-row">
-            <span className="edu-hero-badge">Original NP-Complete Puzzle Candidate</span>
-            <span className="edu-hero-badge blue">Directed Trap DAG &amp; Portcullis Traversal</span>
-            <span className="edu-hero-badge teal">{currentTrapPreset.badge}</span>
-          </div>
-          <h2 className="edu-hero-title">3-SAT Trap Dungeon (Switch &amp; Trap Traversal)</h2>
+          <h2 className="edu-hero-title">3-SAT Trap Dungeon</h2>
           <p className="edu-hero-summary">
             {explainMode === 'layman' ? (
               <>
-                <strong>Layman Overview:</strong> Navigate through a dungeon visiting every single room without getting trapped!
-                Entering a room locks it behind you and fires laser triggers to disable other rooms. Variable diamond rooms
-                force you to pick True or False paths to reach the clause exit safely.
+                <strong>Layman version.</strong> Visit every room once without breaking the trap order.
+                Entering a room locks it and may disable another room. Variable rooms force a true/false
+                choice on the way to the exit.
               </>
             ) : (
               <>
@@ -92,7 +87,7 @@ export const TrapDungeonView: React.FC<Props> = ({ explainMode }) => {
         <div className="card-header-row">
           <div className="card-title-group">
             <Sparkles size={18} className="text-amber" />
-            <span className="card-title-text">Select Dungeon Instance / Gadget Preset</span>
+            <span className="card-title-text">Preset</span>
           </div>
         </div>
         <div className="preset-pill-row">
@@ -134,7 +129,7 @@ export const TrapDungeonView: React.FC<Props> = ({ explainMode }) => {
                   onClick={() => setTrapCandidatePath(currentTrapPreset.validWitnessPath)}
                 >
                   <Sparkles size={14} />
-                  <span>Oracle Witness</span>
+                  <span>Load solution</span>
                 </button>
                 <button
                   className="neu-btn"
@@ -284,7 +279,7 @@ export const TrapDungeonView: React.FC<Props> = ({ explainMode }) => {
             <div className="card-header-row">
               <div className="card-title-group">
                 <Zap size={18} className="text-teal" />
-                <span className="card-title-text">Theorem 2 Verifier Pipeline</span>
+                <span className="card-title-text">Verifier</span>
               </div>
               <span className="complexity-tag">O(|V| + |D|)</span>
             </div>
@@ -299,11 +294,11 @@ export const TrapDungeonView: React.FC<Props> = ({ explainMode }) => {
                 )}
                 <div>
                   <h4 className="verdict-heading">
-                    {trapVerification.isValid ? 'ACCEPT — Valid Hamiltonian Path' : 'REJECT — Invalid Traversal'}
+                    {trapVerification.isValid ? 'ACCEPT — valid path' : 'REJECT — invalid path'}
                   </h4>
                   <p className="verdict-subtext">
                     {trapVerification.isValid
-                      ? 'All rooms visited exactly once with zero trap trigger collisions.'
+                      ? 'Every room is visited once, with no trap conflicts.'
                       : trapVerification.failureReason}
                   </p>
                 </div>
@@ -344,7 +339,7 @@ export const TrapDungeonView: React.FC<Props> = ({ explainMode }) => {
 
             {/* Step Trace */}
             <div style={{ marginTop: '14px' }}>
-              <span className="section-subtitle">Sequential Trap Marking Trace:</span>
+              <span className="section-subtitle">Trap trace:</span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '6px', maxHeight: '200px', overflowY: 'auto' }}>
                 {trapVerification.stepTraces.map((st) => (
                   <div
@@ -354,9 +349,9 @@ export const TrapDungeonView: React.FC<Props> = ({ explainMode }) => {
                   >
                     <span>Step {st.stepIndex}: {st.roomLabel} &bull;</span>
                     {st.wasAlreadyTrapped ? (
-                      <span className="text-rose"> Trapped by {st.trappedByEarlierRoom}!</span>
+                      <span className="text-rose"> Trapped by {st.trappedByEarlierRoom}.</span>
                     ) : !st.wasAdjacentToPrev ? (
-                      <span className="text-rose"> Non-adjacent move!</span>
+                      <span className="text-rose"> Move is not adjacent.</span>
                     ) : (
                       <span className="text-teal"> OK</span>
                     )}

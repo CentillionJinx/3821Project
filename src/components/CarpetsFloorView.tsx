@@ -58,19 +58,13 @@ export const CarpetsFloorView: React.FC<Props> = ({ explainMode }) => {
           <Layers size={32} className="text-blue" />
         </div>
         <div className="edu-hero-text">
-          <div className="edu-hero-badge-row">
-            <span className="edu-hero-badge">Team Discussion Original Candidate</span>
-            <span className="edu-hero-badge blue">Grid Multiplicity &amp; Unique Cover</span>
-            <span className="edu-hero-badge teal">{activePreset.badge}</span>
-          </div>
-          <h2 className="edu-hero-title">&ldquo;Carpets&rdquo; &mdash; Floor Repair Multiplicity Puzzle</h2>
+          <h2 className="edu-hero-title">Carpets Floor</h2>
           <p className="edu-hero-summary">
             {explainMode === 'layman' ? (
               <>
-                <strong>Layman Overview:</strong> We get a bunch of grid-aligned carpets and want to cover the grid with them.
-                We don't want to waste carpets, so <strong>each carpet must cover at least one tile uniquely</strong>. Some parts
-                of the floor are damaged, so we want to cover those parts with more carpets (target v(t)). Can you find an arrangement
-                of carpets that covers the floor fully and satisfies our engineers?
+                <strong>Layman version.</strong> Cover the grid with carpets. Each chosen carpet must own at
+                least one tile, and target tiles need the requested overlap count. Can you cover the whole
+                floor and meet those counts?
               </>
             ) : (
               <>
@@ -89,7 +83,7 @@ export const CarpetsFloorView: React.FC<Props> = ({ explainMode }) => {
         <div className="card-header-row">
           <div className="card-title-group">
             <Sparkles size={18} className="text-amber" />
-            <span className="card-title-text">Select Carpets Instance / Variation</span>
+            <span className="card-title-text">Preset</span>
           </div>
         </div>
         <div className="preset-pill-row">
@@ -115,17 +109,17 @@ export const CarpetsFloorView: React.FC<Props> = ({ explainMode }) => {
               <div className="card-title-group">
                 <Layers size={18} className="text-teal" />
                 <span className="card-title-text">
-                  Floor Grid ({activePreset.width} &times; {activePreset.height}) {activePreset.isToroidal ? '&bull; Toroidal Wrap' : ''}
+                  Board ({activePreset.width} &times; {activePreset.height}) {activePreset.isToroidal ? '&bull; Toroidal Wrap' : ''}
                 </span>
               </div>
               <div className="btn-group">
                 <button className="neu-btn" onClick={handleLoadWitness} title="Load satisfying carpet arrangement">
                   <Sparkles size={14} />
-                  <span>Oracle Witness</span>
+                  <span>Load solution</span>
                 </button>
                 <button className="neu-btn" onClick={handleClear} title="Remove all carpets">
                   <RotateCcw size={14} />
-                  <span>Clear All</span>
+                  <span>Clear</span>
                 </button>
               </div>
             </div>
@@ -177,14 +171,14 @@ export const CarpetsFloorView: React.FC<Props> = ({ explainMode }) => {
             </div>
 
             <p className="hint-text" style={{ textAlign: 'center', marginTop: '10px' }}>
-              Numbers show current carpet layers mult(t). Cyan border = Target matched! Red = Multiplicity error.
-              Yellow dashed outline = Uniquely covered tile (satisfies Constraint 3).
+              Numbers show the current carpet count on each tile. Cyan: target met. Red: count error.
+              Yellow dashed: a tile covered by only one carpet.
             </p>
 
             {/* Available Carpets Selector */}
             <div style={{ marginTop: '16px' }}>
               <span className="section-subtitle">
-                Available Carpets (|C| = {activePreset.availableCarpets.length}):
+                Available carpets (|C| = {activePreset.availableCarpets.length}):
               </span>
               <div className="xor-squares-selector-grid" style={{ marginTop: '8px' }}>
                 {activePreset.availableCarpets.map((carpet: CarpetDef) => {
@@ -234,7 +228,7 @@ export const CarpetsFloorView: React.FC<Props> = ({ explainMode }) => {
             <div className="card-header-row">
               <div className="card-title-group">
                 <Zap size={18} className="text-teal" />
-                <span className="card-title-text">Carpets Deterministic Verifier</span>
+                <span className="card-title-text">Verifier</span>
               </div>
               <span className="complexity-tag">O(|B| &middot; |S| + NM)</span>
             </div>
@@ -250,12 +244,12 @@ export const CarpetsFloorView: React.FC<Props> = ({ explainMode }) => {
                 <div>
                   <h4 className="verdict-heading">
                     {verification.isValid
-                      ? 'ACCEPT — Valid Floor Carpet Arrangement'
-                      : 'REJECT — Constraint Violations'}
+                      ? 'ACCEPT — floor covered'
+                      : 'REJECT — constraint violated'}
                   </h4>
                   <p className="verdict-subtext">
                     {verification.isValid
-                      ? 'Whole floor covered, all target multiplicities matched, and every carpet is uniquely utilized!'
+                      ? 'The whole floor is covered and all target counts match.'
                       : !verification.isFullyCovered
                       ? `${verification.uncoveredTiles.length} tile(s) uncovered.`
                       : verification.wastedCarpets.length > 0

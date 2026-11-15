@@ -69,18 +69,12 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode, embedded = fa
           <Heart size={32} className="text-rose" />
         </div>
         <div className="edu-hero-text">
-          <div className="edu-hero-badge-row">
-            <span className="edu-hero-badge">Team Discussion Original Candidate</span>
-            <span className="edu-hero-badge blue">Discrete N &times; M Grid &bull; Connected Polyominoes</span>
-            <span className="edu-hero-badge teal">Vital Organ Non-Overlap Invariant</span>
-            <span className="edu-hero-badge amber">{activePreset.badge}</span>
-          </div>
-          <h2 className="edu-hero-title">&ldquo;Hearts&rdquo; // &ldquo;Microbes&rdquo; &mdash; Grid Polyominoes &amp; Delicate Vital Organs</h2>
+          <h2 className="edu-hero-title">Grid-Organ (Hearts)</h2>
           <p className="edu-hero-summary">
             {explainMode === 'layman' ? (
               <>
-                <strong>Layman Overview:</strong> On a discrete <em>N &times; M</em> tile grid, we have a collection of microbes (connected grid polyominoes) with designated vital organ cells (marked with &hearts;).
-                Microbes can freely overlap on standard body cells, <strong>BUT no microbe can overlap or touch any cell containing another microbe's vital organ!</strong> Can you position the polyominoes to satisfy the grid coverage quota without crushing any vital organs?
+                <strong>Layman version.</strong> Place microbes on the grid. Their bodies may overlap, but
+                no microbe may touch another microbe&apos;s organ. Cover at least k tiles.
               </>
             ) : (
               <>
@@ -97,7 +91,7 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode, embedded = fa
         <div className="card-header-row">
           <div className="card-title-group">
             <Sparkles size={18} className="text-amber" />
-            <span className="card-title-text">Select Microbes Instance</span>
+            <span className="card-title-text">Preset</span>
           </div>
         </div>
         <div className="preset-pill-row">
@@ -123,17 +117,17 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode, embedded = fa
               <div className="card-title-group">
                 <Heart size={18} className="text-rose" />
                 <span className="card-title-text">
-                  Petri Dish Grid ({activePreset.width} &times; {activePreset.height}) &bull; Target Coverage: &ge; {activePreset.targetCoveredTilesMin} tiles
+                  Board ({activePreset.width} &times; {activePreset.height}) &bull; Target Coverage: &ge; {activePreset.targetCoveredTilesMin} tiles
                 </span>
               </div>
               <div className="btn-group">
                 <button className="neu-btn" onClick={handleLoadWitness} title="Load verified non-colliding colony">
                   <Sparkles size={14} />
-                  <span>Oracle Witness</span>
+                  <span>Load solution</span>
                 </button>
                 <button className="neu-btn" onClick={handleClear} title="Clear all microbes">
                   <RotateCcw size={14} />
-                  <span>Clear All</span>
+                  <span>Clear</span>
                 </button>
               </div>
             </div>
@@ -194,14 +188,14 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode, embedded = fa
             </div>
 
             <p className="hint-text" style={{ textAlign: 'center', marginTop: '10px' }}>
-              Microbes are 4-connected grid polyominoes on &Zopf;&sup2;. They can freely overlap on regular body cells. But if another microbe touches a Vital Organ (❤️),
-              it triggers an immediate pulsing red collision failure!
+              Microbes may overlap on body cells. No microbe may touch another microbe&apos;s organ.
+              A collision turns the organ red.
             </p>
 
             {/* Available Blobs Selector */}
             <div style={{ marginTop: '16px' }}>
               <span className="section-subtitle">
-                Available Connected Polyominoes (|C| = {activePreset.availableBlobs.length}):
+                Available microbes (|C| = {activePreset.availableBlobs.length}):
               </span>
               <div className="xor-squares-selector-grid" style={{ marginTop: '8px' }}>
                 {activePreset.availableBlobs.map((blob: MicrobeBlob) => {
@@ -250,7 +244,7 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode, embedded = fa
             <div className="card-header-row">
               <div className="card-title-group">
                 <Zap size={18} className="text-teal" />
-                <span className="card-title-text">Organ Non-Overlap Verifier</span>
+                <span className="card-title-text">Verifier</span>
               </div>
               <span className="complexity-tag">O(|B|&sup2; &middot; |T|)</span>
             </div>
@@ -266,14 +260,14 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode, embedded = fa
                 <div>
                   <h4 className="verdict-heading">
                     {verification.isValid
-                      ? 'ACCEPT — All Vital Organs Protected'
-                      : 'REJECT — Organ Collision Detected!'}
+                      ? 'ACCEPT — organs protected'
+                      : 'REJECT — organ collision'}
                   </h4>
                   <p className="verdict-subtext">
                     {verification.isValid
-                      ? 'Every vital organ is 100% free of external tile overlap, and coverage quota is satisfied.'
+                      ? 'No organ overlap, and the coverage quota is met.'
                       : verification.organCollisions.length > 0
-                      ? `${verification.organCollisions.length} vital organ(s) crushed by another microbe!`
+                      ? `${verification.organCollisions.length} organ(s) overlap another microbe.`
                       : `Coverage too low: only ${verification.totalUniqueTilesCovered}/${verification.targetCoveredTilesMin} tiles covered.`}
                   </p>
                 </div>
@@ -317,7 +311,7 @@ export const HeartsMicrobesView: React.FC<Props> = ({ explainMode, embedded = fa
             {/* Collision Breakdown */}
             {verification.organCollisions.length > 0 && (
               <div className="violations-list" style={{ marginTop: '14px' }}>
-                <span className="section-subtitle">Organ Collision Warnings:</span>
+                <span className="section-subtitle">Collisions:</span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '6px' }}>
                   {verification.organCollisions.map((col, idx) => (
                     <div

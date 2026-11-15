@@ -82,23 +82,17 @@ export const BonusResearchView: React.FC<Props> = ({ explainMode }) => {
           <Sparkles size={32} className="text-amber" />
         </div>
         <div className="edu-hero-text">
-          <div className="edu-hero-badge-row">
-            <span className="edu-hero-badge amber">Bonus Research Track</span>
-            <span className="edu-hero-badge blue">Extended Exploration</span>
-            <span className="edu-hero-badge teal">Progression Review Scope Decision</span>
-          </div>
-          <h2 className="edu-hero-title">Bonus Research: Approximations &amp; Zero-Knowledge Proofs</h2>
+          <h2 className="edu-hero-title">Bonus Research</h2>
           <p className="edu-hero-summary">
             {explainMode === 'layman' ? (
               <>
-                <strong>Layman Overview:</strong> When a puzzle is provably NP-complete, you have two amazing backup superpowers!
-                First: <em>Approximations</em> &mdash; find guaranteed near-optimal answers quickly. Second: <em>Zero-Knowledge Proofs</em> &mdash;
-                prove to a friend that you solved a puzzle without spoiling the answer!
+                <strong>Layman version.</strong> Two extensions: approximation algorithms, which find
+                near-optimal answers, and zero-knowledge proofs, which show a solution without revealing it.
               </>
             ) : (
               <>
-                <strong>Theoretical Context:</strong> Demonstrating complementary frontiers in computational complexity theory:
-                polynomial-time approximation bounds (APX-hardness vs FPTAS) and interactive proof systems (IP = PSPACE, Blum zero-knowledge protocols).
+                <strong>Topics:</strong> Polynomial-time approximation bounds and interactive proof
+                systems.
               </>
             )}
           </p>
@@ -109,12 +103,10 @@ export const BonusResearchView: React.FC<Props> = ({ explainMode }) => {
       <div className="scope-shift-banner">
         <AlertTriangle size={24} className="text-blue" style={{ flexShrink: 0, marginTop: '2px' }} />
         <div className="scope-banner-content">
-          <h4>Progression Review Note &bull; Decoupled from Primary Requirements</h4>
+          <h4>Scope note</h4>
           <p>
-            As documented in Section 3 of our Week 7 Progression Review, Zero-Knowledge Proofs and NP-Approximations
-            were officially designated as <strong>Bonus Research</strong>. The primary creative project requirement focuses on
-            our original grid puzzle reductions (XOR Squares &amp; Carpets &amp; Hearts) and deterministic verifier pipelines.
-            Both bonus systems remain fully operational below for interactive experimentation!
+            Zero-knowledge proofs and approximations are <strong>bonus work</strong>, outside the
+            core puzzle requirement. Both are interactive below.
           </p>
         </div>
       </div>
@@ -146,7 +138,7 @@ export const BonusResearchView: React.FC<Props> = ({ explainMode }) => {
               <div className="card-header-row">
                 <div className="card-title-group">
                   <TrendingUp size={18} className="text-amber" />
-                  <span className="card-title-text">Select Approximation Frontier</span>
+                  <span className="card-title-text">Preset</span>
                 </div>
               </div>
 
@@ -264,7 +256,7 @@ export const BonusResearchView: React.FC<Props> = ({ explainMode }) => {
               <div className="card-header-row">
                 <div className="card-title-group">
                   <Lock size={18} className="text-teal" />
-                  <span className="card-title-text">Interactive ZKP Commitment &bull; Challenge &bull; Open</span>
+                  <span className="card-title-text">Zero-knowledge protocol</span>
                 </div>
                 <div className="btn-group">
                   <button
@@ -339,7 +331,7 @@ export const BonusResearchView: React.FC<Props> = ({ explainMode }) => {
               <div className="card-header-row">
                 <div className="card-title-group">
                   <ShieldCheck size={18} className="text-teal" />
-                  <span className="card-title-text">Cryptographic Transcript Log</span>
+                  <span className="card-title-text">Transcript</span>
                 </div>
                 <span className="complexity-tag">SHA-256 Commitments</span>
               </div>

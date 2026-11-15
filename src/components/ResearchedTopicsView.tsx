@@ -37,24 +37,17 @@ export const ResearchedTopicsView: React.FC<Props> = ({ explainMode }) => {
           <BookOpen size={32} />
         </div>
         <div className="edu-hero-text">
-          <div className="edu-hero-badge-row">
-            <span className="edu-hero-badge">Citation Channel Research</span>
-            <span className="edu-hero-badge blue">Classic &amp; Original Reductions</span>
-            <span className="edu-hero-badge teal">6 Topics Compiled</span>
-          </div>
-          <h2 className="edu-hero-title">Researched Topics &amp; Gadget Compendium</h2>
+          <h2 className="edu-hero-title">Researched Topics</h2>
           <p className="edu-hero-summary">
             {explainMode === 'layman' ? (
               <>
-                <strong>Layman Guide:</strong> To prove a puzzle is truly hard (NP-complete), mathematicians don't start from scratch!
-                They take an already famous hard puzzle (like 3-SAT or Circuit-SAT) and build clever miniature "gadgets" inside the new
-                puzzle that mimic wires, switches, and logic gates. Here are all the puzzle reductions researched by our team!
+                <strong>Layman version.</strong> A hard problem can be shown hard by building small gadgets
+                that copy wires, switches, and logic gates. These are the reductions and gadgets we studied.
               </>
             ) : (
               <>
-                <strong>Theoretical Context:</strong> A comprehensive survey of polynomial-time reductions f: Y &le;_p X
-                derived from literature and team brainstorming. Each entry documents the source problem, gadget types, proof
-                sketch, and primary planar or geometric obstacle encountered.
+                <strong>Survey:</strong> Polynomial-time reductions from the literature and team notes.
+                Each entry lists the source problem, gadget types, proof sketch, and the main geometric obstacle.
               </>
             )}
           </p>

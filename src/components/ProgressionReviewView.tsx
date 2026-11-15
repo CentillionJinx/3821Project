@@ -21,16 +21,9 @@ export const ProgressionReviewView: React.FC<Props> = ({ explainMode: _explainMo
           <FileText size={32} />
         </div>
         <div className="edu-hero-text">
-          <div className="edu-hero-badge-row">
-            <span className="edu-hero-badge">COMP3821 Progression Review</span>
-            <span className="edu-hero-badge blue">Group 5 &bull; Term 3, 2026</span>
-            <span className="edu-hero-badge amber">Week 7 Milestone</span>
-          </div>
-          <h2 className="edu-hero-title">Project Progression Review &amp; Revised Direction</h2>
+          <h2 className="edu-hero-title">Progression Review</h2>
           <p className="edu-hero-summary">
-            A comprehensive account of our group's theoretical learnings, candidate puzzle discoveries,
-            key obstacles encountered, strategic scope adjustments (decoupling Zero-Knowledge Proofs),
-            and revised execution roadmap for the remaining 3 weeks.
+            What we tried, what failed, and what we changed for the last three weeks.
           </p>
         </div>
       </div>
@@ -39,14 +32,11 @@ export const ProgressionReviewView: React.FC<Props> = ({ explainMode: _explainMo
       <div className="scope-shift-banner warning">
         <AlertTriangle size={24} className="text-amber" style={{ flexShrink: 0, marginTop: '2px' }} />
         <div className="scope-banner-content">
-          <h4>Strategic Scope Decision: Zero-Knowledge Proofs Transitioned to Bonus Research</h4>
+          <h4>Zero-knowledge proofs moved to bonus research</h4>
           <p>
-            In our initial proposal, we aimed to implement both NP-completeness reductions and an interactive Zero-Knowledge
-            Proof (ZKP) protocol. During Week 5&ndash;7 research, we determined that combining full interactive zero-knowledge
-            commitment-challenge protocols alongside multiple original NP-completeness gadget proofs introduced excessive complexity.
-            To ensure highest mathematical rigour and game polish, <strong>the core project is now 100% focused on designing,
-            proving, and verifying original NP-complete grid puzzles (XOR Squares &amp; Carpets &amp; Hearts)</strong>, while
-            our ZKP protocol and NP-Approximation engines have been gracefully transitioned into dedicated <em>Bonus Research</em> modules.
+            The proposal included both NP-completeness reductions and a zero-knowledge proof protocol.
+            Combining both was too much work, so the core project now focuses on the original grid puzzles.
+            The ZKP and approximation work is in <em>Bonus Research</em>.
           </p>
         </div>
       </div>
@@ -60,7 +50,7 @@ export const ProgressionReviewView: React.FC<Props> = ({ explainMode: _explainMo
             <div className="card-header-row">
               <div className="card-title-group">
                 <TrendingUp size={18} className="text-teal" />
-                <span className="card-title-text">1. Current Objective &amp; Scope</span>
+                <span className="card-title-text">1. Objective</span>
               </div>
             </div>
             <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
@@ -83,7 +73,7 @@ export const ProgressionReviewView: React.FC<Props> = ({ explainMode: _explainMo
             <div className="card-header-row">
               <div className="card-title-group">
                 <CheckCircle2 size={18} className="text-teal" />
-                <span className="card-title-text">2. Work Developed So Far</span>
+                <span className="card-title-text">2. Work so far</span>
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -137,7 +127,7 @@ export const ProgressionReviewView: React.FC<Props> = ({ explainMode: _explainMo
             <div className="card-header-row">
               <div className="card-title-group">
                 <Sparkles size={18} className="text-amber" />
-                <span className="card-title-text">3. Notebook &amp; Team Discussion Log</span>
+                <span className="card-title-text">3. Notes and discussion</span>
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.8rem' }}>
@@ -200,11 +190,11 @@ export const ProgressionReviewView: React.FC<Props> = ({ explainMode: _explainMo
             <div className="card-header-row">
               <div className="card-title-group">
                 <Calendar size={18} className="text-blue" />
-                <span className="card-title-text">4. Project Timeline: Proposal vs Revised</span>
+                <span className="card-title-text">4. Timeline</span>
               </div>
             </div>
 
-            <span className="section-subtitle" style={{ marginTop: '4px' }}>Original Proposal Plan:</span>
+            <span className="section-subtitle" style={{ marginTop: '4px' }}>Original plan:</span>
             <table className="review-plan-table">
               <thead>
                 <tr>
@@ -244,7 +234,7 @@ export const ProgressionReviewView: React.FC<Props> = ({ explainMode: _explainMo
               </tbody>
             </table>
 
-            <span className="section-subtitle" style={{ marginTop: '16px' }}>Revised Progression Plan (Current):</span>
+            <span className="section-subtitle" style={{ marginTop: '16px' }}>Revised plan:</span>
             <table className="review-plan-table">
               <thead>
                 <tr>
@@ -290,7 +280,7 @@ export const ProgressionReviewView: React.FC<Props> = ({ explainMode: _explainMo
             <div className="card-header-row">
               <div className="card-title-group">
                 <AlertTriangle size={18} className="text-amber" />
-                <span className="card-title-text">5. Difficulties Encountered &amp; Strategic Solutions</span>
+                <span className="card-title-text">5. Problems and changes</span>
               </div>
             </div>
 

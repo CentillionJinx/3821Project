@@ -218,7 +218,7 @@ const FOUR_CORNERS = buildPreset({
   fixed: { A: 0, C: 2 },
   solution: { A: 0, B: 1, C: 2, D: 0, E: 1, F: 2 },
   isSatisfiable: true,
-  note: 'A compact warm-up: six regions, two fixed anchors, and exactly one colouring.',
+  note: 'Six regions, two fixed anchors, one solution.',
 });
 
 const GADGET_GARDEN = buildPreset({
@@ -238,7 +238,7 @@ const GADGET_GARDEN = buildPreset({
   fixed: { a: 0, c: 2 },
   solution: { a: 0, b: 1, c: 2, d: 1, e: 0, f: 2, g: 1 },
   isSatisfiable: true,
-  note: 'The gadget board: literal-shaped regions, clause-shaped junctions, and two palette anchors.',
+  note: 'Seven regions and two fixed anchors, labelled like the 3-SAT gadgets.',
   labels: { a: 'a1', b: '¬a1', c: 'c1', d: 'b1', e: '¬b1', f: 'c2', g: 'd' },
 });
 
@@ -251,7 +251,7 @@ const BROKEN_BOARD = buildPreset({
   fixed: { A: 0, B: 1, C: 1, D: 2 },
   solution: null,
   isSatisfiable: false,
-  note: 'The central clue says one colour, but the four fixed regions already show three.',
+  note: 'All four regions are fixed, but the centre clue is wrong.',
   clueOverrides: { '2,2': 1 },
 });
 
