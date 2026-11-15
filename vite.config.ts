@@ -8,13 +8,14 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
+      includeAssets: ['favicon.svg', 'pwa-192x192.svg', 'pwa-512x512.svg'],
       manifest: {
-        name: '3821Project | Designing, Proving, and Verifying Original NP-complete Algorithmic Puzzles',
-        short_name: '3821Project',
-        description: 'Designing, Proving, and Verifying Original NP-complete Algorithmic Puzzles (COMP3821 Group 5)',
-        theme_color: '#090d16',
-        background_color: '#090d16',
+        name: 'Colouring Conundrum | Binary XOR-Square NP-Completeness Workbench',
+        short_name: 'XOR-Square',
+        description:
+          'Binary XOR-Square Colouring Conundrum: formal 2-colour {0, 1} grid puzzle, O(NM) verifier, and Planar 3-SAT NP-completeness reduction (COMP3821 Group 5).',
+        theme_color: '#090708',
+        background_color: '#090708',
         display: 'standalone',
         orientation: 'any',
         icons: [
@@ -22,19 +23,19 @@ export default defineConfig({
             src: '/pwa-192x192.svg',
             sizes: '192x192',
             type: 'image/svg+xml',
-            purpose: 'any'
+            purpose: 'any',
           },
           {
             src: '/pwa-512x512.svg',
             sizes: '512x512',
             type: 'image/svg+xml',
-            purpose: 'any maskable'
-          }
-        ]
+            purpose: 'any maskable',
+          },
+        ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2}']
-      }
-    })
-  ]
+        globPatterns: ['**/*.{js,css,html,svg,woff2}'],
+      },
+    }),
+  ],
 })
