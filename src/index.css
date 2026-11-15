@@ -1,138 +1,99 @@
 :root {
-  /* Warm Parchment & Royal Navy Theme (Matching Presentation Poster) */
-  --bg-canvas: #f8e8d4;
-  --bg-surface: #fffaf4;
-  --bg-elevated: #fbf3e8;
-  --bg-well: #f2dec7;
-  
-  --bg-navy-tint: rgba(39, 35, 169, 0.06);
-  --bg-gold-tint: rgba(255, 191, 0, 0.12);
-  --bg-mint-tint: rgba(212, 248, 232, 0.55);
-  --bg-lavender-tint: rgba(232, 212, 248, 0.55);
-  --bg-blush-tint: rgba(248, 214, 212, 0.55);
+  --bg: #090708;
+  --fg: #a0fdf4;
+  --accent: #e8260c;
 
-  /* Primary Palette */
-  --fg: #2723a9;
-  --gold: #FFBF00;
-  --mint: #D4F8E8;
-  --lavender: #E8D4F8;
-  --blush: #F8D6D4;
+  --fg-82: rgba(160, 253, 244, 0.82);
+  --fg-58: rgba(160, 253, 244, 0.58);
+  --fg-28: rgba(160, 253, 244, 0.28);
+  --fg-14: rgba(160, 253, 244, 0.14);
+  --fg-06: rgba(160, 253, 244, 0.06);
 
-  /* Hairline Borders & Highlights */
-  --border-gold: #FFBF00;
-  --border-gold-soft: rgba(255, 191, 0, 0.65);
-  --border-subtle: rgba(39, 35, 169, 0.14);
-  --border-strong: rgba(39, 35, 169, 0.28);
-  --border-teal: rgba(13, 130, 106, 0.45);
-  --border-rose: rgba(190, 18, 60, 0.45);
-  --border-amber: rgba(255, 191, 0, 0.85);
+  --accent-18: rgba(232, 38, 12, 0.18);
+  --accent-45: rgba(232, 38, 12, 0.45);
 
-  /* Typography Hierarchy (WCAG AAA contrast on #f8e8d4 and #fffaf4) */
-  --text-primary: #2723a9;
-  --text-secondary: rgba(39, 35, 169, 0.88);
-  --text-muted: rgba(39, 35, 169, 0.68);
-  --text-dim: rgba(39, 35, 169, 0.48);
-
-  /* Semantic & Algorithmic Accents */
-  --accent-teal: #0f766e;        /* Deep teal/mint tone */
-  --accent-teal-soft: #D4F8E8;
-  --accent-sky: #0369a1;         /* Deep sky */
-  --accent-indigo: #2723a9;      /* Primary royal navy */
-  --accent-amber: #b45309;       /* Deep amber */
-  --accent-rose: #be123c;        /* Deep rose/blush */
-  --accent-rose-strong: #9f1239;
-
-  /* Shadows & Ambient Accents */
-  --shadow-card: 0 4px 20px -2px rgba(39, 35, 169, 0.06), 0 2px 6px -1px rgba(39, 35, 169, 0.04), 0 0 0 1px rgba(255, 191, 0, 0.35);
-  --shadow-sm: 0 2px 6px rgba(39, 35, 169, 0.05), 0 0 0 1px rgba(255, 191, 0, 0.25);
-  --shadow-well: inset 0 2px 5px rgba(39, 35, 169, 0.05);
-  --glow-gold: 0 0 12px rgba(255, 191, 0, 0.4);
-  --glow-mint: 0 0 14px rgba(212, 248, 232, 0.6);
-
-  /* Radii & Typography */
-  --r-xs: 6px;
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 16px;
-  --r-full: 9999px;
-
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Cinzel', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --trans-snappy: 0.18s cubic-bezier(0.2, 0.9, 0.3, 1);
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --topbar-h: 48px;
+  --radius: 3px;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
-  min-height: 100%;
-  background-color: var(--bg-canvas);
-  background-image:
-    radial-gradient(1200px 700px at 10% -5%, rgba(255, 191, 0, 0.14) 0%, transparent 60%),
-    radial-gradient(1000px 600px at 95% 10%, rgba(212, 248, 232, 0.35) 0%, transparent 55%),
-    radial-gradient(1100px 750px at 50% 105%, rgba(232, 212, 248, 0.3) 0%, transparent 65%);
-  background-attachment: fixed;
-  color: var(--text-primary);
+html,
+body,
+#root {
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.45;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
-
-#root {
-  min-height: 100vh;
 }
 
 button {
   font-family: inherit;
-  border: none;
-  background: none;
-  cursor: pointer;
+  font-size: inherit;
   color: inherit;
-  outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-button:focus-visible {
-  outline: 2px solid var(--border-gold);
-  outline-offset: 2px;
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 1.5px solid var(--fg);
+  outline-offset: -1.5px;
+}
+
+sub,
+sup {
+  font-size: 0.72em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.45em;
+}
+sub {
+  bottom: -0.22em;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--fg-28) var(--bg);
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-canvas);
+  background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #ecd5bc;
-  border-radius: 8px;
-  border: 2px solid var(--bg-canvas);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #dfc2a2;
+  background: var(--fg-28);
 }
 
-/* Common geometric decorations */
-.thin-gold-line {
-  height: 1.5px;
-  background-color: var(--gold);
-  width: 100%;
-}
-
-.gold-bullet {
-  width: 7px;
-  height: 7px;
-  background-color: var(--gold);
-  transform: rotate(45deg);
-  display: inline-block;
-  flex-shrink: 0;
+@media (max-width: 960px) {
+  html,
+  body,
+  #root {
+    height: auto;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 }
