@@ -14,10 +14,12 @@ import {
   Lightbulb,
   GraduationCap,
   LayoutGrid,
+  Palette,
   ArrowRight,
 } from 'lucide-react';
 import { CarpetsFloorView } from './components/CarpetsFloorView';
-import { FinalPuzzleView } from './components/FinalPuzzleView';
+import { ColouringConundrumView } from './components/ColouringConundrumView';
+import { HeartsMicrobesView } from './components/HeartsMicrobesView';
 import { InsurgencyGameView } from './components/InsurgencyGameView';
 import { XORSquaresView } from './components/XORSquaresView';
 import { TrapDungeonView } from './components/TrapDungeonView';
@@ -29,6 +31,7 @@ import { GridFigureView } from './components/GridFigureView';
 import './App.css';
 
 export type TabId =
+  | 'cand-conundrum'
   | 'cand-microbes'
   | 'cand-carpets'
   | 'cand-insurgency'
@@ -42,9 +45,10 @@ export type TabId =
 
 const MARKERS: Record<string, { index: string; name: string }> = {
   'cand-carpets': { index: '01', name: '“Carpets” Floor' },
-  'cand-insurgency': { index: '02', name: 'Quell Insurgency' },
-  'cand-xor': { index: '03', name: 'XOR Squares' },
-  'cand-dungeon': { index: '04', name: '3-SAT Trap Dungeon' },
+  'cand-microbes': { index: '02', name: 'Grid-Organ (Hearts)' },
+  'cand-insurgency': { index: '03', name: 'Quell Insurgency' },
+  'cand-xor': { index: '04', name: 'XOR Squares' },
+  'cand-dungeon': { index: '05', name: '3-SAT Trap Dungeon' },
 };
 
 export function App() {
@@ -52,7 +56,7 @@ export function App() {
   const [explainMode, setExplainMode] = useState<'layman' | 'rigorous'>('rigorous');
 
   // Active Navigation Tab — the final puzzle opens first.
-  const [activeTab, setActiveTab] = useState<TabId>('cand-microbes');
+  const [activeTab, setActiveTab] = useState<TabId>('cand-conundrum');
 
   // PWA Install Prompt State
   const [pwaPrompt, setPwaPrompt] = useState<any>(null);
@@ -120,26 +124,15 @@ export function App() {
           <div className="nav-section-label">Final Puzzle</div>
 
           <button
-            className={`neu-tab final-tab ${activeTab === 'cand-microbes' ? 'active' : ''}`}
-            onClick={() => setActiveTab('cand-microbes')}
+            className={`neu-tab final-tab ${activeTab === 'cand-conundrum' ? 'active' : ''}`}
+            onClick={() => setActiveTab('cand-conundrum')}
           >
-            <Heart size={18} className="tab-icon text-rose" />
+            <Palette size={18} className="tab-icon text-teal" />
             <div className="tab-text-col">
               <span className="tab-final-label">
-                Grid-Organ <span className="nav-final-pill">final</span>
+                Colouring Conundrum <span className="nav-final-pill">final</span>
               </span>
-              <small>Vital Organ Non-Overlap</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab ${activeTab === 'figures' ? 'active' : ''}`}
-            onClick={() => setActiveTab('figures')}
-          >
-            <LayoutGrid size={18} className="tab-icon text-amber" />
-            <div className="tab-text-col">
-              <span>Figure Studio</span>
-              <small>TSV &rarr; SVG / TikZ</small>
+              <small>3 Colours &middot; Corner Clues</small>
             </div>
           </button>
 
@@ -157,12 +150,23 @@ export function App() {
           </button>
 
           <button
+            className={`neu-tab marker-tab ${activeTab === 'cand-microbes' ? 'active' : ''}`}
+            onClick={() => setActiveTab('cand-microbes')}
+          >
+            <Heart size={18} className="tab-icon text-rose" />
+            <div className="tab-text-col">
+              <span>02 &middot; Grid-Organ (Hearts)</span>
+              <small>Vital Organ Non-Overlap</small>
+            </div>
+          </button>
+
+          <button
             className={`neu-tab marker-tab ${activeTab === 'cand-insurgency' ? 'active' : ''}`}
             onClick={() => setActiveTab('cand-insurgency')}
           >
             <ShieldAlert size={18} className="tab-icon text-amber" />
             <div className="tab-text-col">
-              <span>02 &middot; Quell Insurgency</span>
+              <span>03 &middot; Quell Insurgency</span>
               <small>Firefighter Hex/Graph</small>
             </div>
           </button>
@@ -173,7 +177,7 @@ export function App() {
           >
             <Square size={18} className="tab-icon text-teal" />
             <div className="tab-text-col">
-              <span>03 &middot; XOR Squares</span>
+              <span>04 &middot; XOR Squares</span>
               <small>Parity Modulo-2 Overlaps</small>
             </div>
           </button>
@@ -184,7 +188,7 @@ export function App() {
           >
             <Route size={18} className="tab-icon" />
             <div className="tab-text-col">
-              <span>04 &middot; 3-SAT Trap Dungeon</span>
+              <span>05 &middot; 3-SAT Trap Dungeon</span>
               <small>Spatial Trap DAG</small>
             </div>
           </button>
@@ -232,6 +236,17 @@ export function App() {
             <div className="tab-text-col">
               <span>Web Platform</span>
               <small>State Machine &amp; Pipeline</small>
+            </div>
+          </button>
+
+          <button
+            className={`neu-tab ${activeTab === 'figures' ? 'active' : ''}`}
+            onClick={() => setActiveTab('figures')}
+          >
+            <LayoutGrid size={18} className="tab-icon text-amber" />
+            <div className="tab-text-col">
+              <span>Figure Studio</span>
+              <small>TSV &rarr; SVG / TikZ</small>
             </div>
           </button>
         </nav>
@@ -302,11 +317,11 @@ export function App() {
           <div className="viewport-title-row">
             <div>
               <h2 className="viewport-main-title">
-                One Puzzle Remains: <span className="title-gold-underline">Grid-Organ</span>
+                One Puzzle Remains: <span className="title-gold-underline">Colouring Conundrum</span>
               </h2>
               <p className="viewport-tagline">
-                Five candidate gadgets, one survivor — a local organ invariant, an exact verifier, and one
-                figure pipeline feeding the poster, the site, and the report.
+                Five candidate gadgets, one final rule — three colours, one local corner rule, and an
+                exact verifier you can run in a single pass.
               </p>
             </div>
           </div>
@@ -316,25 +331,26 @@ export function App() {
           <div className="marker-ribbon">
             <div className="marker-ribbon-main">
               <span className="marker-ribbon-kicker">
-                Progression marker {activeMarker.index} of 04
+                Progression marker {activeMarker.index} of 05
               </span>
               <span className="marker-ribbon-title">{activeMarker.name}</span>
               <span className="marker-ribbon-note">
-                Archived exploration, kept for the record. The final puzzle is Grid-Organ.
+                Archived exploration, kept for the record. The final puzzle is the Colouring Conundrum.
               </span>
             </div>
-            <button className="neu-btn" onClick={() => setActiveTab('cand-microbes')}>
-              <Heart size={14} className="text-rose" />
+            <button className="neu-btn" onClick={() => setActiveTab('cand-conundrum')}>
+              <Palette size={14} className="text-teal" />
               <span>Back to the final</span>
               <ArrowRight size={14} />
             </button>
           </div>
         )}
 
-        {activeTab === 'cand-microbes' && (
-          <FinalPuzzleView explainMode={explainMode} onNavigate={setActiveTab} />
+        {activeTab === 'cand-conundrum' && (
+          <ColouringConundrumView explainMode={explainMode} onNavigate={setActiveTab} />
         )}
         {activeTab === 'cand-carpets' && <CarpetsFloorView explainMode={explainMode} />}
+        {activeTab === 'cand-microbes' && <HeartsMicrobesView explainMode={explainMode} />}
         {activeTab === 'cand-insurgency' && <InsurgencyGameView explainMode={explainMode} />}
         {activeTab === 'cand-xor' && <XORSquaresView explainMode={explainMode} />}
         {activeTab === 'cand-dungeon' && <TrapDungeonView explainMode={explainMode} />}

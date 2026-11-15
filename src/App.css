@@ -1625,7 +1625,7 @@
 }
 
 /* ==========================================================================
-   FINAL PUZZLE — Grid-Organ (the one the poster and figure pipeline centre on)
+   FINAL PUZZLE — shared shell for the playable final board
    ========================================================================== */
 .final-view {
   gap: 26px;
@@ -2290,5 +2290,361 @@
 @media (max-width: 640px) {
   .final-embedded .xor-squares-selector-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ======================================================================
+ * COLOURING CONUNDRUM — final board, palette, audit, markers
+ * ====================================================================== */
+
+.conundrum-hero .edu-hero-summary {
+  max-width: 104ch;
+}
+
+.conundrum-preset-row {
+  margin: 2px 0 14px;
+}
+
+.conundrum-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.conundrum-board-card {
+  padding: 16px;
+}
+
+.conundrum-board-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 14px 0 10px;
+}
+
+.conundrum-svg {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.conundrum-region {
+  cursor: pointer;
+  outline: none;
+}
+
+.conundrum-region rect {
+  transition: fill 0.18s ease, fill-opacity 0.18s ease;
+}
+
+.conundrum-region:hover rect {
+  filter: brightness(1.06);
+}
+
+.conundrum-region:focus-visible rect {
+  stroke: var(--gold);
+  stroke-width: 3;
+}
+
+.conundrum-region.is-fixed {
+  cursor: not-allowed;
+}
+
+.conundrum-region.is-fixed:hover rect {
+  filter: none;
+}
+
+.conundrum-clue text {
+  pointer-events: none;
+}
+
+.conundrum-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-gold-soft);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.conundrum-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 600;
+}
+
+.conundrum-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  border: 1px solid rgba(39, 35, 169, 0.18);
+}
+
+.conundrum-legend-rule {
+  margin-left: auto;
+  color: var(--text-muted);
+}
+
+.conundrum-legend-rule code {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-gold-soft);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+.conundrum-board-hint {
+  margin-top: 10px;
+}
+
+.conundrum-verdict.incomplete {
+  background: #fffbeb;
+  border-color: #d97706;
+  color: #92400e;
+}
+
+.conundrum-verdict .verdict-heading {
+  font-size: 0.86rem;
+}
+
+.conundrum-verdict .verdict-subtext {
+  font-size: 0.73rem;
+}
+
+.conundrum-palette-block {
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-gold-soft);
+}
+
+.conundrum-minihead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.conundrum-minihead span {
+  color: var(--ink);
+}
+
+.conundrum-palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.conundrum-paint {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 9px;
+  background: var(--bg-elevated);
+  border: 1.5px solid var(--border-gold-soft);
+  border-radius: 9px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.conundrum-paint:hover {
+  border-color: var(--gold);
+}
+
+.conundrum-paint.active {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(255, 191, 0, 0.24);
+  color: var(--ink);
+}
+
+.conundrum-paint-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  border: 1px solid rgba(39, 35, 169, 0.18);
+}
+
+.conundrum-notice {
+  margin: 8px 0 0;
+  padding: 6px 9px;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: #3730a3;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 6px;
+}
+
+.conundrum-notice.warn {
+  color: #9f1239;
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+.conundrum-board-card .neu-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.conundrum-audit {
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-gold-soft);
+}
+
+.conundrum-audit-list {
+  display: grid;
+  gap: 4px;
+  max-height: 224px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.conundrum-audit-row {
+  display: grid;
+  grid-template-columns: 56px 54px minmax(0, 1fr) 26px;
+  gap: 4px;
+  align-items: center;
+  padding: 4px 6px;
+  border-radius: 5px;
+  background: var(--bg-elevated);
+  border: 1px solid transparent;
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+}
+
+.conundrum-audit-row code {
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  color: var(--ink);
+}
+
+.conundrum-audit-row.ok {
+  background: rgba(212, 248, 232, 0.42);
+  border-color: rgba(15, 118, 110, 0.18);
+}
+
+.conundrum-audit-row.bad {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #9f1239;
+}
+
+.conundrum-audit-row.pending {
+  opacity: 0.72;
+}
+
+.conundrum-audit-state {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.conundrum-rules {
+  padding: 18px;
+}
+
+.conundrum-rule-list {
+  margin: 10px 0 0 18px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  font-size: 0.73rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.conundrum-rule-list strong {
+  color: var(--text-primary);
+}
+
+.conundrum-rule-list code {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-gold-soft);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+.conundrum-marker-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.conundrum-future-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.conundrum-endnote {
+  margin-top: 4px;
+}
+
+@media (max-width: 1180px) {
+  .conundrum-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .conundrum-marker-grid,
+  .conundrum-future-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .conundrum-marker-grid,
+  .conundrum-future-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .conundrum-legend-rule {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .conundrum-marker-grid,
+  .conundrum-future-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .conundrum-palette {
+    gap: 6px;
+  }
+
+  .conundrum-paint {
+    padding: 5px 7px;
+  }
+
+  .conundrum-board-card {
+    padding: 12px;
   }
 }
