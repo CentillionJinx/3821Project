@@ -29,11 +29,11 @@ test('compilePlanar3Sat satisfies exact spine-assignment equivalence across buil
 
     const fullSolve = solveConundrum(instance);
     assert.equal(fullSolve.status, 'SAT');
-    assert.ok(fullSolve.solution !== null);
+    if (fullSolve.solution === null) assert.fail(`${formula.id} solution was null`);
     assert.equal(verifyConundrum(instance, fullSolve.solution).verdict, 'ACCEPT');
 
     const decoded = extractSpineAssignment(instance, fullSolve.solution);
-    assert.ok(decoded !== null);
+    if (decoded === null) assert.fail(`${formula.id} decoded spine was null`);
     assert.equal(
       evaluateFormula(
         formula,

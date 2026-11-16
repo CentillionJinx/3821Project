@@ -1,375 +1,41 @@
-import { useState, useEffect } from 'react';
-import {
-  ShieldCheck,
-  Layers,
-  Heart,
-  ShieldAlert,
-  Square,
-  Route,
-  BookOpen,
-  FileText,
-  Sparkles,
-  Cpu,
-  Download,
-  Lightbulb,
-  GraduationCap,
-  LayoutGrid,
-  Palette,
-  ArrowRight,
-} from 'lucide-react';
-import { CarpetsFloorView } from './components/CarpetsFloorView';
-import { ColouringConundrumView } from './components/ColouringConundrumView';
-import { HeartsMicrobesView } from './components/HeartsMicrobesView';
-import { InsurgencyGameView } from './components/InsurgencyGameView';
-import { XORSquaresView } from './components/XORSquaresView';
-import { TrapDungeonView } from './components/TrapDungeonView';
-import { ResearchedTopicsView } from './components/ResearchedTopicsView';
-import { ProgressionReviewView } from './components/ProgressionReviewView';
-import { BonusResearchView } from './components/BonusResearchView';
-import { WebPlatformView } from './components/WebPlatformView';
-import { GridFigureView } from './components/GridFigureView';
+import { useState } from 'react';
+import { ConundrumWorkspace } from './components/ConundrumWorkspace.tsx';
+import { TimelineView } from './components/TimelineView.tsx';
 import './App.css';
 
-export type TabId =
-  | 'cand-conundrum'
-  | 'cand-microbes'
-  | 'cand-carpets'
-  | 'cand-insurgency'
-  | 'cand-xor'
-  | 'cand-dungeon'
-  | 'citation'
-  | 'review'
-  | 'bonus'
-  | 'platform'
-  | 'figures';
-
-const MARKERS: Record<string, { index: string; name: string }> = {
-  'cand-carpets': { index: '01', name: 'Carpets Floor' },
-  'cand-microbes': { index: '02', name: 'Grid-Organ (Hearts)' },
-  'cand-insurgency': { index: '03', name: 'Quell Insurgency' },
-  'cand-xor': { index: '04', name: 'XOR Squares' },
-  'cand-dungeon': { index: '05', name: '3-SAT Trap Dungeon' },
-};
-
-const VIEW_META: Record<TabId, string> = {
-  'cand-conundrum': 'Colouring Conundrum',
-  'cand-carpets': 'Carpets Floor',
-  'cand-microbes': 'Grid-Organ (Hearts)',
-  'cand-insurgency': 'Quell Insurgency',
-  'cand-xor': 'XOR Squares',
-  'cand-dungeon': '3-SAT Trap Dungeon',
-  citation: 'Researched Topics',
-  review: 'Progression Review',
-  bonus: 'Bonus Research',
-  platform: 'Web Platform',
-  figures: 'Grid Figure Studio',
-};
+type AppView = 'puzzle' | 'timeline';
 
 export function App() {
-  // Global Explanation Mode: 'layman' vs 'rigorous'
-  const [explainMode, setExplainMode] = useState<'layman' | 'rigorous'>('rigorous');
-
-  // Active Navigation Tab — the final puzzle opens first.
-  const [activeTab, setActiveTab] = useState<TabId>('cand-conundrum');
-
-  // PWA Install Prompt State
-  const [pwaPrompt, setPwaPrompt] = useState<any>(null);
-
-  useEffect(() => {
-    const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      setPwaPrompt(e);
-    };
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-  }, []);
-
-  const handleInstallPwa = async () => {
-    if (!pwaPrompt) return;
-    pwaPrompt.prompt();
-    const { outcome } = await pwaPrompt.userChoice;
-    if (outcome === 'accepted') {
-      setPwaPrompt(null);
-    }
-  };
-
-  const activeMarker = MARKERS[activeTab];
+  const [view, setView] = useState<AppView>('puzzle');
 
   return (
-    <div className="app-container">
-      {/* ======================================================================
-       * UNIFIED OBSIDIAN SIDEBAR (Term 3, 2026 • Progression Review Edition)
-       * ====================================================================== */}
-      <aside className="neu-header">
-        <div className="header-brand">
-          <div className="brand-icon-halo">
-            <ShieldCheck size={28} className="halo-icon" />
-          </div>
-          <div>
-            <h1 className="header-title">NP-Complete Puzzles</h1>
-            <span className="header-badge">COMP3821 Creative Project</span>
-          </div>
+    <div className="app-shell">
+      <header className="topbar">
+        <div className="topbar-brand">
+          <span className="brand-kicker">COMP3821 // GROUP 05</span>
+          <h1 className="brand-title">Colouring Conundrum</h1>
+          <span className="brand-formula">
+            Binary XOR-Square · τ(a,b,c,d) ∈ &#123;0, 2, 4&#125;
+          </span>
         </div>
 
-        <p className="header-subtitle">
-          Original NP-complete puzzles and verifiers.
-        </p>
-
-        {/* Global Explanation Mode Toggle */}
-        <div className="mode-toggle-container">
+        <nav className="topbar-nav" aria-label="Primary Views">
           <button
-            className={`mode-btn ${explainMode === 'layman' ? 'active-mode' : ''}`}
-            onClick={() => setExplainMode('layman')}
+            className={`nav-tab ${view === 'puzzle' ? 'active' : ''}`}
+            onClick={() => setView('puzzle')}
           >
-            <Lightbulb size={15} />
-            <span>Layman</span>
+            01 · XOR-Square Workbench
           </button>
           <button
-            className={`mode-btn ${explainMode === 'rigorous' ? 'active-mode' : ''}`}
-            onClick={() => setExplainMode('rigorous')}
+            className={`nav-tab ${view === 'timeline' ? 'active' : ''}`}
+            onClick={() => setView('timeline')}
           >
-            <GraduationCap size={15} />
-            <span>Rigorous</span>
-          </button>
-        </div>
-
-        {/* Navigation Tabs matching the Progression Review & Team Discussion Structure */}
-        <nav className="neu-nav-group" aria-label="Main Project Modules">
-          <div className="nav-section-label">Final Puzzle</div>
-
-          <button
-            className={`neu-tab final-tab ${activeTab === 'cand-conundrum' ? 'active' : ''}`}
-            onClick={() => setActiveTab('cand-conundrum')}
-          >
-            <Palette size={18} className="tab-icon text-teal" />
-            <div className="tab-text-col">
-              <span className="tab-final-label">
-                Colouring Conundrum <span className="nav-final-pill">final</span>
-              </span>
-              <small>3 Colours &middot; Corner Clues</small>
-            </div>
-          </button>
-
-          <div className="nav-section-label">Progression Markers</div>
-
-          <button
-            className={`neu-tab marker-tab ${activeTab === 'cand-carpets' ? 'active' : ''}`}
-            onClick={() => setActiveTab('cand-carpets')}
-          >
-            <Layers size={18} className="tab-icon text-blue" />
-            <div className="tab-text-col">
-              <span>01 &middot; Carpets Floor</span>
-              <small>Multiplicity and unique cover</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab marker-tab ${activeTab === 'cand-microbes' ? 'active' : ''}`}
-            onClick={() => setActiveTab('cand-microbes')}
-          >
-            <Heart size={18} className="tab-icon text-rose" />
-            <div className="tab-text-col">
-              <span>02 &middot; Grid-Organ (Hearts)</span>
-              <small>Vital organ non-overlap</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab marker-tab ${activeTab === 'cand-insurgency' ? 'active' : ''}`}
-            onClick={() => setActiveTab('cand-insurgency')}
-          >
-            <ShieldAlert size={18} className="tab-icon text-amber" />
-            <div className="tab-text-col">
-              <span>03 &middot; Quell Insurgency</span>
-              <small>Firefighter on a hex graph</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab marker-tab ${activeTab === 'cand-xor' ? 'active' : ''}`}
-            onClick={() => setActiveTab('cand-xor')}
-          >
-            <Square size={18} className="tab-icon text-teal" />
-            <div className="tab-text-col">
-              <span>04 &middot; XOR Squares</span>
-              <small>Parity over overlaps</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab marker-tab ${activeTab === 'cand-dungeon' ? 'active' : ''}`}
-            onClick={() => setActiveTab('cand-dungeon')}
-          >
-            <Route size={18} className="tab-icon" />
-            <div className="tab-text-col">
-              <span>05 &middot; 3-SAT Trap Dungeon</span>
-              <small>Spatial trap graph</small>
-            </div>
-          </button>
-
-          <div className="nav-section-label">Research &amp; Review</div>
-
-          <button
-            className={`neu-tab ${activeTab === 'citation' ? 'active' : ''}`}
-            onClick={() => setActiveTab('citation')}
-          >
-            <BookOpen size={18} className="tab-icon" />
-            <div className="tab-text-col">
-              <span>Researched Topics</span>
-              <small>Firefighter, Parks, Akari...</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab ${activeTab === 'review' ? 'active' : ''}`}
-            onClick={() => setActiveTab('review')}
-          >
-            <FileText size={18} className="tab-icon text-amber" />
-            <div className="tab-text-col">
-              <span>Progression Review</span>
-              <small>Team Debates &amp; Roadmap</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab ${activeTab === 'bonus' ? 'active' : ''}`}
-            onClick={() => setActiveTab('bonus')}
-          >
-            <Sparkles size={18} className="tab-icon text-teal" />
-            <div className="tab-text-col">
-              <span>Bonus Research</span>
-              <small>ZKP &amp; NP Approximations</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab ${activeTab === 'platform' ? 'active' : ''}`}
-            onClick={() => setActiveTab('platform')}
-          >
-            <Cpu size={18} className="tab-icon" />
-            <div className="tab-text-col">
-              <span>Web Platform</span>
-              <small>State Machine &amp; Pipeline</small>
-            </div>
-          </button>
-
-          <button
-            className={`neu-tab ${activeTab === 'figures' ? 'active' : ''}`}
-            onClick={() => setActiveTab('figures')}
-          >
-            <LayoutGrid size={18} className="tab-icon text-amber" />
-            <div className="tab-text-col">
-              <span>Figure Studio</span>
-              <small>TSV &rarr; SVG / TikZ</small>
-            </div>
+            02 · Project Timeline
           </button>
         </nav>
+      </header>
 
-        {/* Team & PWA Footer inside Sidebar */}
-        <div className="header-actions">
-          <a
-            href="/poster.html"
-            target="_blank"
-            rel="noreferrer"
-            className="neu-btn"
-            style={{ textDecoration: 'none', justifyContent: 'center', width: '100%', marginBottom: '6px' }}
-          >
-            <FileText size={15} className="text-amber" />
-            <span>Open Presentation Poster</span>
-          </a>
-
-          {pwaPrompt && (
-            <button className="neu-btn-install" onClick={handleInstallPwa}>
-              <Download size={15} />
-              <span>Install App (PWA)</span>
-            </button>
-          )}
-
-          <div className="team-sidebar-card">
-            <span className="team-title">Group 5 &bull; Term 3, 2026</span>
-            <ul className="team-roster">
-              <li>
-                <span>Edward Dsouza</span>
-                <code>z5689255</code>
-              </li>
-              <li>
-                <span>Louise Liu</span>
-                <code>z5700939</code>
-              </li>
-              <li>
-                <span>Emmett Shang</span>
-                <code>z5690546</code>
-              </li>
-              <li>
-                <span>Gururam Subramanian</span>
-                <code>z5636559</code>
-              </li>
-              <li>
-                <span>Ryan Zhou</span>
-                <code>z5688014</code>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </aside>
-
-      {/* ======================================================================
-       * MAIN CONTENT AREA (Active Tab Routing)
-       * ====================================================================== */}
-      <main className="main-viewport">
-        {/* Top Poster-Style Framing Bar */}
-        <header className="viewport-top-header">
-          <div className="poster-style-frame">
-            <div className="thin-gold-line" />
-            <div className="gold-bullet" />
-            <span className="poster-frame-title">
-              UNSW COMP3821 EXTENDED ALGORITHMS &bull; TERM 3, 2026 &bull; GROUP 5
-            </span>
-            <div className="gold-bullet" />
-            <div className="thin-gold-line" />
-          </div>
-          <div className="viewport-title-row">
-            <div>
-              <h2 className="viewport-main-title">
-                <span className="title-gold-underline">{VIEW_META[activeTab]}</span>
-              </h2>
-            </div>
-          </div>
-        </header>
-
-        {activeMarker && (
-          <div className="marker-ribbon">
-            <div className="marker-ribbon-main">
-              <span className="marker-ribbon-kicker">
-                Progression marker {activeMarker.index} of 05
-              </span>
-              <span className="marker-ribbon-title">{activeMarker.name}</span>
-              <span className="marker-ribbon-note">
-                Earlier candidate, kept for reference.
-              </span>
-            </div>
-            <button className="neu-btn" onClick={() => setActiveTab('cand-conundrum')}>
-              <Palette size={14} className="text-teal" />
-              <span>Back to final</span>
-              <ArrowRight size={14} />
-            </button>
-          </div>
-        )}
-
-        {activeTab === 'cand-conundrum' && (
-          <ColouringConundrumView explainMode={explainMode} onNavigate={setActiveTab} />
-        )}
-        {activeTab === 'cand-carpets' && <CarpetsFloorView explainMode={explainMode} />}
-        {activeTab === 'cand-microbes' && <HeartsMicrobesView explainMode={explainMode} />}
-        {activeTab === 'cand-insurgency' && <InsurgencyGameView explainMode={explainMode} />}
-        {activeTab === 'cand-xor' && <XORSquaresView explainMode={explainMode} />}
-        {activeTab === 'cand-dungeon' && <TrapDungeonView explainMode={explainMode} />}
-        {activeTab === 'citation' && <ResearchedTopicsView explainMode={explainMode} />}
-        {activeTab === 'review' && <ProgressionReviewView explainMode={explainMode} />}
-        {activeTab === 'bonus' && <BonusResearchView explainMode={explainMode} />}
-        {activeTab === 'platform' && <WebPlatformView explainMode={explainMode} />}
-        {activeTab === 'figures' && <GridFigureView explainMode={explainMode} />}
-      </main>
+      {view === 'puzzle' ? <ConundrumWorkspace /> : <TimelineView />}
     </div>
   );
 }

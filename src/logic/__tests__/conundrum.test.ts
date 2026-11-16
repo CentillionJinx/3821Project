@@ -161,7 +161,7 @@ test('solveConundrum matches bruteForceSolutions across all base presets', () =>
       const bf = bruteForceSolutions(preset, 100);
       if (preset.isSatisfiable) {
         assert.ok(bf.length >= 1, `${preset.id} should have >=1 brute force solution`);
-        assert.ok(solved.solution !== null);
+        if (solved.solution === null) assert.fail(`${preset.id} solution was null`);
         const verified = verifyConundrum(preset, solved.solution);
         assert.equal(verified.verdict, 'ACCEPT');
       } else {
