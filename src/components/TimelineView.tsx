@@ -4,6 +4,8 @@ import {
   TEAM_MEMBERS,
   TIMELINE_STAGES,
 } from '../logic/timelineData.ts';
+import { PIVOT_TRAY_FIGURE } from '../logic/hairlineFigures.ts';
+import { HairlineStage } from './HairlineStage.tsx';
 
 export function TimelineView() {
   const [activeStageId, setActiveStageId] = useState<string>(
@@ -63,29 +65,43 @@ export function TimelineView() {
           <span className="badge badge-pending">{stage.commitRef}</span>
         </div>
 
-        <div className="detail-grid-2">
-          <div className="detail-cell">
-            <div className="section-heading">Problem Concept &amp; Formal Rule</div>
-            <p style={{ fontSize: 12, color: 'var(--fg-82)', marginBottom: 6 }}>
-              {stage.concept}
-            </p>
-            <p className="math" style={{ fontSize: 11.5, color: 'var(--fg)' }}>
-              {stage.formalSummary}
-            </p>
+        <div className="timeline-hero-grid">
+          <div className="detail-grid-2" style={{ borderBottom: 'none' }}>
+            <div className="detail-cell">
+              <div className="section-heading">Problem Concept &amp; Formal Rule</div>
+              <p style={{ fontSize: 12, color: 'var(--fg-82)', marginBottom: 6 }}>
+                {stage.concept}
+              </p>
+              <p className="math" style={{ fontSize: 11.5, color: 'var(--fg)' }}>
+                {stage.formalSummary}
+              </p>
+            </div>
+
+            <div className="detail-cell">
+              <div className="section-heading">
+                <span>Technical Audit / Reason Superseded</span>
+              </div>
+              <p style={{ fontSize: 12, color: 'var(--fg-82)', marginBottom: 6 }}>
+                {stage.limitation}
+              </p>
+              {stage.citation && (
+                <p className="mono" style={{ fontSize: 10.5, color: 'var(--fg-58)' }}>
+                  Ref: {stage.citation}
+                </p>
+              )}
+            </div>
           </div>
 
-          <div className="detail-cell">
-            <div className="section-heading">
-              <span>Technical Audit / Reason Superseded</span>
-            </div>
-            <p style={{ fontSize: 12, color: 'var(--fg-82)', marginBottom: 6 }}>
-              {stage.limitation}
-            </p>
-            {stage.citation && (
-              <p className="mono" style={{ fontSize: 10.5, color: 'var(--fg-58)' }}>
-                Ref: {stage.citation}
-              </p>
-            )}
+          <div className="hairline-pane-cell">
+            <HairlineStage
+              figure={PIVOT_TRAY_FIGURE}
+              variant="compact"
+              showCaption={false}
+              onPick={(idx) => {
+                const picked = TIMELINE_STAGES[idx];
+                if (picked) setActiveStageId(picked.id);
+              }}
+            />
           </div>
         </div>
 

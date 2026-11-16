@@ -13,16 +13,26 @@ import {
   type TileValue,
 } from '../logic/conundrum.ts';
 import { ALL_PRESETS, extractSpineAssignment } from '../logic/planarReduction.ts';
-import { ProofSchematics } from './ProofSchematics.tsx';
+import {
+  ALL_HAIRLINE_FIGURES,
+  PARITY_PLINTH_FIGURE,
+  WITNESS_CALIPER_FIGURE,
+} from '../logic/hairlineFigures.ts';
+import { HairlineStage } from './HairlineStage.tsx';
+import { ProofSchematics, type GadgetId } from './ProofSchematics.tsx';
 
 type BrushMode = 'cycle' | '0' | '1' | 'clear';
 type RightSubTab = 'spec' | 'verifier' | 'proof';
+type StageMode = 'grid' | 'hairline';
 
 export function ConundrumWorkspace() {
   const [customInstance, setCustomInstance] = useState<ConundrumInstance | null>(null);
   const [selectedId, setSelectedId] = useState<string>(ALL_PRESETS[0].id);
   const [board, setBoard] = useState<TileValue[][]>(() => createInitialBoard(ALL_PRESETS[0]));
   const [brush, setBrush] = useState<BrushMode>('cycle');
+  const [stageMode, setStageMode] = useState<StageMode>('grid');
+  const [hairlineId, setHairlineId] = useState<string>(PARITY_PLINTH_FIGURE.name);
+  const [proofGadget, setProofGadget] = useState<GadgetId>('g3');
   const [showCuts, setShowCuts] = useState<boolean>(false);
   const [showRoles, setShowRoles] = useState<boolean>(true);
   const [rightTab, setRightTab] = useState<RightSubTab>('spec');
@@ -200,6 +210,32 @@ export function ConundrumWorkspace() {
   const conflictCount =
     verification.violatedClues + verification.infeasibleClues + verification.fixedViolations;
 
+  const activeHairlineFigure = useMemo(
+    () => ALL_HAIRLINE_FIGURES.find((f) => f.name === hairlineId) ?? PARITY_PLINTH_FIGURE,
+    [hairlineId],
+  );
+
+  const handleHairlinePick = useCallback(
+    (figureName: string, idx: number) => {
+      if (figureName === 'clause-turret') {
+        const picked = (['g1', 'g2', 'g3', 'g4'] as const)[idx] ?? 'g3';
+        setProofGadget(picked);
+        setRightTab('proof');
+        setStatusMessage(`Hairline bay picked ${picked.toUpperCase()} — synced NP-completeness gadget tab.`);
+      } else if (figureName === 'parity-plinth') {
+        const ci = (idx % 3) + 1;
+        const cj = Math.floor(idx / 3) + 1;
+        setHoveredClue({ row: ci, col: cj });
+        setStatusMessage(`Hairline node (${ci}, ${cj}) inspected across 2×2 corner neighborhood.`);
+      } else if (figureName === 'witness-caliper') {
+        setStatusMessage(`Hairline verifier scanned witness register 0${idx + 1}.`);
+      } else if (figureName === 'pivot-tray') {
+        setStatusMessage(`Hairline archive focused specimen plate stage 0${idx + 1}.`);
+      }
+    },
+    [],
+  );
+
   return (
     <div className="workspace">
       {/* =====================================================================
@@ -212,37 +248,74 @@ export function ConundrumWorkspace() {
               <button
                 key={p.id}
                 role="tab"
-                aria-selected={p.id === instance.id}
-                className={`preset-pill ${p.id === instance.id ? 'active' : ''}`}
-                onClick={() => selectPreset(p)}
+                aria-selected={stageMode === 'grid' && p.id === instance.id}
+                className={`preset-pill ${stageMode === 'grid' && p.id === instance.id ? 'active' : ''}`}
+                onClick={() => {
+                  setStageMode('grid');
+                  selectPreset(p);
+                }}
               >
                 {p.name}
               </button>
             ))}
           </div>
-          <span
-            className="mono"
-            style={{ fontSize: 11, color: 'var(--fg-58)', whiteSpace: 'nowrap', flexShrink: 0 }}
-          >
-            {instance.rows}×{instance.cols} · |C|={instance.clues.length}
-          </span>
+          <div className="footer-group" style={{ flexShrink: 0 }}>
+            <button
+              className={`preset-pill ${stageMode === 'hairline' ? 'active' : ''}`}
+              onClick={() =>
+                setStageMode((m) => (m === 'grid' ? 'hairline' : 'grid'))
+              }
+              title="Toggle between interactive 2D XOR-Square grid and full-size 3D Hairline Lab"
+            >
+              {stageMode === 'grid' ? '3D Hairline Lab' : '2D Grid'}
+            </button>
+            <span
+              className="mono"
+              style={{ fontSize: 11, color: 'var(--fg-58)', whiteSpace: 'nowrap' }}
+            >
+              {stageMode === 'grid'
+                ? `${instance.rows}×${instance.cols} · |C|=${instance.clues.length}`
+                : 'ISO 400×320'}
+            </span>
+          </div>
         </div>
 
         <div className="board-meta-line">
-          <span>{instance.subtitle}</span>
-          <span className={instance.isSatisfiable ? 'badge badge-pending' : 'badge badge-err-outline'}>
-            {instance.isSatisfiable ? 'SAT INSTANCE' : 'PROVABLY UNSAT'}
+          <span>
+            {stageMode === 'grid' ? instance.subtitle : activeHairlineFigure.title}
+          </span>
+          <span
+            className={
+              stageMode === 'grid'
+                ? instance.isSatisfiable
+                  ? 'badge badge-pending'
+                  : 'badge badge-err-outline'
+                : 'badge badge-pending'
+            }
+          >
+            {stageMode === 'grid'
+              ? instance.isSatisfiable
+                ? 'SAT INSTANCE'
+                : 'PROVABLY UNSAT'
+              : `RULES ${activeHairlineFigure.rules.map((n) => String(n).padStart(2, '0')).join('·')}`}
           </span>
         </div>
 
         <div className="board-stage">
-          <svg
-            className="board-svg"
-            viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-            tabIndex={0}
-            onKeyDown={handleBoardKeyDown}
-            aria-label={`XOR-Square ${instance.rows} by ${instance.cols} grid`}
-          >
+          {stageMode === 'hairline' ? (
+            <HairlineStage
+              figure={activeHairlineFigure}
+              variant="full"
+              onPick={(idx) => handleHairlinePick(activeHairlineFigure.name, idx)}
+            />
+          ) : (
+            <svg
+              className="board-svg"
+              viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+              tabIndex={0}
+              onKeyDown={handleBoardKeyDown}
+              aria-label={`XOR-Square ${instance.rows} by ${instance.cols} grid`}
+            >
             {/* Board Outer Frame */}
             <rect
               x={margin}
@@ -492,56 +565,91 @@ export function ConundrumWorkspace() {
                 </g>
               );
             })}
-          </svg>
+            </svg>
+          )}
         </div>
 
         <div className="board-footer">
-          <div className="footer-group">
-            {(
-              [
-                ['cycle', 'Cycle'],
-                ['0', 'Paint 0'],
-                ['1', 'Paint 1'],
-                ['clear', 'Erase'],
-              ] as const
-            ).map(([mode, label]) => (
-              <button
-                key={mode}
-                className={`btn ${brush === mode ? 'active' : ''}`}
-                onClick={() => setBrush(mode)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+          {stageMode === 'hairline' ? (
+            <>
+              <div className="footer-group">
+                {ALL_HAIRLINE_FIGURES.map((fig) => (
+                  <button
+                    key={fig.name}
+                    className={`btn ${fig.name === activeHairlineFigure.name ? 'active' : ''}`}
+                    onClick={() => {
+                      setHairlineId(fig.name);
+                      setStatusMessage(`Mounted custom Hairline model "${fig.name}".`);
+                    }}
+                  >
+                    {fig.name}
+                  </button>
+                ))}
+              </div>
+              <div className="footer-group">
+                <button className="btn accent-outline" onClick={() => setStageMode('grid')}>
+                  Back to 2D Board
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="footer-group">
+                {(
+                  [
+                    ['cycle', 'Cycle'],
+                    ['0', 'Paint 0'],
+                    ['1', 'Paint 1'],
+                    ['clear', 'Erase'],
+                  ] as const
+                ).map(([mode, label]) => (
+                  <button
+                    key={mode}
+                    className={`btn ${brush === mode ? 'active' : ''}`}
+                    onClick={() => setBrush(mode)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
 
-          <div className="footer-group">
-            <button
-              className={`btn ${showCuts ? 'accent-solid' : ''}`}
-              onClick={() => setShowCuts((v) => !v)}
-              title="Overlay separating boundary segments E_cut(χ)"
-            >
-              Edge Cuts
-            </button>
-            {instance.roles && (
-              <button
-                className={`btn ${showRoles ? 'active' : ''}`}
-                onClick={() => setShowRoles((v) => !v)}
-                title="Highlight gadget zones on reduction grids"
-              >
-                Gadgets
-              </button>
-            )}
-            <button className="btn" onClick={handleSolve} title="Run Parity Union-Find + DPLL solver">
-              Exact Solver
-            </button>
-            <button className="btn" onClick={handleInvertFree} title="Flip all non-anchor bits (1 − χ)">
-              1 − χ
-            </button>
-            <button className="btn accent-outline" onClick={handleReset}>
-              Reset
-            </button>
-          </div>
+              <div className="footer-group">
+                <button
+                  className={`btn ${showCuts ? 'accent-solid' : ''}`}
+                  onClick={() => setShowCuts((v) => !v)}
+                  title="Overlay separating boundary segments E_cut(χ)"
+                >
+                  Edge Cuts
+                </button>
+                {instance.roles && (
+                  <button
+                    className={`btn ${showRoles ? 'active' : ''}`}
+                    onClick={() => setShowRoles((v) => !v)}
+                    title="Highlight gadget zones on reduction grids"
+                  >
+                    Gadgets
+                  </button>
+                )}
+                <button
+                  className="btn"
+                  onClick={handleSolve}
+                  title="Run Parity Union-Find + DPLL solver"
+                >
+                  Exact Solver
+                </button>
+                <button
+                  className="btn"
+                  onClick={handleInvertFree}
+                  title="Flip all non-anchor bits (1 − χ)"
+                >
+                  1 − χ
+                </button>
+                <button className="btn accent-outline" onClick={handleReset}>
+                  Reset
+                </button>
+              </div>
+            </>
+          )}
         </div>
 
         <div className={`status-banner ${conflictCount > 0 ? 'has-error' : ''}`}>
@@ -590,24 +698,34 @@ export function ConundrumWorkspace() {
         {rightTab === 'spec' && (
           <div className="subtab-body">
             <div className="section-block">
-              <div className="section-heading">
-                <span>Formal Decision Problem · Binary XOR-Square</span>
-                <span className="math">τ ∈ &#123;0, 2, 4&#125;</span>
-              </div>
-              <div className="formula-box">
+              <div className="spec-hero-grid">
                 <div>
-                  Instance: <strong>ℐ = (N, M, χ₀, C, r)</strong> with anchors{' '}
-                  <strong>χ₀ : F → &#123;0, 1&#125;</strong>, corner clues{' '}
-                  <strong>r : C → &#123;0, 2, 4&#125;</strong>.
+                  <div className="section-heading">
+                    <span>Formal Decision Problem · Binary XOR-Square</span>
+                    <span className="math">τ ∈ &#123;0, 2, 4&#125;</span>
+                  </div>
+                  <div className="formula-box">
+                    <div>
+                      Instance: <strong>ℐ = (N, M, χ₀, C, r)</strong> with anchors{' '}
+                      <strong>χ₀ : F → &#123;0, 1&#125;</strong>, corner clues{' '}
+                      <strong>r : C → &#123;0, 2, 4&#125;</strong>.
+                    </div>
+                    <div style={{ marginTop: 3 }}>
+                      Transition sum at 2×2 corner (a, b, c, d):{' '}
+                      <strong>τ(a,b,c,d) = (a ⊕ b) + (b ⊕ c) + (c ⊕ d) + (d ⊕ a) = r(S)</strong>.
+                    </div>
+                    <div style={{ marginTop: 3, fontSize: 11, color: 'var(--fg-82)' }}>
+                      Even Parity: (a⊕b)⊕(b⊕c)⊕(c⊕d)⊕(d⊕a) = 0 over 𝔽₂ ⇒ τ ∈ &#123;0,2,4&#125;, and{' '}
+                      <strong>τ = deg_cut(#)</strong>. Diagonal law: <strong>r = 2 ⇔ (a ≠ c) ∨ (b ≠ d)</strong>.
+                    </div>
+                  </div>
                 </div>
-                <div style={{ marginTop: 3 }}>
-                  Transition sum at 2×2 corner (a, b, c, d):{' '}
-                  <strong>τ(a,b,c,d) = (a ⊕ b) + (b ⊕ c) + (c ⊕ d) + (d ⊕ a) = r(S)</strong>.
-                </div>
-                <div style={{ marginTop: 3, fontSize: 11, color: 'var(--fg-82)' }}>
-                  Even Parity: (a⊕b)⊕(b⊕c)⊕(c⊕d)⊕(d⊕a) = 0 over 𝔽₂ ⇒ τ ∈ &#123;0,2,4&#125;, and{' '}
-                  <strong>τ = deg_cut(#)</strong>. Diagonal law: <strong>r = 2 ⇔ (a ≠ c) ∨ (b ≠ d)</strong>.
-                </div>
+                <HairlineStage
+                  figure={PARITY_PLINTH_FIGURE}
+                  variant="compact"
+                  showCaption={false}
+                  onPick={(idx) => handleHairlinePick('parity-plinth', idx)}
+                />
               </div>
             </div>
 
@@ -754,18 +872,28 @@ export function ConundrumWorkspace() {
         {rightTab === 'verifier' && (
           <div className="subtab-body">
             <div className="section-block">
-              <div className="section-heading">
-                <span>Deterministic O(|F| + |C|) ⊆ O(N·M) Verifier</span>
-                <span className="badge badge-pending">XOR-Square ∈ NP</span>
-              </div>
-              <pre className="code-block">
-                {`VERIFY(N, M, χ₀, C, r, certificate χ):
+              <div className="spec-hero-grid">
+                <div>
+                  <div className="section-heading">
+                    <span>Deterministic O(|F| + |C|) ⊆ O(N·M) Verifier</span>
+                    <span className="badge badge-pending">XOR-Square ∈ NP</span>
+                  </div>
+                  <pre className="code-block">
+                    {`VERIFY(N, M, χ₀, C, r, certificate χ):
   1. For each (r, c) ∈ F: if χ[r,c] ≠ χ₀[r,c] return REJECT
   2. For each (i, j) ∈ C:
        t ← (χ[i-1,j-1]⊕χ[i-1,j]) + (χ[i-1,j]⊕χ[i,j]) + (χ[i,j]⊕χ[i,j-1]) + (χ[i,j-1]⊕χ[i-1,j-1])
        if t ≠ r(i,j) return REJECT
   3. Return ACCEPT   // Certificate size N·M bits; strictly linear O(N·M) time`}
-              </pre>
+                  </pre>
+                </div>
+                <HairlineStage
+                  figure={WITNESS_CALIPER_FIGURE}
+                  variant="compact"
+                  showCaption={false}
+                  onPick={(idx) => handleHairlinePick('witness-caliper', idx)}
+                />
+              </div>
             </div>
 
             <div className="metrics-grid">
@@ -859,7 +987,13 @@ export function ConundrumWorkspace() {
         )}
 
         {/* SUB-TAB 3: NP-COMPLETENESS PROOF & COMPILER */}
-        {rightTab === 'proof' && <ProofSchematics onLoadCompiled={handleLoadCompiled} />}
+        {rightTab === 'proof' && (
+          <ProofSchematics
+            onLoadCompiled={handleLoadCompiled}
+            activeGadget={proofGadget}
+            onSelectGadget={setProofGadget}
+          />
+        )}
       </aside>
     </div>
   );

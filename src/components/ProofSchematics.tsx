@@ -9,12 +9,16 @@ import {
   type Planar3SatFormula,
 } from '../logic/planarReduction.ts';
 import type { ConundrumInstance } from '../logic/conundrum.ts';
+import { CLAUSE_TURRET_FIGURE } from '../logic/hairlineFigures.ts';
+import { HairlineStage } from './HairlineStage.tsx';
+
+export type GadgetId = 'g1' | 'g2' | 'g3' | 'g4';
 
 interface ProofSchematicsProps {
   onLoadCompiled: (instance: ConundrumInstance) => void;
+  activeGadget?: GadgetId;
+  onSelectGadget?: (gadget: GadgetId) => void;
 }
-
-type GadgetId = 'g1' | 'g2' | 'g3' | 'g4';
 
 function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
   if (gadget === 'g1') {
@@ -231,8 +235,19 @@ function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
   );
 }
 
-export function ProofSchematics({ onLoadCompiled }: ProofSchematicsProps) {
-  const [gadget, setGadget] = useState<GadgetId>('g3');
+const GADGET_ORDER: readonly GadgetId[] = ['g1', 'g2', 'g3', 'g4'];
+
+export function ProofSchematics({
+  onLoadCompiled,
+  activeGadget,
+  onSelectGadget,
+}: ProofSchematicsProps) {
+  const [localGadget, setLocalGadget] = useState<GadgetId>('g3');
+  const gadget = activeGadget ?? localGadget;
+  const setGadget = (next: GadgetId) => {
+    setLocalGadget(next);
+    onSelectGadget?.(next);
+  };
   const [c1Neg, setC1Neg] = useState<[boolean, boolean, boolean]>([false, true, false]);
   const [c2Neg, setC2Neg] = useState<[boolean, boolean, boolean]>([true, false, true]);
   const [enableC2, setEnableC2] = useState(true);
@@ -381,8 +396,19 @@ export function ProofSchematics({ onLoadCompiled }: ProofSchematicsProps) {
         </div>
 
         <div className="gadget-grid" style={{ marginBottom: 12 }}>
-          <div className="gadget-svg-box">
-            <GadgetDiagram gadget={gadget} />
+          <div className="gadget-visual-stack">
+            <HairlineStage
+              figure={CLAUSE_TURRET_FIGURE}
+              variant="compact"
+              showCaption={false}
+              onPick={(idx) => {
+                const picked = GADGET_ORDER[idx];
+                if (picked) setGadget(picked);
+              }}
+            />
+            <div className="gadget-svg-box">
+              <GadgetDiagram gadget={gadget} />
+            </div>
           </div>
           <div style={{ fontSize: 11.5, color: 'var(--fg-82)', lineHeight: 1.5 }}>
             {gadget === 'g1' && (

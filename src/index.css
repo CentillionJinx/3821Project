@@ -17,6 +17,13 @@
 
   --topbar-h: 48px;
   --radius: 3px;
+
+  --hairline-plate: #090708;
+  --hairline-hi: #e8260c;
+  --hairline-edge: rgba(160, 253, 244, 0.82);
+  --hairline-mid: rgba(160, 253, 244, 0.36);
+  --hairline-lo: rgba(160, 253, 244, 0.16);
+  --hairline-stroke: 1.05;
 }
 
 *,
