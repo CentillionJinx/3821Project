@@ -22,7 +22,7 @@ export function TimelineView() {
           <span className="section-heading" style={{ marginBottom: 0 }}>
             Chronological Progression (Weeks 1–10)
           </span>
-          <span className="mono" style={{ fontSize: 10, color: 'var(--fg-58)' }}>
+          <span className="mono" style={{ fontSize: 11.5, color: 'var(--fg-58)' }}>
             6 STAGES
           </span>
         </div>
@@ -57,10 +57,10 @@ export function TimelineView() {
       <section className="timeline-detail" aria-label="Stage Details and Candidate Archive">
         <div className="pane-strip">
           <div>
-            <span className="mono" style={{ fontSize: 11, color: 'var(--accent)', marginRight: 8 }}>
+            <span className="mono" style={{ fontSize: 12.5, color: 'var(--accent)', marginRight: 10 }}>
               STAGE {stage.step} // {stage.weeks.toUpperCase()}
             </span>
-            <strong style={{ fontSize: 13.5 }}>{stage.title}</strong>
+            <strong style={{ fontSize: 16 }}>{stage.title}</strong>
           </div>
           <span className="badge badge-pending">{stage.commitRef}</span>
         </div>
@@ -69,10 +69,10 @@ export function TimelineView() {
           <div className="detail-grid-2" style={{ borderBottom: 'none' }}>
             <div className="detail-cell">
               <div className="section-heading">Problem Concept &amp; Formal Rule</div>
-              <p style={{ fontSize: 12, color: 'var(--fg-82)', marginBottom: 6 }}>
+              <p style={{ fontSize: 13.5, lineHeight: 1.5, color: 'var(--fg-82)', marginBottom: 7 }}>
                 {stage.concept}
               </p>
-              <p className="math" style={{ fontSize: 11.5, color: 'var(--fg)' }}>
+              <p className="math" style={{ fontSize: 13, color: 'var(--fg)' }}>
                 {stage.formalSummary}
               </p>
             </div>
@@ -81,11 +81,11 @@ export function TimelineView() {
               <div className="section-heading">
                 <span>Technical Audit / Reason Superseded</span>
               </div>
-              <p style={{ fontSize: 12, color: 'var(--fg-82)', marginBottom: 6 }}>
+              <p style={{ fontSize: 13.5, lineHeight: 1.5, color: 'var(--fg-82)', marginBottom: 7 }}>
                 {stage.limitation}
               </p>
               {stage.citation && (
-                <p className="mono" style={{ fontSize: 10.5, color: 'var(--fg-58)' }}>
+                <p className="mono" style={{ fontSize: 12, color: 'var(--fg-58)' }}>
                   Ref: {stage.citation}
                 </p>
               )}
@@ -96,7 +96,7 @@ export function TimelineView() {
             <HairlineStage
               figure={PIVOT_TRAY_FIGURE}
               variant="compact"
-              showCaption={false}
+              showCaption={true}
               onPick={(idx) => {
                 const picked = TIMELINE_STAGES[idx];
                 if (picked) setActiveStageId(picked.id);
@@ -108,7 +108,7 @@ export function TimelineView() {
         <div className="section-block grow-scroll">
           <div className="section-heading">
             <span>Superseded Puzzle &amp; Prototype Matrix (Descriptive Archive)</span>
-            <span className="mono" style={{ fontSize: 10 }}>
+            <span className="mono" style={{ fontSize: 11.5 }}>
               All replaced by Binary XOR-Square
             </span>
           </div>

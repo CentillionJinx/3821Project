@@ -818,7 +818,7 @@ export function injectHairlineStyles(doc: Document): void {
   const EASE = 'cubic-bezier(0.5,0,0.1,1)';
   const SVG = ':where([data-hairline]>svg)';
   const sheetText = [
-    `:where([data-hairline]){display:block;position:relative;aspect-ratio:5/4;touch-action:pan-y;user-select:none;-webkit-user-select:none;--hl-sw:var(--hairline-stroke,1);--hl-plate:var(--hairline-plate,#090708);--hl-hi:var(--hairline-hi,#e8260c);--hl-edge:var(--hairline-edge,rgba(160,253,244,0.82));--hl-mid:var(--hairline-mid,rgba(160,253,244,0.38));--hl-lo:var(--hairline-lo,rgba(160,253,244,0.18));}`,
+    `:where([data-hairline]){display:block;position:relative;aspect-ratio:5/4;touch-action:pan-y;user-select:none;-webkit-user-select:none;--hl-sw:var(--hairline-stroke,1);--hl-plate:var(--hairline-plate,#090708);--hl-hi:var(--hairline-hi,#b3f2b3);--hl-edge:var(--hairline-edge,rgba(160,253,244,0.82));--hl-mid:var(--hairline-mid,rgba(160,253,244,0.38));--hl-lo:var(--hairline-lo,rgba(160,253,244,0.18));}`,
     `:where([data-hairline]:focus-visible){outline:1.5px solid var(--hl-hi);outline-offset:2px}`,
     `${SVG}{position:absolute;inset:0;width:100%;height:100%;display:block}`,
     `${SVG} :where(path,polygon,ellipse,line){fill:var(--hl-plate);stroke:var(--hl-mid);stroke-width:var(--hl-sw);vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round;transition:stroke 260ms ${EASE}}`,

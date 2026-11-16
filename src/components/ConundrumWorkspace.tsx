@@ -271,7 +271,7 @@ export function ConundrumWorkspace() {
             </button>
             <span
               className="mono"
-              style={{ fontSize: 11, color: 'var(--fg-58)', whiteSpace: 'nowrap' }}
+              style={{ fontSize: 12.5, color: 'var(--fg-58)', whiteSpace: 'nowrap' }}
             >
               {stageMode === 'grid'
                 ? `${instance.rows}×${instance.cols} · |C|=${instance.clues.length}`
@@ -342,8 +342,8 @@ export function ConundrumWorkspace() {
                 if (val === 1) {
                   fill = '#a0fdf4';
                 } else if (showRoles && role && val === null) {
-                  if (role === 'clause') fill = 'rgba(232, 38, 12, 0.10)';
-                  else if (role === 'inverter') fill = 'rgba(232, 38, 12, 0.16)';
+                  if (role === 'clause') fill = 'rgba(179, 242, 179, 0.10)';
+                  else if (role === 'inverter') fill = 'rgba(179, 242, 179, 0.16)';
                   else if (role === 'spine') fill = 'rgba(160, 253, 244, 0.08)';
                   else if (role === 'wire') fill = 'rgba(160, 253, 244, 0.04)';
                 }
@@ -376,7 +376,7 @@ export function ConundrumWorkspace() {
                         width={cellSize - 4}
                         height={cellSize - 4}
                         fill="none"
-                        stroke="rgba(232, 38, 12, 0.45)"
+                        stroke="rgba(179, 242, 179, 0.45)"
                         strokeWidth={1}
                         strokeDasharray="3 2"
                         pointerEvents="none"
@@ -417,7 +417,7 @@ export function ConundrumWorkspace() {
                         width={cellSize - 3}
                         height={cellSize - 3}
                         fill="none"
-                        stroke={val === 1 ? '#e8260c' : '#a0fdf4'}
+                        stroke={val === 1 ? '#b3f2b3' : '#a0fdf4'}
                         strokeWidth={1.5}
                         pointerEvents="none"
                       />
@@ -438,7 +438,7 @@ export function ConundrumWorkspace() {
                         y={y + cellSize / 2 + 5}
                         textAnchor="middle"
                         fontFamily="JetBrains Mono, monospace"
-                        fontSize={Math.max(13, Math.round(cellSize * 0.34))}
+                        fontSize={Math.max(15, Math.round(cellSize * 0.4))}
                         fontWeight={val === 1 ? 700 : 500}
                         fill={val === 1 ? '#090708' : 'rgba(160, 253, 244, 0.65)'}
                         pointerEvents="none"
@@ -465,7 +465,7 @@ export function ConundrumWorkspace() {
                       y1={y1}
                       x2={x}
                       y2={y2}
-                      stroke="#e8260c"
+                      stroke="#b3f2b3"
                       strokeWidth={3.5}
                       strokeLinecap="square"
                       pointerEvents="none"
@@ -482,7 +482,7 @@ export function ConundrumWorkspace() {
                     y1={y}
                     x2={x2}
                     y2={y}
-                    stroke="#e8260c"
+                    stroke="#b3f2b3"
                     strokeWidth={3.5}
                     strokeLinecap="square"
                     pointerEvents="none"
@@ -507,7 +507,7 @@ export function ConundrumWorkspace() {
                   width={cellSize * 2 - 2}
                   height={cellSize * 2 - 2}
                   fill="none"
-                  stroke={isBad ? '#e8260c' : '#a0fdf4'}
+                  stroke={isBad ? '#b3f2b3' : '#a0fdf4'}
                   strokeWidth={isHovered ? 2.4 : 1.8}
                   strokeDasharray={isBad ? '5 3' : undefined}
                   pointerEvents="none"
@@ -531,7 +531,7 @@ export function ConundrumWorkspace() {
                 stroke = '#090708';
                 textFill = '#090708';
               } else if (status === 'violated' || status === 'infeasible') {
-                fill = '#e8260c';
+                fill = '#b3f2b3';
                 stroke = '#090708';
                 textFill = '#090708';
               }
@@ -553,10 +553,10 @@ export function ConundrumWorkspace() {
                   />
                   <text
                     x={cx}
-                    y={cy + 4}
+                    y={cy + 4.5}
                     textAnchor="middle"
                     fontFamily="JetBrains Mono, monospace"
-                    fontSize={11}
+                    fontSize={12.5}
                     fontWeight={700}
                     fill={textFill}
                   >
@@ -702,7 +702,7 @@ export function ConundrumWorkspace() {
                 <div>
                   <div className="section-heading">
                     <span>Formal Decision Problem · Binary XOR-Square</span>
-                    <span className="math">τ ∈ &#123;0, 2, 4&#125;</span>
+                    <span className="math" style={{ whiteSpace: 'nowrap' }}>τ ∈ &#123;0, 2, 4&#125;</span>
                   </div>
                   <div className="formula-box">
                     <div>
@@ -710,11 +710,11 @@ export function ConundrumWorkspace() {
                       <strong>χ₀ : F → &#123;0, 1&#125;</strong>, corner clues{' '}
                       <strong>r : C → &#123;0, 2, 4&#125;</strong>.
                     </div>
-                    <div style={{ marginTop: 3 }}>
+                    <div style={{ marginTop: 4 }}>
                       Transition sum at 2×2 corner (a, b, c, d):{' '}
                       <strong>τ(a,b,c,d) = (a ⊕ b) + (b ⊕ c) + (c ⊕ d) + (d ⊕ a) = r(S)</strong>.
                     </div>
-                    <div style={{ marginTop: 3, fontSize: 11, color: 'var(--fg-82)' }}>
+                    <div style={{ marginTop: 4, fontSize: 12.5, color: 'var(--fg-82)' }}>
                       Even Parity: (a⊕b)⊕(b⊕c)⊕(c⊕d)⊕(d⊕a) = 0 over 𝔽₂ ⇒ τ ∈ &#123;0,2,4&#125;, and{' '}
                       <strong>τ = deg_cut(#)</strong>. Diagonal law: <strong>r = 2 ⇔ (a ≠ c) ∨ (b ≠ d)</strong>.
                     </div>
@@ -723,7 +723,7 @@ export function ConundrumWorkspace() {
                 <HairlineStage
                   figure={PARITY_PLINTH_FIGURE}
                   variant="compact"
-                  showCaption={false}
+                  showCaption={true}
                   onPick={(idx) => handleHairlinePick('parity-plinth', idx)}
                 />
               </div>
@@ -764,8 +764,8 @@ export function ConundrumWorkspace() {
 
             {/* Live Witness Extraction when viewing Clause Core or Compiled Planar 3-SAT */}
             {clauseCoreLive && (
-              <div className="section-block" style={{ padding: '7px 14px' }}>
-                <div className="section-heading" style={{ marginBottom: 3 }}>
+              <div className="section-block" style={{ padding: '8px 16px' }}>
+                <div className="section-heading" style={{ marginBottom: 4 }}>
                   <span>
                     Live Clause Core <span className="math">(x ∨ y ∨ z)</span> Readout
                   </span>
@@ -774,7 +774,7 @@ export function ConundrumWorkspace() {
                     {clauseCoreLive.z ?? '?'}
                   </span>
                 </div>
-                <div className="mono" style={{ fontSize: 11, color: 'var(--fg-82)' }}>
+                <div className="mono" style={{ fontSize: 12.5, color: 'var(--fg-82)' }}>
                   {clauseCoreLive.x !== null && clauseCoreLive.y !== null && clauseCoreLive.z !== null
                     ? (clauseCoreLive.x | clauseCoreLive.y | clauseCoreLive.z) === 1
                       ? `x ∨ y ∨ z = 1 ⇒ valid extension w=(0,1) exists.`
@@ -785,10 +785,10 @@ export function ConundrumWorkspace() {
             )}
 
             {instance.clauseMeta && decodedSpine && (
-              <div className="section-block" style={{ padding: '7px 14px' }}>
+              <div className="section-block" style={{ padding: '8px 16px' }}>
                 <div className="section-heading" style={{ marginBottom: 4 }}>
                   <span>Decoded Spine Assignment</span>
-                  <span className="math" style={{ fontSize: 10.5 }}>
+                  <span className="math" style={{ fontSize: 12 }}>
                     {instance.clauseMeta.variables
                       .map((v, i) => `${v}=${decodedSpine[i] ?? '?'}`)
                       .join(' · ')}
@@ -807,7 +807,7 @@ export function ConundrumWorkspace() {
             <div className="section-block grow-scroll">
               <div className="section-heading">
                 <span>Live Corner Clue Audit (Hover to Highlight 2×2 Block)</span>
-                <span className="math" style={{ fontSize: 10 }}>
+                <span className="math" style={{ fontSize: 11.5, whiteSpace: 'nowrap' }}>
                   |E_cut| = {verification.cutEdges.length}
                 </span>
               </div>
@@ -890,7 +890,7 @@ export function ConundrumWorkspace() {
                 <HairlineStage
                   figure={WITNESS_CALIPER_FIGURE}
                   variant="compact"
-                  showCaption={false}
+                  showCaption={true}
                   onPick={(idx) => handleHairlinePick('witness-caliper', idx)}
                 />
               </div>
@@ -917,14 +917,14 @@ export function ConundrumWorkspace() {
               </div>
             </div>
 
-            <div className="section-block" style={{ padding: '8px 14px' }}>
+            <div className="section-block" style={{ padding: '9px 16px' }}>
               <div className="section-heading" style={{ marginBottom: 4 }}>
                 <span>Exact Solver Telemetry (Parity DSU + R₂ Unit-Prop DPLL)</span>
                 <button className="btn" onClick={handleSolve}>
                   Re-run Solver
                 </button>
               </div>
-              <div className="mono" style={{ fontSize: 11, color: 'var(--fg-82)' }}>
+              <div className="mono" style={{ fontSize: 12.5, color: 'var(--fg-82)' }}>
                 {solverTelemetry
                   ? `Status: ${solverTelemetry.status} · GF(2) Components: ${solverTelemetry.componentsCount} · DPLL Search Nodes: ${solverTelemetry.searchNodes}${
                       solverTelemetry.unsatReason ? ` · ${solverTelemetry.unsatReason}` : ''
@@ -938,7 +938,7 @@ export function ConundrumWorkspace() {
                 <span>
                   Complete 16-State Partition of <span className="math">&#123;0, 1&#125;⁴</span>
                 </span>
-                <span className="math" style={{ fontSize: 10 }}>
+                <span className="math" style={{ fontSize: 11.5, whiteSpace: 'nowrap' }}>
                   |R₀|=2 · |R₂|=12 · |R₄|=2
                 </span>
               </div>

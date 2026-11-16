@@ -71,8 +71,8 @@ function plinthCornerDot(ci: number, cj: number, k: number): boolean {
 
 export const PARITY_PLINTH_FIGURE: HairlineFigureSpec = {
   name: 'parity-plinth',
-  title: 'Parity Plinth (2×2 Junction Posts)',
-  means: 'Sixteen binary tiles around nine junction posts: hovering lifts a 2×2 parity block.',
+  title: 'Parity Plinth · 3D χ(r,c) Heightfield & Corner τ(a,b,c,d)',
+  means: 'Tile elevation encodes χ(r,c) ∈ {0,1}; corner posts count 2×2 boundary cliffs τ(a,b,c,d) ∈ {0,2,4}.',
   rules: [1, 3, 4, 5, 9],
   range: [1.2, 2.2, 3.6],
   rangeLabel: 'reach (cells)',
@@ -325,8 +325,8 @@ const caliperFalloff = (u: number): number =>
 
 export const WITNESS_CALIPER_FIGURE: HairlineFigureSpec = {
   name: 'witness-caliper',
-  title: 'Witness Caliper (O(N·M) Linear Scanner)',
-  means: 'An eight-register linear verifier bed with a back-rail carriage scanning stepped parity bars.',
+  title: 'Witness Caliper · O(|F| + |C|) Linear NP Verifier Pass',
+  means: 'Eight corner registers scanned in one linear pass to verify τ(S_k) = r(S_k) in O(N·M) time.',
   rules: [1, 3, 4, 6, 8],
   range: [24, 46, 78],
   rangeLabel: 'scan width',
@@ -553,8 +553,8 @@ function makeTurretParts(
 
 export const CLAUSE_TURRET_FIGURE: HairlineFigureSpec = {
   name: 'clause-turret',
-  title: 'Clause Turret (G1–G4 Reduction Bays)',
-  means: 'Four reduction gadget bays ride on telescoping shafts into staggered prominence.',
+  title: 'Clause Turret · Planar 3-SAT ≤ₚ XOR-Square Gadgets (G1–G4)',
+  means: 'Four reduction bays: G1 r=0 wire, G2 r=4 NOT inverter, G3 3×3 OR clause core, G4 planar routing.',
   rules: [1, 2, 4, 8, 10],
   range: [0, 45, 90],
   rangeLabel: 'stagger (ms)',
@@ -741,8 +741,8 @@ const LR = (pts: Vec2[]): Vec2[] =>
 
 export const PIVOT_TRAY_FIGURE: HairlineFigureSpec = {
   name: 'pivot-tray',
-  title: 'Pivot Tray (6 Research Archive Plates)',
-  means: 'Six stage plates in a specimen tray: hovering stands one upright while earlier pivots fan away.',
+  title: 'Pivot Tray · 6-Stage Research Progression Archive (Weeks 1–10)',
+  means: 'Six specimen plates tracing superseded puzzle prototypes to the final Binary XOR-Square proof.',
   rules: [1, 2, 6, 8, 10],
   range: [0, 40, 85],
   rangeLabel: 'stagger (ms)',

@@ -1,7 +1,7 @@
 :root {
   --bg: #090708;
   --fg: #a0fdf4;
-  --accent: #e8260c;
+  --accent: #b3f2b3;
 
   --fg-82: rgba(160, 253, 244, 0.82);
   --fg-58: rgba(160, 253, 244, 0.58);
@@ -9,17 +9,17 @@
   --fg-14: rgba(160, 253, 244, 0.14);
   --fg-06: rgba(160, 253, 244, 0.06);
 
-  --accent-18: rgba(232, 38, 12, 0.18);
-  --accent-45: rgba(232, 38, 12, 0.45);
+  --accent-18: rgba(179, 242, 179, 0.18);
+  --accent-45: rgba(179, 242, 179, 0.45);
 
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --topbar-h: 48px;
+  --topbar-h: 54px;
   --radius: 3px;
 
   --hairline-plate: #090708;
-  --hairline-hi: #e8260c;
+  --hairline-hi: #b3f2b3;
   --hairline-edge: rgba(160, 253, 244, 0.82);
   --hairline-mid: rgba(160, 253, 244, 0.36);
   --hairline-lo: rgba(160, 253, 244, 0.16);
@@ -43,8 +43,8 @@ body,
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 15px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -24,14 +24,14 @@ function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
   if (gadget === 'g1') {
     // 4x2 equality wire with bend / fan-out via r=0
     return (
-      <svg viewBox="0 0 160 120" className="board-svg" aria-label="G1 Equality Wire">
-        <rect width="160" height="120" fill="#090708" />
+      <svg viewBox="0 0 184 122" className="board-svg" aria-label="G1 Equality Wire">
+        <rect width="184" height="122" fill="#090708" />
         {[0, 1, 2, 3].map((c) =>
           [0, 1].map((r) => (
             <g key={`${r}-${c}`}>
               <rect
-                x={20 + c * 30}
-                y={30 + r * 30}
+                x={32 + c * 30}
+                y={26 + r * 30}
                 width={30}
                 height={30}
                 fill="rgba(160, 253, 244, 0.14)"
@@ -39,12 +39,12 @@ function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
                 strokeWidth={1}
               />
               <text
-                x={35 + c * 30}
-                y={49 + r * 30}
+                x={47 + c * 30}
+                y={45 + r * 30}
                 textAnchor="middle"
                 fill="#a0fdf4"
                 fontFamily="JetBrains Mono, monospace"
-                fontSize={11}
+                fontSize={12}
                 fontWeight={600}
               >
                 x
@@ -54,14 +54,14 @@ function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
         )}
         {[1, 2, 3].map((c) => (
           <g key={`c-${c}`}>
-            <circle cx={20 + c * 30} cy={60} r={9} fill="#a0fdf4" />
+            <circle cx={32 + c * 30} cy={56} r={9} fill="#a0fdf4" />
             <text
-              x={20 + c * 30}
-              y={64}
+              x={32 + c * 30}
+              y={60}
               textAnchor="middle"
               fill="#090708"
               fontFamily="JetBrains Mono, monospace"
-              fontSize={10}
+              fontSize={10.5}
               fontWeight={700}
             >
               0
@@ -69,14 +69,14 @@ function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
           </g>
         ))}
         <text
-          x={80}
-          y={108}
+          x={92}
+          y={110}
           textAnchor="middle"
-          fill="rgba(160,253,244,0.68)"
+          fill="rgba(160,253,244,0.75)"
           fontFamily="JetBrains Mono, monospace"
-          fontSize={9}
+          fontSize={9.5}
         >
-          2-wide r=0 strip ⇒ all bits equal x
+          2-wide r=0 ⇒ all bits = x
         </text>
       </svg>
     );
@@ -97,26 +97,26 @@ function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
       { r: 3, c: 1, label: 'x', filled: true },
     ];
     return (
-      <svg viewBox="0 0 160 120" className="board-svg" aria-label="G2 Inline Inverter">
-        <rect width="160" height="120" fill="#090708" />
+      <svg viewBox="0 0 184 122" className="board-svg" aria-label="G2 Inline Inverter">
+        <rect width="184" height="122" fill="#090708" />
         {cells.map((cell) => (
           <g key={`${cell.r}-${cell.c}`}>
             <rect
-              x={38 + cell.c * 28}
+              x={50 + cell.c * 28}
               y={8 + cell.r * 24}
               width={28}
               height={24}
               fill={cell.filled ? 'rgba(160, 253, 244, 0.22)' : '#090708'}
-              stroke={cell.inv ? '#e8260c' : 'rgba(160, 253, 244, 0.35)'}
+              stroke={cell.inv ? '#b3f2b3' : 'rgba(160, 253, 244, 0.35)'}
               strokeWidth={1}
             />
             <text
-              x={52 + cell.c * 28}
+              x={64 + cell.c * 28}
               y={24 + cell.r * 24}
               textAnchor="middle"
-              fill={cell.inv ? '#e8260c' : '#a0fdf4'}
+              fill={cell.inv ? '#b3f2b3' : '#a0fdf4'}
               fontFamily="JetBrains Mono, monospace"
-              fontSize={9.5}
+              fontSize={10.5}
               fontWeight={700}
             >
               {cell.label}
@@ -124,20 +124,20 @@ function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
           </g>
         ))}
         {/* Clues: r=0 at (1,1), r=4 at (2,2), r=0 at (3,1) */}
-        <circle cx={66} cy={32} r={8} fill="#a0fdf4" />
-        <text x={66} y={35.5} textAnchor="middle" fill="#090708" fontSize={9.5} fontWeight={700} fontFamily="JetBrains Mono, monospace">
+        <circle cx={78} cy={32} r={8} fill="#a0fdf4" />
+        <text x={78} y={35.5} textAnchor="middle" fill="#090708" fontSize={10} fontWeight={700} fontFamily="JetBrains Mono, monospace">
           0
         </text>
-        <circle cx={94} cy={56} r={8.5} fill="#e8260c" />
-        <text x={94} y={59.5} textAnchor="middle" fill="#090708" fontSize={9.5} fontWeight={700} fontFamily="JetBrains Mono, monospace">
+        <circle cx={106} cy={56} r={8.5} fill="#b3f2b3" />
+        <text x={106} y={59.5} textAnchor="middle" fill="#090708" fontSize={10} fontWeight={700} fontFamily="JetBrains Mono, monospace">
           4
         </text>
-        <circle cx={66} cy={80} r={8} fill="#a0fdf4" />
-        <text x={66} y={83.5} textAnchor="middle" fill="#090708" fontSize={9.5} fontWeight={700} fontFamily="JetBrains Mono, monospace">
+        <circle cx={78} cy={80} r={8} fill="#a0fdf4" />
+        <text x={78} y={83.5} textAnchor="middle" fill="#090708" fontSize={10} fontWeight={700} fontFamily="JetBrains Mono, monospace">
           0
         </text>
-        <text x={80} y={114} textAnchor="middle" fill="rgba(160,253,244,0.68)" fontSize={8.5} fontFamily="JetBrains Mono, monospace">
-          3-col corridor: r=4 flips x → ¬x
+        <text x={92} y={115} textAnchor="middle" fill="rgba(160,253,244,0.75)" fontSize={9.5} fontFamily="JetBrains Mono, monospace">
+          3-col corridor: r=4 flips x→¬x
         </text>
       </svg>
     );
@@ -150,15 +150,15 @@ function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
       ['·', 'z', 'z'],
     ];
     return (
-      <svg viewBox="0 0 160 120" className="board-svg" aria-label="G3 3x3 Clause Core">
-        <rect width="160" height="120" fill="#090708" />
+      <svg viewBox="0 0 184 122" className="board-svg" aria-label="G3 3x3 Clause Core">
+        <rect width="184" height="122" fill="#090708" />
         {labels.map((row, r) =>
           row.map((lbl, c) => {
             const isAnchor = r === 1 && c === 0;
             return (
               <g key={`${r}-${c}`}>
                 <rect
-                  x={38 + c * 28}
+                  x={50 + c * 28}
                   y={10 + r * 28}
                   width={28}
                   height={28}
@@ -167,12 +167,12 @@ function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
                   strokeWidth={1}
                 />
                 <text
-                  x={52 + c * 28}
+                  x={64 + c * 28}
                   y={28 + r * 28}
                   textAnchor="middle"
                   fill={isAnchor ? '#090708' : '#a0fdf4'}
                   fontFamily="JetBrains Mono, monospace"
-                  fontSize={10.5}
+                  fontSize={11}
                   fontWeight={700}
                 >
                   {lbl}
@@ -182,20 +182,20 @@ function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
           }),
         )}
         {/* Clues: r(1,1)=2, r(1,2)=2, r(2,2)=0 */}
-        <circle cx={66} cy={38} r={8} fill="#e8260c" />
-        <text x={66} y={41.5} textAnchor="middle" fill="#090708" fontSize={9.5} fontWeight={700} fontFamily="JetBrains Mono, monospace">
+        <circle cx={78} cy={38} r={8} fill="#b3f2b3" />
+        <text x={78} y={41.5} textAnchor="middle" fill="#090708" fontSize={10} fontWeight={700} fontFamily="JetBrains Mono, monospace">
           2
         </text>
-        <circle cx={94} cy={38} r={8} fill="#e8260c" />
-        <text x={94} y={41.5} textAnchor="middle" fill="#090708" fontSize={9.5} fontWeight={700} fontFamily="JetBrains Mono, monospace">
+        <circle cx={106} cy={38} r={8} fill="#b3f2b3" />
+        <text x={106} y={41.5} textAnchor="middle" fill="#090708" fontSize={10} fontWeight={700} fontFamily="JetBrains Mono, monospace">
           2
         </text>
-        <circle cx={94} cy={66} r={8} fill="#a0fdf4" />
-        <text x={94} y={69.5} textAnchor="middle" fill="#090708" fontSize={9.5} fontWeight={700} fontFamily="JetBrains Mono, monospace">
+        <circle cx={106} cy={66} r={8} fill="#a0fdf4" />
+        <text x={106} y={69.5} textAnchor="middle" fill="#090708" fontSize={10} fontWeight={700} fontFamily="JetBrains Mono, monospace">
           0
         </text>
-        <text x={80} y={110} textAnchor="middle" fill="rgba(160,253,244,0.68)" fontSize={8.5} fontFamily="JetBrains Mono, monospace">
-          ∃ w ∈ &#123;0,1&#125; ⇔ (x ∨ y ∨ z) = 1
+        <text x={92} y={111} textAnchor="middle" fill="rgba(160,253,244,0.75)" fontSize={9.5} fontFamily="JetBrains Mono, monospace">
+          ∃ w ∈ &#123;0,1&#125; ⇔ (x∨y∨z)=1
         </text>
       </svg>
     );
@@ -203,33 +203,33 @@ function GadgetDiagram({ gadget }: { gadget: GadgetId }) {
 
   // g4: Rectilinear Planar 3-SAT layout overview
   return (
-    <svg viewBox="0 0 160 120" className="board-svg" aria-label="G4 Rectilinear Planar 3-SAT">
-      <rect width="160" height="120" fill="#090708" />
+    <svg viewBox="0 0 184 122" className="board-svg" aria-label="G4 Rectilinear Planar 3-SAT">
+      <rect width="184" height="122" fill="#090708" />
       {/* Upper clause arch */}
-      <path d="M 24 52 L 24 20 L 136 20 L 136 52 M 80 52 L 80 28" fill="none" stroke="#a0fdf4" strokeWidth={2} />
-      <rect x={71} y={14} width={18} height={14} fill="#e8260c" />
-      <text x={80} y={24} textAnchor="middle" fill="#090708" fontSize={8.5} fontWeight={700} fontFamily="JetBrains Mono, monospace">
+      <path d="M 36 52 L 36 20 L 148 20 L 148 52 M 92 52 L 92 28" fill="none" stroke="#a0fdf4" strokeWidth={2} />
+      <rect x={83} y={14} width={18} height={14} fill="#b3f2b3" />
+      <text x={92} y={24} textAnchor="middle" fill="#090708" fontSize={9.5} fontWeight={700} fontFamily="JetBrains Mono, monospace">
         C₁
       </text>
       {/* Variable spine */}
-      {[18, 66, 118].map((x, idx) => (
+      {[30, 78, 130].map((x, idx) => (
         <g key={x}>
           <rect x={x} y={52} width={28} height={14} fill="rgba(160,253,244,0.18)" stroke="#a0fdf4" strokeWidth={1} />
-          <text x={x + 14} y={62} textAnchor="middle" fill="#a0fdf4" fontSize={9} fontWeight={700} fontFamily="JetBrains Mono, monospace">
+          <text x={x + 14} y={62} textAnchor="middle" fill="#a0fdf4" fontSize={9.5} fontWeight={700} fontFamily="JetBrains Mono, monospace">
             x{idx + 1}
           </text>
         </g>
       ))}
       {/* Lower clause arch */}
-      <path d="M 38 66 L 38 96 L 126 96 L 126 66 M 80 66 L 80 86" fill="none" stroke="#a0fdf4" strokeWidth={2} />
-      <rect x={71} y={88} width={18} height={14} fill="#e8260c" />
-      <text x={80} y={98} textAnchor="middle" fill="#090708" fontSize={8.5} fontWeight={700} fontFamily="JetBrains Mono, monospace">
+      <path d="M 50 66 L 50 96 L 138 96 L 138 66 M 92 66 L 92 86" fill="none" stroke="#a0fdf4" strokeWidth={2} />
+      <rect x={83} y={88} width={18} height={14} fill="#b3f2b3" />
+      <text x={92} y={98} textAnchor="middle" fill="#090708" fontSize={9.5} fontWeight={700} fontFamily="JetBrains Mono, monospace">
         C₂
       </text>
       {/* Inverter marker */}
-      <circle cx={80} cy={40} r={4.5} fill="#e8260c" />
-      <text x={80} y={114} textAnchor="middle" fill="rgba(160,253,244,0.68)" fontSize={8.5} fontFamily="JetBrains Mono, monospace">
-        Area O((n + m)²) · Non-crossing
+      <circle cx={92} cy={40} r={4.5} fill="#b3f2b3" />
+      <text x={92} y={115} textAnchor="middle" fill="rgba(160,253,244,0.75)" fontSize={9.5} fontFamily="JetBrains Mono, monospace">
+        Area O((n+m)²) · Planar
       </text>
     </svg>
   );
@@ -317,7 +317,7 @@ export function ProofSchematics({
         </div>
 
         <div className="compiler-row">
-          <span className="mono" style={{ fontSize: 11, color: 'var(--fg-58)' }}>
+          <span className="mono" style={{ fontSize: 12.5, color: 'var(--fg-58)' }}>
             C₁ (upper):
           </span>
           {([0, 1, 2] as const).map((i) => (
@@ -352,7 +352,7 @@ export function ProofSchematics({
         </div>
 
         <div className="compiler-row" style={{ marginBottom: 0 }}>
-          <span className="math" style={{ fontSize: 11, flex: 1, minWidth: 160 }}>
+          <span className="math" style={{ fontSize: 13, flex: 1, minWidth: 160 }}>
             φ = {formatFormulaText(customFormula)}
           </span>
           <button
@@ -400,7 +400,7 @@ export function ProofSchematics({
             <HairlineStage
               figure={CLAUSE_TURRET_FIGURE}
               variant="compact"
-              showCaption={false}
+              showCaption={true}
               onPick={(idx) => {
                 const picked = GADGET_ORDER[idx];
                 if (picked) setGadget(picked);
@@ -410,7 +410,7 @@ export function ProofSchematics({
               <GadgetDiagram gadget={gadget} />
             </div>
           </div>
-          <div style={{ fontSize: 11.5, color: 'var(--fg-82)', lineHeight: 1.5 }}>
+          <div style={{ fontSize: 13.5, color: 'var(--fg-82)', lineHeight: 1.55 }}>
             {gadget === 'g1' && (
               <>
                 <p>
@@ -528,7 +528,7 @@ export function ProofSchematics({
           <span>
             Schaefer&apos;s Dichotomy Theorem (1978) on <span className="math">R₀, R₄, R₂</span>
           </span>
-          <span className="math" style={{ fontSize: 10 }}>
+          <span className="math" style={{ fontSize: 11.5 }}>
             R₀, R₄ ∈ P · R₂ breaks all 6 clones
           </span>
         </div>
@@ -567,7 +567,7 @@ export function ProofSchematics({
           </tbody>
         </table>
 
-        <div className="code-block" style={{ fontSize: 10.5 }}>
+        <div className="code-block" style={{ fontSize: 12 }}>
           {`Primary Literature:\n• Lichtenstein, D. (1982). Planar formulae and their uses. SIAM J. Comput. 11(2), 329–343.\n• Knuth, D. E., & Raghunathan, A. (1992). Compatible representatives. SIAM J. Discrete Math. 5(3), 422–427.\n• Schaefer, T. J. (1978). The complexity of satisfiability problems. Proc. 10th ACM STOC, 216–226.`}
         </div>
       </div>
